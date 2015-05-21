@@ -1,0 +1,123 @@
+/**
+ * NOMBRE DE LA CLASE: ControladorMedico
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario para 
+ * 				generar un reporte que va a ser visto solo por el medico. 				
+ */
+package Controlador;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import bean.Preingreso;
+import logica.MetodoPreingreso;
+import java.sql.*;
+import java.util.*;
+
+public class ControladorMedico extends HttpServlet {
+
+
+	private static final long serialVersionUID = 1L;
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+	
+				
+	}
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		/**
+		 * se actualiza la cola mediante una consulta a 
+		 * MetodoPreingreso/actualizarCola que lleva como parametro la cedula del paciente. 
+		 * que se actualiza cada vez que el medico atiende un paciente. 
+		 */
+		HttpSession session = req.getSession(true);
+		String cedula="";
+		String z ="";
+		cedula = req.getParameter("va");
+		z = req.getParameter("z");
+		
+		if(z != null){
+
+			session.removeAttribute("lista");
+			MetodoPreingreso mp=new MetodoPreingreso();
+			
+			mp.actualizarCola(cedula);
+		
+			ResultSet rs=null;
+			try{
+				rs=mp.obtenerCola();
+				
+				
+				LinkedList lista= new LinkedList();
+					
+				while(rs.next()){
+					Preingreso pr = new Preingreso();			
+					
+					pr.setNombre(rs.getString("nombre"));
+					
+					pr.setPapellido(rs.getString("primer_apellido"));
+					pr.setSapellido(rs.getString("segundo_apellido"));
+					pr.setCedula(rs.getString("numero_documento"));
+					pr.setEps(rs.getString("eps"));
+					pr.setFecha(rs.getString("fecha_entrada"));
+					pr.setHora(rs.getString("hora_entrada"));
+					pr.setTipodocumento(rs.getString("tipo_documento"));
+				
+				
+					
+					lista.add(pr);
+				}	
+				session.setAttribute("lista", lista);
+				res.sendRedirect("Adm_ListaMedico.jsp");
+			}//end try
+			catch(SQLException e){
+				 e.getMessage();
+			}
+		}	
+		else{
+			
+			/**
+			 * se obtiene un reporte mediante una consulta a 
+			 * MetodoPreingreso/obtenerCola
+			 */
+			MetodoPreingreso ba=new MetodoPreingreso();
+			ResultSet rs=null;
+			try{
+				rs=ba.obtenerCola();
+				
+				
+				LinkedList lista= new LinkedList();
+					
+				while(rs.next()){
+					Preingreso pr = new Preingreso();			
+					
+					pr.setNombre(rs.getString("nombre"));
+					pr.setPapellido(rs.getString("primer_apellido"));
+					pr.setSapellido(rs.getString("segundo_apellido"));
+					pr.setCedula(rs.getString("numero_documento"));
+					pr.setEps(rs.getString("eps"));
+					pr.setFecha(rs.getString("fecha_entrada"));
+					pr.setHora(rs.getString("hora_entrada"));
+					pr.setTipodocumento(rs.getString("tipo_documento"));
+				
+				
+					
+					lista.add(pr);
+					
+					}	
+			session.setAttribute("lista", lista);
+			res.sendRedirect("Adm_ListaMedico.jsp");
+		
+			
+			}
+			catch(SQLException e){
+				 e.getMessage();
+			}
+		
+			
+					
+		}
+	}
+	
+
+}

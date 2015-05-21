@@ -1,0 +1,3297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+	<display-name>
+	Saim</display-name>	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlConsultaPaciente</display-name>
+		<servlet-name>ControlConsultaPaciente</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlConsultaPaciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlConsultaPaciente</servlet-name>
+		<url-pattern>/ControlConsultaPaciente</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPrincipioActivo</display-name>
+		<servlet-name>ControlPrincipioActivo</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlPrincipioActivo</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlPrincipioActivo</servlet-name>
+		<url-pattern>/ControlPrincipioActivo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEntradas1</display-name>
+		<servlet-name>ControlEntradas1</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlEntradas1</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlEntradas1</servlet-name>
+		<url-pattern>/ControlEntradas1</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearArticulo2</display-name>
+		<servlet-name>ControlCrearArticulo2</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearArticulo2</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearArticulo2</servlet-name>
+		<url-pattern>/ControlCrearArticulo2</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>pypModificarData</servlet-name>
+		<servlet-class>
+		pyp_controlador.pypModificarData</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>pypModificarData</servlet-name>
+		<url-pattern>/pypModificarData</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>pypData</servlet-name>
+		<servlet-class>
+		pyp_controlador.pypData</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>pypData</servlet-name>
+		<url-pattern>/pypData</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>PYP_Pruebas</servlet-name>
+		<servlet-class>
+		pyp_controlador.PYP_Pruebas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>PYP_Pruebas</servlet-name>
+		<url-pattern>/PYP_Pruebas</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		</display-name>
+		<servlet-name>ControlListaRadiologia</servlet-name>
+		<servlet-class>
+		img_controlador.ControlListaRadiologia</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlListaRadiologia</servlet-name>
+		<url-pattern>/ControlListaRadiologia</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		</display-name>
+		<servlet-name>ControlAuxClinico</servlet-name>
+		<servlet-class>
+		img_controlador.ControlAuxClinico</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAuxClinico</servlet-name>
+		<url-pattern>/ControlAuxClinico</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>PYP_ControlParametros</servlet-name>
+		<servlet-class>
+		pyp_controlador.PYP_ControlParametros</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>PYP_ControlParametros</servlet-name>
+		<url-pattern>/PYP_ControlParametros</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>PYP_ControlMedico</servlet-name>
+		<servlet-class>
+		pyp_controlador.PYP_ControlMedico</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>PYP_ControlMedico</servlet-name>
+		<url-pattern>/PYP_ControlMedico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>PYP_ControlEspecialidades</servlet-name>
+		<servlet-class>
+		pyp_controlador.PYP_ControlEspecialidades</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>PYP_ControlEspecialidades</servlet-name>
+		<url-pattern>/PYP_ControlEspecialidades</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>PYP_ControlAsignarCita</servlet-name>
+		<servlet-class>
+		pyp_controlador.PYP_ControlAsignarCita</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>PYP_ControlAsignarCita</servlet-name>
+		<url-pattern>/PYP_ControlAsignarCita</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>ControlForm</servlet-name>
+		<servlet-class>
+		pyp_controlador.ControlForm</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlForm</servlet-name>
+		<url-pattern>/ControlForm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pyp_controlador</display-name>
+		<servlet-name>registroPaciente</servlet-name>
+		<servlet-class>
+		odon_odontologia.registroPaciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>registroPaciente</servlet-name>
+		<url-pattern>/registroPaciente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pend_controlador</display-name>
+		<servlet-name>ControlInterconsultas</servlet-name>
+		<servlet-class>
+		pend_controlador.ControlInterconsultas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlInterconsultas</servlet-name>
+		<url-pattern>/ControlInterconsultas</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pend_controlador</display-name>
+		<servlet-name>ControlTraslados</servlet-name>
+		<servlet-class>
+		pend_controlador.ControlTraslados</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlTraslados</servlet-name>
+		<url-pattern>/ControlTraslados</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		hic_controlador</display-name>
+		<servlet-name>ControlImagenologiasPendientes</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlImagenologiasPendientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlImagenologiasPendientes</servlet-name>
+		<url-pattern>/ControlImagenologiasPendientes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		hic_controlador</display-name>
+		<servlet-name>ControlLiquidos</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlLiquidos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlLiquidos</servlet-name>
+		<url-pattern>/ControlLiquidos</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		Anexos_Controlador</display-name>
+		<servlet-name>ControlFurips</servlet-name>
+		<servlet-class>
+		Anexos_Controlador.ControlFurips</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlFurips</servlet-name>
+		<url-pattern>/ControlFurips</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		cont_controlador</display-name>
+		<servlet-name>ControlProveedorN</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlProveedorN</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProveedorN</servlet-name>
+		<url-pattern>/ControlProveedorN</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Anexos_Controlador</display-name>
+		<servlet-name>ControlAnexoNo1</servlet-name>
+		<servlet-class>
+		Anexos_Controlador.ControlAnexoNo1</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAnexoNo1</servlet-name>
+		<url-pattern>/ControlAnexoNo1</url-pattern>
+	</servlet-mapping>
+	
+			<servlet>
+		<description>
+		</description>
+		<display-name>
+		Anexos_Controlador</display-name>
+		<servlet-name>ControlValidaciones</servlet-name>
+		<servlet-class>
+		Anexos_Controlador.ControlValidaciones</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlValidaciones</servlet-name>
+		<url-pattern>/ControlValidaciones</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		Anexos_Controlador</display-name>
+		<servlet-name>ControlBDCapitado</servlet-name>
+		<servlet-class>
+		Anexos_Controlador.ControlBDCapitado</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlBDCapitado</servlet-name>
+		<url-pattern>/ControlBDCapitado</url-pattern>
+	</servlet-mapping>
+	
+	
+			<servlet>
+		<description>
+		</description>
+		<display-name>
+		farc_controlador</display-name>
+		<servlet-name>ControlReporteFarc</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlReporteFarc</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlReporteFarc</servlet-name>
+		<url-pattern>/ControlReporteFarc</url-pattern>
+	</servlet-mapping>
+	
+
+
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearRmc</display-name>
+		<servlet-name>ControlCrearRmc</servlet-name>
+		<servlet-class>
+		rmc_controlador.ControlCrearRmc</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearRmc</servlet-name>
+		<url-pattern>/ControlCrearRmc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Rmc_Datos</display-name>
+		<servlet-name>Rmc_Datos</servlet-name>
+		<servlet-class>
+		rmc_controlador.Rmc_Datos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Rmc_Datos</servlet-name>
+		<url-pattern>/Rmc_Datos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Cardiologia_Datos</display-name>
+		<servlet-name>Cardiologia_Datos</servlet-name>
+		<servlet-class>
+		eco_Cardiologia.Cardiologia_Datos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Cardiologia_Datos</servlet-name>
+		<url-pattern>/Cardiologia_Datos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearTransesofagico</display-name>
+		<servlet-name>ControlCrearTransesofagico</servlet-name>
+		<servlet-class>
+		eco_Cardiologia.ControlCrearTransesofagico</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearTransesofagico</servlet-name>
+		<url-pattern>/ControlCrearTransesofagico</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Busqueda_Paciente</display-name>
+		<servlet-name>Busqueda_Paciente</servlet-name>
+		<servlet-class>
+		eco_Cardiologia.Busqueda_Paciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Busqueda_Paciente</servlet-name>
+		<url-pattern>/Busqueda_Paciente</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControladorSubirOC</display-name>
+		<servlet-name>ControladorSubirOC</servlet-name>
+		<servlet-class>
+		cont_controlador.ControladorSubirOC</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControladorSubirOC</servlet-name>
+		<url-pattern>/ControladorSubirOC</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		com_controlador</display-name>
+		<servlet-name>ControlAutorizarOrden</servlet-name>
+		<servlet-class>
+		com_controlador.ControlAutorizarOrden</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAutorizarOrden</servlet-name>
+		<url-pattern>/ControlAutorizarOrden</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		com_controlador</display-name>
+		<servlet-name>ControlCrear</servlet-name>
+		<servlet-class>
+		com_controlador.ControlCrear</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrear</servlet-name>
+		<url-pattern>/ControlCrear</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		aiepi_Controlador</display-name>
+		<servlet-name>AiepiMultiplePacientes</servlet-name>
+		<servlet-class>
+		aiepi_Controlador.AiepiMultiplePacientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>AiepiMultiplePacientes</servlet-name>
+		<url-pattern>/AiepiMultiplePacientes</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		odontologiadata</display-name>
+		<servlet-name>odontologiadata</servlet-name>
+		<servlet-class>
+		odon_odontologia.odontologiadata</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>odontologiadata</servlet-name>
+		<url-pattern>/odontologiadata</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearOdontograma</display-name>
+		<servlet-name>ControlCrearOdontograma</servlet-name>
+		<servlet-class>
+		odont_controlador.ControlCrearOdontograma</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearOdontograma</servlet-name>
+		<url-pattern>/ControlCrearOdontograma</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlModificarOdontograma</display-name>
+		<servlet-name>ControlModificarOdontograma</servlet-name>
+		<servlet-class>
+		odont_controlador.ControlModificarOdontograma</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlModificarOdontograma</servlet-name>
+		<url-pattern>/ControlModificarOdontograma</url-pattern>
+	</servlet-mapping>
+	
+			<servlet>
+		<description>
+		</description>
+		<display-name>
+		Odont_datos</display-name>
+		<servlet-name>Odont_datos</servlet-name>
+		<servlet-class>
+		odont_controlador.Odont_datos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Odont_datos</servlet-name>
+		<url-pattern>/Odont_datos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProductos</display-name>
+		<servlet-name>ControlProductos</servlet-name>
+		<servlet-class>
+		ord_controlador.ControlProductos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProductos</servlet-name>
+		<url-pattern>/ControlProductos</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlDescOC</display-name>
+		<servlet-name>ControlDescOC</servlet-name>
+		<servlet-class>
+		ord_controlador.ControlDescOC</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlDescOC</servlet-name>
+		<url-pattern>/ControlDescOC</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProve</display-name>
+		<servlet-name>ControlProve</servlet-name>
+		<servlet-class>
+		ord_controlador.ControlProve</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProve</servlet-name>
+		<url-pattern>/ControlProve</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAprobar</display-name>
+		<servlet-name>ControlAprobar</servlet-name>
+		<servlet-class>
+		ord_controlador.ControlAprobar</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAprobar</servlet-name>
+		<url-pattern>/ControlAprobar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProduc</display-name>
+		<servlet-name>ControlProduc</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlProduc</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProduc</servlet-name>
+		<url-pattern>/ControlProduc</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlConsultas</display-name>
+		<servlet-name>ControlConsultas</servlet-name>
+		<servlet-class>
+		cons_controlador.ControlConsultas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlConsultas</servlet-name>
+		<url-pattern>/ControlConsultas</url-pattern>
+	</servlet-mapping>
+	
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPresupuesto</display-name>
+		<servlet-name>ControlPresupuesto</servlet-name>
+		<servlet-class>
+		pre_controlador.ControlPresupuesto</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlPresupuesto</servlet-name>
+		<url-pattern>/ControlPresupuesto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlConsultasP</display-name>
+		<servlet-name>ControlConsultasP</servlet-name>
+		<servlet-class>
+		pre_controlador.ControlConsultasP</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlConsultasP</servlet-name>
+		<url-pattern>/ControlConsultasP</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlNomina</display-name>
+		<servlet-name>ControlNomina</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlNomina</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlNomina</servlet-name>
+		<url-pattern>/ControlNomina</url-pattern>
+	</servlet-mapping>
+
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlReportesFact</display-name>
+		<servlet-name>ControlReportesFact</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlReportesFact</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlReportesFact</servlet-name>
+		<url-pattern>/ControlReportesFact</url-pattern>
+	</servlet-mapping>
+
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		cateterismomodificaciondata</display-name>
+		<servlet-name>cateterismomodificaciondata</servlet-name>
+		<servlet-class>
+		cat_cateterismo.cateterismomodificaciondata</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>cateterismomodificaciondata</servlet-name>
+		<url-pattern>/cateterismomodificaciondata</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ingresoPaciente</display-name>
+		<servlet-name>ingresoPaciente</servlet-name>
+		<servlet-class>
+		cat_cateterismo.ingresoPaciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ingresoPaciente</servlet-name>
+		<url-pattern>/ingresoPaciente</url-pattern>
+	</servlet-mapping>
+
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlDevolucion</display-name>
+		<servlet-name>ControlDevolucion</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlDevolucion</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlDevolucion</servlet-name>
+		<url-pattern>/ControlDevolucion</url-pattern>
+	</servlet-mapping>
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlIngNumAuto</display-name>
+		<servlet-name>ControlIngNumAuto</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlIngNumAuto</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlIngNumAuto</servlet-name>
+		<url-pattern>/ControlIngNumAuto</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		cateterismodata</display-name>
+		<servlet-name>cateterismodata</servlet-name>
+		<servlet-class>
+		cat_cateterismo.cateterismodata</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>cateterismodata</servlet-name>
+		<url-pattern>/cateterismodata</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCargue</display-name>
+		<servlet-name>ControlCargue</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlCargue</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCargue</servlet-name>
+		<url-pattern>/ControlCargue</url-pattern>
+	</servlet-mapping>
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProgramacion</display-name>
+		<servlet-name>ControlProgramacion</servlet-name>
+		<servlet-class>
+		cig_controlador.ControlProgramacion</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProgramacion</servlet-name>
+		<url-pattern>/ControlProgramacion</url-pattern>
+	</servlet-mapping>
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlDocumentosCxP</display-name>
+		<servlet-name>ControlDocumentosCxP</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlDocumentosCxP</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlDocumentosCxP</servlet-name>
+		<url-pattern>/ControlDocumentosCxP</url-pattern>
+	</servlet-mapping>
+	
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlReportes</display-name>
+		<servlet-name>ControlReportes</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlReportes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlReportes</servlet-name>
+		<url-pattern>/ControlReportes</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlDatosDemograficos</display-name>
+		<servlet-name>ControlDatosDemograficos</servlet-name>
+		<servlet-class>
+		cal_controlador.ControlDatosDemograficos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlDatosDemograficos</servlet-name>
+		<url-pattern>/ControlDatosDemograficos</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlIndicadores</display-name>
+		<servlet-name>ControlIndicadores</servlet-name>
+		<servlet-class>
+		cal_controlador.ControlIndicadores</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlIndicadores</servlet-name>
+		<url-pattern>/ControlIndicadores</url-pattern>
+	</servlet-mapping>
+	
+
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlDocumentos</display-name>
+		<servlet-name>ControlDocumentos</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlDocumentos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlDocumentos</servlet-name>
+		<url-pattern>/ControlDocumentos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearMedicamentos</display-name>
+		<servlet-name>ControlCrearMedicamentos</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearMedicamentos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearMedicamentos</servlet-name>
+		<url-pattern>/ControlCrearMedicamentos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSoporte</display-name>
+		<servlet-name>ControlSoporte</servlet-name>
+		<servlet-class>
+		Soporte_Controlador.ControlSoporte</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlSoporte</servlet-name>
+		<url-pattern>/ControlSoporte</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRips</display-name>
+		<servlet-name>ControlRips</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlRips</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlRips</servlet-name>
+		<url-pattern>/ControlRips</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRips</display-name>
+		<servlet-name>ControlRipsNew</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlRipsNew</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlRipsNew</servlet-name>
+		<url-pattern>/ControlRipsNew</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFurips</display-name>
+		<servlet-name>ControlFuripsNew</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlFuripsNew</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlFuripsNew</servlet-name>
+		<url-pattern>/ControlFuripsNew</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlConfiguracion</display-name>
+		<servlet-name>ControlConfiguracion</servlet-name>
+		<servlet-class>
+		aiepi_Controlador.ControlConfiguracion</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlConfiguracion</servlet-name>
+		<url-pattern>/ControlConfiguracion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearModalidad</display-name>
+		<servlet-name>ControlCrearModalidad</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearModalidad</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearModalidad</servlet-name>
+		<url-pattern>/ControlCrearModalidad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProgramas</display-name>
+		<servlet-name>ControlProgramas</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlProgramas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProgramas</servlet-name>
+		<url-pattern>/ControlProgramas</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMovimientos</display-name>
+		<servlet-name>ControlMovimientos</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlMovimientos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlMovimientos</servlet-name>
+		<url-pattern>/ControlMovimientos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMovimientos2</display-name>
+		<servlet-name>ControlMovimientos2</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlMovimientos2</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlMovimientos2</servlet-name>
+		<url-pattern>/ControlMovimientos2</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearSubcentroCosto</display-name>
+		<servlet-name>ControlCrearSubcentroCosto</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearSubcentroCosto</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearSubcentroCosto</servlet-name>
+		<url-pattern>/ControlCrearSubcentroCosto</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearRIPS</display-name>
+		<servlet-name>ControlCrearRIPS</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearRIPS</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearRIPS</servlet-name>
+		<url-pattern>/ControlCrearRIPS</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearNivelComplejidad</display-name>
+		<servlet-name>ControlCrearNivelComplejidad</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearNivelComplejidad</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearNivelComplejidad</servlet-name>
+		<url-pattern>/ControlCrearNivelComplejidad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearManualTarifario</display-name>
+		<servlet-name>ControlCrearManualTarifario</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearManualTarifario</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearManualTarifario</servlet-name>
+		<url-pattern>/ControlCrearManualTarifario</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearManualBase</display-name>
+		<servlet-name>ControlCrearManualBase</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearManualBase</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearManualBase</servlet-name>
+		<url-pattern>/ControlCrearManualBase</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlClasesServicio</display-name>
+		<servlet-name>ControlClasesServicio</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlClasesServicio</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlClasesServicio</servlet-name>
+		<url-pattern>/ControlClasesServicio</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearConvenio</display-name>
+		<servlet-name>ControlCrearConvenio</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearConvenio</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearConvenio</servlet-name>
+		<url-pattern>/ControlCrearConvenio</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlListarPacientes</display-name>
+		<servlet-name>Pat_ControlListarPacientes</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlListarPacientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlListarPacientes</servlet-name>
+		<url-pattern>/Pat_ControlListarPacientes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlFormatoHic</display-name>
+		<servlet-name>Pat_ControlFormatoHic</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlFormatoHic</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlFormatoHic</servlet-name>
+		<url-pattern>/Pat_ControlFormatoHic</url-pattern>
+	</servlet-mapping>
+	
+
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlCrearPregunta</display-name>
+		<servlet-name>Pat_ControlCrearPregunta</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlCrearPregunta</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlCrearPregunta</servlet-name>
+		<url-pattern>/Pat_ControlCrearPregunta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlCrearPaciente</display-name>
+		<servlet-name>Pat_ControlCrearPaciente</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlCrearPaciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlCrearPaciente</servlet-name>
+		<url-pattern>/Pat_ControlCrearPaciente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlCrearFormato</display-name>
+		<servlet-name>Pat_ControlCrearFormato</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlCrearFormato</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlCrearFormato</servlet-name>
+		<url-pattern>/Pat_ControlCrearFormato</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Pat_ControlCrearArea</display-name>
+		<servlet-name>Pat_ControlCrearArea</servlet-name>
+		<servlet-class>
+		pat_controlador.Pat_ControlCrearArea</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>Pat_ControlCrearArea</servlet-name>
+		<url-pattern>/Pat_ControlCrearArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRemisionPaciente</display-name>
+		<servlet-name>ControlRemisionPaciente</servlet-name>
+		<servlet-class>
+		rem_controlador.ControlRemisionPaciente</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlRemisionPaciente</servlet-name>
+		<url-pattern>/ControlRemisionPaciente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCuentas</display-name>
+		<servlet-name>ControlCuentas</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlCuentas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCuentas</servlet-name>
+		<url-pattern>/ControlCuentas</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlProveedor</display-name>
+		<servlet-name>ControlProveedor</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlProveedor</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlProveedor</servlet-name>
+		<url-pattern>/ControlProveedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlTraslado</display-name>
+		<servlet-name>ControlTraslado</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlTraslado</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlTraslado</servlet-name>
+		<url-pattern>/ControlTraslado</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSalidas</display-name>
+		<servlet-name>ControlSalidas</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlSalidas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlSalidas</servlet-name>
+		<url-pattern>/ControlSalidas</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormulas</display-name>
+		<servlet-name>ControlFormulas</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlFormulas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlFormulas</servlet-name>
+		<url-pattern>/ControlFormulas</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlExistencias</display-name>
+		<servlet-name>ControlExistencias</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlExistencias</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlExistencias</servlet-name>
+		<url-pattern>/ControlExistencias</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEntradas</display-name>
+		<servlet-name>ControlEntradas</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlEntradas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlEntradas</servlet-name>
+		<url-pattern>/ControlEntradas</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearProveedor</display-name>
+		<servlet-name>ControlCrearProveedor</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearProveedor</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearProveedor</servlet-name>
+		<url-pattern>/ControlCrearProveedor</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearIvaGrupoUnidad</display-name>
+		<servlet-name>ControlCrearIvaGrupoUnidad</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearIvaGrupoUnidad</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearIvaGrupoUnidad</servlet-name>
+		<url-pattern>/ControlCrearIvaGrupoUnidad</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearBodega</display-name>
+		<servlet-name>ControlCrearBodega</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearBodega</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearBodega</servlet-name>
+		<url-pattern>/ControlCrearBodega</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearArticulo</display-name>
+		<servlet-name>ControlCrearArticulo</servlet-name>
+		<servlet-class>
+		farc_controlador.ControlCrearArticulo</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearArticulo</servlet-name>
+		<url-pattern>/ControlCrearArticulo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearTarifas</display-name>
+		<servlet-name>ControlCrearTarifas</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearTarifas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearTarifas</servlet-name>
+		<url-pattern>/ControlCrearTarifas</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearPermisos</display-name>
+		<servlet-name>ControlCrearPermisos</servlet-name>
+		<servlet-class>
+		seguridad_controlador.ControlCrearPermisos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearPermisos</servlet-name>
+		<url-pattern>/ControlCrearPermisos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActualizarFirma</display-name>
+		<servlet-name>ControlActualizarFirma</servlet-name>
+		<servlet-class>
+		seguridad_controlador.ControlActualizarFirma</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlActualizarFirma</servlet-name>
+		<url-pattern>/ControlActualizarFirma</url-pattern>
+	</servlet-mapping>
+	
+
+
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSeguimientoAdmision</display-name>
+		<servlet-name>ControlSeguimientoAdmision</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlSeguimientoAdmision</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlSeguimientoAdmision</servlet-name>
+		<url-pattern>/ControlSeguimientoAdmision</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearEspecialidad</display-name>
+		<servlet-name>ControlCrearEspecialidad</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearEspecialidad</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearEspecialidad</servlet-name>
+		<url-pattern>/ControlCrearEspecialidad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearEntidad</display-name>
+		<servlet-name>ControlCrearEntidad</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlCrearEntidad</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearEntidad</servlet-name>
+		<url-pattern>/ControlCrearEntidad</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAsignarExamenesModulo</display-name>
+		<servlet-name>ControlAsignarExamenesModulo</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlAsignarExamenesModulo</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAsignarExamenesModulo</servlet-name>
+		<url-pattern>/ControlAsignarExamenesModulo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAdministrarParametros</display-name>
+		<servlet-name>ControlAdministrarParametros</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlAdministrarParametros</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAdministrarParametros</servlet-name>
+		<url-pattern>/ControlAdministrarParametros</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAsignarCita</display-name>
+		<servlet-name>ControlAsignarCita</servlet-name>
+		<servlet-class>
+		agm_controlador.ControlAsignarCita</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAsignarCita</servlet-name>
+		<url-pattern>/ControlAsignarCita</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlParametros</display-name>
+		<servlet-name>ControlParametros</servlet-name>
+		<servlet-class>
+		agm_controlador.ControlParametros</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlParametros</servlet-name>
+		<url-pattern>/ControlParametros</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMedico</display-name>
+		<servlet-name>ControlMedico</servlet-name>
+		<servlet-class>
+		agm_controlador.ControlMedico</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlMedico</servlet-name>
+		<url-pattern>/ControlMedico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEspecialidades</display-name>
+		<servlet-name>ControlEspecialidades</servlet-name>
+		<servlet-class>
+		agm_controlador.ControlEspecialidades</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlEspecialidades</servlet-name>
+		<url-pattern>/ControlEspecialidades</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMultiplePacientes</display-name>
+		<servlet-name>ControlMultiplePacientes</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlMultiplePacientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlMultiplePacientes</servlet-name>
+		<url-pattern>/ControlMultiplePacientes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_Reporte_dia</display-name>
+		<servlet-name>lab_Reporte_dia</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_Reporte_dia</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>lab_Reporte_dia</servlet-name>
+		<url-pattern>/lab_Reporte_dia</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormatosPestanas</display-name>
+		<servlet-name>ControlFormatosPestanas</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlFormatosPestanas</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlFormatosPestanas</servlet-name>
+		<url-pattern>/ControlFormatosPestanas</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlIngresarResultados</display-name>
+		<servlet-name>ControlIngresarResultados</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlIngresarResultados</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlIngresarResultados</servlet-name>
+		<url-pattern>/ControlIngresarResultados</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPacientesLaboratorios</display-name>
+		<servlet-name>ControlPacientesLaboratorios</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlPacientesLaboratorios</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlPacientesLaboratorios</servlet-name>
+		<url-pattern>/ControlPacientesLaboratorios</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlListarPacientes</display-name>
+		<servlet-name>ControlListarPacientes</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlListarPacientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlListarPacientes</servlet-name>
+		<url-pattern>/ControlListarPacientes</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlVerFormatos</display-name>
+		<servlet-name>ControlVerFormatos</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlVerFormatos</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlVerFormatos</servlet-name>
+		<url-pattern>/ControlVerFormatos</url-pattern>
+	</servlet-mapping>
+	
+	
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormatoHic</display-name>
+		<servlet-name>ControlFormatoHic</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlFormatoHic</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlFormatoHic</servlet-name>
+		<url-pattern>/ControlFormatoHic</url-pattern>
+	</servlet-mapping>
+	
+
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearPregunta</display-name>
+		<servlet-name>ControlCrearPregunta</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlCrearPregunta</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearPregunta</servlet-name>
+		<url-pattern>/ControlCrearPregunta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearArea</display-name>
+		<servlet-name>ControlCrearArea</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlCrearArea</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearArea</servlet-name>
+		<url-pattern>/ControlCrearArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearFormato</display-name>
+		<servlet-name>ControlCrearFormato</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlCrearFormato</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlCrearFormato</servlet-name>
+		<url-pattern>/ControlCrearFormato</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearGrupo</display-name>
+		<servlet-name>ControlCrearGrupo</servlet-name>
+		<servlet-class>
+		img_controlador.ControlCrearGrupo</servlet-class>
+	</servlet>
+
+<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAutoCompletaEps</display-name>
+		<servlet-name>ControlAutoCompletaEps</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAutoCompletaEps</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlAutoCompletaEps</servlet-name>
+		<url-pattern>/ControlAutoCompletaEps</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pat_PruebaImagen</display-name>
+		<servlet-name>pat_PruebaImagen</servlet-name>
+		<servlet-class>
+		pat_controlador.pat_PruebaImagen</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>pat_PruebaImagen</servlet-name>
+		<url-pattern>/pat_PruebaImagen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pat_grupo</display-name>
+		<servlet-name>pat_grupo</servlet-name>
+		<servlet-class>
+		pat_controlador.pat_grupo</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>pat_grupo</servlet-name>
+		<url-pattern>/pat_grupo</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPacientesPendientes</display-name>
+		<servlet-name>ControlPacientesPendientes</servlet-name>
+		<servlet-class>
+		img_controlador.ControlPacientesPendientes</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlPacientesPendientes</servlet-name>
+		<url-pattern>/ControlPacientesPendientes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlImagAprobar</display-name>
+		<servlet-name>ControlImagAprobar</servlet-name>
+		<servlet-class>
+		img_controlador.ControlImagAprobar</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ControlImagAprobar</servlet-name>
+		<url-pattern>/ControlImagAprobar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearSubExa</display-name>
+		<servlet-name>ControlCrearSubExa</servlet-name>
+		<servlet-class>
+		img_controlador.ControlCrearSubExa</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCrearGrupo</servlet-name>
+		<url-pattern>/ControlCrearGrupo</url-pattern>
+	</servlet-mapping>
+		
+		
+	<servlet-mapping>
+		<servlet-name>ControlCrearSubExa</servlet-name>
+		<url-pattern>/ControlCrearSubExa</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCitasExamen</display-name>
+		<servlet-name>ControlCitasExamen</servlet-name>
+		<servlet-class>
+		img_controlador.ControlCitasExamen</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCitasExamen</servlet-name>
+		<url-pattern>/ControlCitasExamen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlExamenImag</display-name>
+		<servlet-name>ControlExamenImag</servlet-name>
+		<servlet-class>
+		img_controlador.ControlExamenImag</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlExamenImag</servlet-name>
+		<url-pattern>/ControlExamenImag</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActuResultado</display-name>
+		<servlet-name>ControlActuResultado</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlActuResultado</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActuResultado</servlet-name>
+		<url-pattern>/ControlActuResultado</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActuResultadoIndividual</display-name>
+		<servlet-name>ControlActuResultadoIndividual</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlActuResultadoIndividual</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActuResultadoIndividual</servlet-name>
+		<url-pattern>/ControlActuResultadoIndividual</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearUnidad</display-name>
+		<servlet-name>ControlCrearUnidad</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlCrearUnidad</servlet-class>
+	</servlet>
+	
+		
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAprobarExamenIndividual</display-name>
+		<servlet-name>ControlAprobarExamenIndividual</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlAprobarExamenIndividual</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlAprobarExamenIndividual</servlet-name>
+		<url-pattern>/ControlAprobarExamenIndividual</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAprobarExamen</display-name>
+		<servlet-name>ControlAprobarExamen</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlAprobarExamen</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlAprobarExamen</servlet-name>
+		<url-pattern>/ControlAprobarExamen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAcudiente</display-name>
+		<servlet-name>ControlAcudiente</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAcudiente</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActuExa</display-name>
+		<servlet-name>ControlActuExa</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlActuExa</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActuExa</servlet-name>
+		<url-pattern>/ControlActuExa</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearExamen</display-name>
+		<servlet-name>ControlCrearExamen</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlCrearExamen</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSubareaLab</display-name>
+		<servlet-name>ControlSubareaLab</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlSubareaLab</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlLiberarReser</display-name>
+		<servlet-name>ControlLiberarReser</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlLiberarReser</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActAd</display-name>
+		<servlet-name>ControlActAd</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlActAd</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCamaReser</display-name>
+		<servlet-name>ControlCamaReser</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCamaReser</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlUsuarios</display-name>
+		<servlet-name>ControlUsuarios</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlUsuarios</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		DatosPaciente</display-name>
+		<servlet-name>DatosPaciente</servlet-name>
+		<servlet-class>
+		adm_Controlador.DatosPaciente</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFinalAdmi</display-name>
+		<servlet-name>ControlFinalAdmi</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlFinalAdmi</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Control_Datos_UrgenciaV</display-name>
+		<servlet-name>Control_Datos_UrgenciaV</servlet-name>
+		<servlet-class>
+		adm_Controlador.Control_Datos_UrgenciaV</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlUrgenciaVital</display-name>
+		<servlet-name>ControlUrgenciaVital</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlUrgenciaVital</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlTrasladoLlenar</display-name>
+		<servlet-name>ControlTrasladoLlenar</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlTrasladoLlenar</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlInsertarCama</display-name>
+		<servlet-name>ControlInsertarCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlInsertarCama</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlArea</display-name>
+		<servlet-name>ControlArea</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlArea</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCenso</display-name>
+		<servlet-name>ControlCenso</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCenso</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEstado</display-name>
+		<servlet-name>ControlEstado</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlEstado</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCodigoSubarea</display-name>
+		<servlet-name>ControlCodigoSubarea</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCodigoSubarea</servlet-class>
+	</servlet>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCodigoEstado</display-name>
+		<servlet-name>ControlCodigoEstado</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCodigoEstado</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSubarea</display-name>
+		<servlet-name>ControlSubarea</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlSubarea</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearCama</display-name>
+		<servlet-name>ControlCrearCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCrearCama</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAcompanante</display-name>
+		<servlet-name>ControlAcompanante</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAcompanante</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPreingreso</display-name>
+		<servlet-name>ControlPreingreso</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlPreingreso</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCola</display-name>
+		<servlet-name>ControlCola</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCola</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRemision</display-name>
+		<servlet-name>ControlRemision</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlRemision</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAdmision</display-name>
+		<servlet-name>ControlAdmision</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAdmision</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAsignarCama</display-name>
+		<servlet-name>ControlAsignarCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAsignarCama</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMunicipio</display-name>
+		<servlet-name>ControlMunicipio</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlMunicipio</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSeleccion</display-name>
+		<servlet-name>ControlSeleccion</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlSeleccion</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControladorMedico</display-name>
+		<servlet-name>ControladorMedico</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControladorMedico</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPing</display-name>
+		<servlet-name>ControlPing</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlPing</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPais</display-name>
+		<servlet-name>ControlPais</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlPais</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPaciente</display-name>
+		<servlet-name>ControlPaciente</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlPaciente</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMuni</display-name>
+		<servlet-name>ControlMuni</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlMuni</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlIngresoPac</display-name>
+		<servlet-name>ControlIngresoPac</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlIngresoPac</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlErrorAdm</display-name>
+		<servlet-name>ControlErrorAdm</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlErrorAdm</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlHistoricoCama</display-name>
+		<servlet-name>ControlHistoricoCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlHistoricoCama</servlet-class>
+	</servlet>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSelAct</display-name>
+		<servlet-name>ControlSelAct</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlSelAct</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlSelAct</servlet-name>
+		<url-pattern>/ControlSelAct</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarArea</display-name>
+		<servlet-name>ControlEliminarArea</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlEliminarArea</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarArea</servlet-name>
+		<url-pattern>/ControlEliminarArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCensoGrafico</display-name>
+		<servlet-name>ControlCensoGrafico</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlCensoGrafico</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlCensoGrafico</servlet-name>
+		<url-pattern>/ControlCensoGrafico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarSubarea</display-name>
+		<servlet-name>ControlEliminarSubarea</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlEliminarSubarea</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarSubarea</servlet-name>
+		<url-pattern>/ControlEliminarSubarea</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarCama</display-name>
+		<servlet-name>ControlEliminarCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlEliminarCama</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarCama</servlet-name>
+		<url-pattern>/ControlEliminarCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActualizarCama</display-name>
+		<servlet-name>ControlActualizarCama</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlActualizarCama</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActualizarCama</servlet-name>
+		<url-pattern>/ControlActualizarCama</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActualizarDemografico</display-name>
+		<servlet-name>ControlActualizarDemografico</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlActualizarDemografico</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActualizarDemografico</servlet-name>
+		<url-pattern>/ControlActualizarDemografico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlNacido</display-name>
+		<servlet-name>ControlNacido</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlNacido</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAdmiFinal</display-name>
+		<servlet-name>ControlAdmiFinal</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlAdmiFinal</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlReporte</display-name>
+		<servlet-name>ControlReporte</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlReporte</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlReporteCenso</display-name>
+		<servlet-name>ControlReporteCenso</servlet-name>
+		<servlet-class>
+		adm_Controlador.ControlReporteCenso</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlModulo</display-name>
+		<servlet-name>ControlModulo</servlet-name>
+		<servlet-class>
+		seguridad_controlador.ControlModulo</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		IngresoPermiso</display-name>
+		<servlet-name>IngresoPermiso</servlet-name>
+		<servlet-class>
+		seguridad_controlador.IngresoPermiso</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Modulos2</display-name>
+		<servlet-name>Modulos2</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Modulos2</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Control_Usuarios</display-name>
+		<servlet-name>Control_Usuarios</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Control_Usuarios</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Control_Login</display-name>
+		<servlet-name>Control_Login</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Control_Login</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Control_Codusu</display-name>
+		<servlet-name>Control_Codusu</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Control_Codusu</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlBuscarUsu</display-name>
+		<servlet-name>ControlBuscarUsu</servlet-name>
+		<servlet-class>
+		seguridad_controlador.ControlBuscarUsu</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Busquedad</display-name>
+		<servlet-name>Busquedad</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Busquedad</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		EliminarPermisos</display-name>
+		<servlet-name>EliminarPermisos</servlet-name>
+		<servlet-class>
+		seguridad_controlador.EliminarPermisos</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_centro_costo</display-name>
+		<servlet-name>Servlet_Pre_centro_costo</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_centro_costo</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_cuenta</display-name>
+		<servlet-name>Servlet_Pre_cuenta</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_cuenta</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_detalle_ejecucion</display-name>
+		<servlet-name>Servlet_Pre_detalle_ejecucion</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_detalle_ejecucion</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_detalle_presupuesto</display-name>
+		<servlet-name>Servlet_Pre_detalle_presupuesto</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_detalle_presupuesto</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_ejecucion</display-name>
+		<servlet-name>Servlet_Pre_ejecucion</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_ejecucion</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_mes</display-name>
+		<servlet-name>Servlet_Pre_mes</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_mes</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Servlet_Pre_presupuesto</display-name>
+		<servlet-name>Servlet_Pre_presupuesto</servlet-name>
+		<servlet-class>
+		pre_controlador.Servlet_Pre_presupuesto</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Seguridad_login</display-name>
+		<servlet-name>Seguridad_login</servlet-name>
+		<servlet-class>
+		seguridad_controlador.Seguridad_login</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMenu</display-name>
+		<servlet-name>ControlMenu</servlet-name>
+		<servlet-class>
+		seguridad_controlador.ControlMenu</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		PermisosPagina</display-name>
+		<servlet-name>PermisosPagina</servlet-name>
+		<servlet-class>
+		seguridad_controlador.PermisosPagina</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Crear_Area</display-name>
+		<servlet-name>Crear_Area</servlet-name>
+		<servlet-class>
+		lab_controlador.Crear_Area</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlExamen</display-name>
+		<servlet-name>ControlExamen</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlExamen</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Controlab_area</display-name>
+		<servlet-name>Controlab_area</servlet-name>
+		<servlet-class>
+		lab_controlador.Controlab_area</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Controllab_Pac</display-name>
+		<servlet-name>Controllab_Pac</servlet-name>
+		<servlet-class>
+		lab_controlador.Controllab_Pac</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormatotexto</display-name>
+		<servlet-name>ControlFormatotexto</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlFormatotexto</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormato</display-name>
+		<servlet-name>ControlFormato</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlFormato</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		IngExamen</display-name>
+		<servlet-name>IngExamen</servlet-name>
+		<servlet-class>
+		lab_controlador.IngExamen</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_unidad</display-name>
+		<servlet-name>lab_unidad</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_unidad</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_rango</display-name>
+		<servlet-name>lab_rango</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_rango</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_generar</display-name>
+		<servlet-name>lab_generar</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_generar</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_controlSubarea</display-name>
+		<servlet-name>lab_controlSubarea</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlSubarea</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_subarea</display-name>
+		<servlet-name>lab_subarea</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_subarea</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFormato1</display-name>
+		<servlet-name>ControlFormato1</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlFormato1</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_BusPac</display-name>
+		<servlet-name>lab_BusPac</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_BusPac</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_Ingrupo</display-name>
+		<servlet-name>lab_Ingrupo</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_Ingrupo</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		INSERTAR_GRUPO</display-name>
+		<servlet-name>INSERTAR_GRUPO</servlet-name>
+		<servlet-class>
+		lab_controlador.INSERTAR_GRUPO</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_control</display-name>
+		<servlet-name>lab_control</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_control</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		FormatoGrupo</display-name>
+		<servlet-name>FormatoGrupo</servlet-name>
+		<servlet-class>
+		lab_controlador.FormatoGrupo</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Controimg_area</display-name>
+		<servlet-name>Controimg_area</servlet-name>
+		<servlet-class>
+		img_controlador.Controimg_area</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlBuscarPacientes</display-name>
+		<servlet-name>ControlBuscarPacientes</servlet-name>
+		<servlet-class>
+		lab_controlador.ControlBuscarPacientes</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_General</display-name>
+		<servlet-name>lab_General</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_General</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		lab_ExaBuscar</display-name>
+		<servlet-name>lab_ExaBuscar</servlet-name>
+		<servlet-class>
+		lab_controlador.lab_ExaBuscar</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlFacturacion</display-name>
+		<servlet-name>ControlFacturacion</servlet-name>
+		<servlet-class>
+		fact_controlador.ControlFacturacion</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRecibosCaja</display-name>
+		<servlet-name>ControlRecibosCaja</servlet-name>
+		<servlet-class>
+		cont_controlador.ControlRecibosCaja</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlOrdPat</display-name>
+		<servlet-name>ControlOrdPat</servlet-name>
+		<servlet-class>
+		hic_controlador.ControlOrdPat</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		pat_controlEstudiosPorAsignar</display-name>
+		<servlet-name>pat_controlEstudiosPorAsignar</servlet-name>
+		<servlet-class>
+		pat_controlador.pat_controlEstudiosPorAsignar</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Control_Login</servlet-name>
+		<url-pattern>/Control_Login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Control_Usuarios</servlet-name>
+		<url-pattern>/Control_Usuarios</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCrearCama</servlet-name>
+		<url-pattern>/ControlCrearCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAcudiente</servlet-name>
+		<url-pattern>/ControlAcudiente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlEstado</servlet-name>
+		<url-pattern>/ControlEstado</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCodigoSubarea</servlet-name>
+		<url-pattern>/ControlCodigoSubarea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlArea</servlet-name>
+		<url-pattern>/ControlArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCenso</servlet-name>
+		<url-pattern>/ControlCenso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlMunicipio</servlet-name>
+		<url-pattern>/ControlMunicipio</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlInsertarCama</servlet-name>
+		<url-pattern>/ControlInsertarCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAcompanante</servlet-name>
+		<url-pattern>/ControlAcompanante</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlPreingreso</servlet-name>
+		<url-pattern>/ControlPreingreso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCola</servlet-name>
+		<url-pattern>/ControlCola</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlRemision</servlet-name>
+		<url-pattern>/ControlRemision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAdmision</servlet-name>
+		<url-pattern>/ControlAdmision</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCodigoEstado</servlet-name>
+		<url-pattern>/ControlCodigoEstado</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAsignarCama</servlet-name>
+		<url-pattern>/ControlAsignarCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlSeleccion</servlet-name>
+		<url-pattern>/ControlSeleccion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlSubarea</servlet-name>
+		<url-pattern>/ControlSubarea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControladorMedico</servlet-name>
+		<url-pattern>/ControladorMedico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlPing</servlet-name>
+		<url-pattern>/ControlPing</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlPais</servlet-name>
+		<url-pattern>/ControlPais</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlPaciente</servlet-name>
+		<url-pattern>/ControlPaciente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlMuni</servlet-name>
+		<url-pattern>/ControlMuni</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlIngresoPac</servlet-name>
+		<url-pattern>/ControlIngresoPac</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlErrorAdm</servlet-name>
+		<url-pattern>/ControlErrorAdm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlHistoricoCama</servlet-name>
+		<url-pattern>/ControlHistoricoCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlTrasladoLlenar</servlet-name>
+		<url-pattern>/ControlTrasladoLlenar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DatosPaciente</servlet-name>
+		<url-pattern>/DatosPaciente</url-pattern>
+	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ControlCamaReser</servlet-name>
+		<url-pattern>/ControlCamaReser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlLiberarReser</servlet-name>
+		<url-pattern>/ControlLiberarReser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Control_Datos_UrgenciaV</servlet-name>
+		<url-pattern>/Control_Datos_UrgenciaV</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlUrgenciaVital</servlet-name>
+		<url-pattern>/ControlUrgenciaVital</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlFinalAdmi</servlet-name>
+		<url-pattern>/ControlFinalAdmi</url-pattern>
+	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ControlNacido</servlet-name>
+		<url-pattern>/ControlNacido</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAdmiFinal</servlet-name>
+		<url-pattern>/ControlAdmiFinal</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlUsuarios</servlet-name>
+		<url-pattern>/ControlUsuarios</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlActAd</servlet-name>
+		<url-pattern>/ControlActAd</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlReporte</servlet-name>
+		<url-pattern>/ControlReporte</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlReporteCenso</servlet-name>
+		<url-pattern>/ControlReporteCenso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlModulo</servlet-name>
+		<url-pattern>/ControlModulo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>IngresoPermiso</servlet-name>
+		<url-pattern>/IngresoPermiso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Modulos2</servlet-name>
+		<url-pattern>/Modulos2</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Control_Codusu</servlet-name>
+		<url-pattern>/Control_Codusu</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlBuscarUsu</servlet-name>
+		<url-pattern>/ControlBuscarUsu</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Busquedad</servlet-name>
+		<url-pattern>/Busquedad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>EliminarPermisos</servlet-name>
+		<url-pattern>/EliminarPermisos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_centro_costo</servlet-name>
+		<url-pattern>/pre_centro_costo_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_cuenta</servlet-name>
+		<url-pattern>/pre_cuenta_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_detalle_ejecucion</servlet-name>
+		<url-pattern>/pre_detalle_ejecucion_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_detalle_presupuesto</servlet-name>
+		<url-pattern>/pre_detalle_presupuesto_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_ejecucion</servlet-name>
+		<url-pattern>/pre_ejecucion_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_mes</servlet-name>
+		<url-pattern>/pre_mes_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Servlet_Pre_presupuesto</servlet-name>
+		<url-pattern>/pre_presupuesto_servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Seguridad_login</servlet-name>
+		<url-pattern>/Seguridad_login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlMenu</servlet-name>
+		<url-pattern>/ControlMenu</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>PermisosPagina</servlet-name>
+		<url-pattern>/PermisosPagina</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Crear_Area</servlet-name>
+		<url-pattern>/Crear_Area</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlExamen</servlet-name>
+		<url-pattern>/ControlExamen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Controlab_area</servlet-name>
+		<url-pattern>/Controlab_area</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Controllab_Pac</servlet-name>
+		<url-pattern>/Controllab_Pac</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlFormatotexto</servlet-name>
+		<url-pattern>/ControlFormatotexto</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlFormato</servlet-name>
+		<url-pattern>/ControlFormato</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>IngExamen</servlet-name>
+		<url-pattern>/IngExamen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_unidad</servlet-name>
+		<url-pattern>/lab_unidad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_rango</servlet-name>
+		<url-pattern>/lab_rango</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_generar</servlet-name>
+		<url-pattern>/lab_generar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_controlSubarea</servlet-name>
+		<url-pattern>/lab_controlSubarea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_subarea</servlet-name>
+		<url-pattern>/lab_subarea</url-pattern>
+	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ControlFormato1</servlet-name>
+		<url-pattern>/ControlFormato1</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCrearUnidad</servlet-name>
+		<url-pattern>/ControlCrearUnidad</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlSubareaLab</servlet-name>
+		<url-pattern>/ControlSubareaLab</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCrearExamen</servlet-name>
+		<url-pattern>/ControlCrearExamen</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_BusPac</servlet-name>
+		<url-pattern>/lab_BusPac</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_Ingrupo</servlet-name>
+		<url-pattern>/lab_Ingrupo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>INSERTAR_GRUPO</servlet-name>
+		<url-pattern>/INSERTAR_GRUPO</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_control</servlet-name>
+		<url-pattern>/lab_control</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>FormatoGrupo</servlet-name>
+		<url-pattern>/FormatoGrupo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Controimg_area</servlet-name>
+		<url-pattern>/Controimg_area</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlBuscarPacientes</servlet-name>
+		<url-pattern>/ControlBuscarPacientes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_General</servlet-name>
+		<url-pattern>/lab_General</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>lab_ExaBuscar</servlet-name>
+		<url-pattern>/lab_ExaBuscar</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlFacturacion</servlet-name>
+		<url-pattern>/ControlFacturacion</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlRecibosCaja</servlet-name>
+		<url-pattern>/ControlRecibosCaja</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlOrdPat</servlet-name>
+		<url-pattern>/ControlOrdPat</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>pat_controlEstudiosPorAsignar</servlet-name>
+		<url-pattern>/pat_controlEstudiosPorAsignar</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
+

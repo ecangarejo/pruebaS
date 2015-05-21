@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="lab_ExamenesPorMedico"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="fechaIni" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fechaFin" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="Medico" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select * from (select count(opl.codigo_estudio) as cont,lsub.nombre,opl.codigo_estudio,lent.nombre_entidad,opl.usuario,opl.tipopyp
+from lab_area lar,lab_subarea lsub,ord_pac_lab opl,empresa emp,adm_convenio lcon,adm_entidad lent,adm_paciente lpac 
+where lar.codigo=lsub.codarea_fk 
+and lsub.codigo=opl.codigo_estudio
+and opl.codigo_pac_fk=lpac.pac_codigo_paciente
+and lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato 
+and lent.ent_nit=lcon.ent_nit_contratante_fk
+and opl.usuario=$P{Medico} 
+and opl.fecha between $P{fechaIni} and $P{fechaFin}
+group by lsub.nombre 
+union
+select count(opl.codigo_estudio) as cont,lex.nombre,opl.codigo_estudio,lent.nombre_entidad,opl.usuario,opl.tipopyp
+from ord_pac_lab opl,lab_examen lex,empresa emp,adm_convenio lcon,adm_entidad lent,adm_paciente lpac
+where lex.codigo=opl.codigo_estudio
+and opl.codigo_pac_fk=lpac.pac_codigo_paciente
+and  lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato 
+and lent.ent_nit=lcon.ent_nit_contratante_fk
+and opl.usuario=$P{Medico} 
+and opl.fecha between $P{fechaIni} and $P{fechaFin}
+group by lex.nombre) as c order by c.cont desc]]></queryString>
+
+	<field name="cont" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="codigo_estudio" class="java.lang.Long"/>
+	<field name="nombre_entidad" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="tipopyp" class="java.lang.String"/>
+
+	<variable name="suma" class="java.lang.Integer" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{cont}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{cont}]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="1"
+						width="464"
+						height="19"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Nombre Del Medico: "+$F{usuario}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="21"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="3"
+						y="4"
+						width="105"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Nombre del Examen]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="257"
+						y="4"
+						width="105"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="3"
+						y="19"
+						width="463"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="1"
+						width="249"
+						height="14"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="270"
+						y="1"
+						width="69"
+						height="14"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{cont}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="20"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="94"
+						y="1"
+						width="176"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL EXAMENES REALIZADOS:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="270"
+						y="1"
+						width="47"
+						height="15"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{suma}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="3"
+						y="16"
+						width="463"
+						height="1"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

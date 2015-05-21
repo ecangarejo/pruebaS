@@ -1,0 +1,683 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Actualizar Demografico</title>
+<script type="text/javascript">
+function demografico(e){	
+	
+
+	var codpac,nombre,papellido,sapellido,cedula,fecha,tipo,afiliacion,nivel,genero,nacionalidad,direccion,telefijo,teleofi,telecel,ocupacion,empresa,zona,religion,estadocivil,raza,estrato,email,codimun,numcontrato;
+    //var ep=e.cbeps.selectedIndex;
+	//eps=e.cbeps.options[ep].text;
+	
+	var ti=e.tipodoc.selectedIndex;
+	tipo=e.tipodoc.options[ti].text;
+	//alert(tipo);
+	var pa=e.cbpacientidad.selectedIndex;
+	paciente=e.cbpacientidad.options[pa].text;
+	//alert(paciente);
+	var de=e.cbdep.selectedIndex;
+	dep=e.cbdep.options[de].text;
+	//alert(dep);
+	var mun=e.cbmun.selectedIndex;
+	muni=e.cbmun.options[mun].text;
+	//alert(muni);
+	var afi=e.select2.selectedIndex;
+	afiliacion=e.select2.options[afi].text;
+	//alert(afiliacion);
+	var ni=e.cbnivel.selectedIndex;
+	nivel=e.cbnivel.options[ni].text;
+	//alert(nivel);
+	var ge=e.select4.selectedIndex;
+	genero=e.select4.options[ge].text;
+	//alert(genero);
+	var na=e.cbnacionalidad.selectedIndex;
+	nacionalidad=e.cbnacionalidad.options[na].text;
+	//alert(nacionalidad);
+	var zo=e.cbzona.selectedIndex;
+	zona=e.cbzona.options[zo].text;
+	//alert(zona);
+	var es=e.select6.selectedIndex;
+	estadocivil=e.select6.options[es].text;
+	//alert(estadocivil);
+	var est=e.select7.selectedIndex;
+	estrato=e.select7.options[est].text;
+	//alert(estrato);
+	nombre=e.txtnombre.value;
+	//alert(nombre);
+	
+	papellido=e.txtpapellido.value;
+	//alert(papellido);
+	sapellido=e.txtsapellido.value;
+	//alert(sapellido);
+    cedula=e.txtnumdocu.value;
+    //alert(cedula);
+    fecha=e.txtfechanaci.value;
+    //alert(fecha);
+    direccion=e.txtdire.value;
+    //alert(direccion);
+    var i;
+    //alert(direccion.length);
+    for(i=0;i<direccion.length;i++){
+      direccion=direccion.replace('#','Nº');
+      //alert(direccion);
+    }
+    
+    
+    telefijo=e.txtelefijo.value;
+    //alert(telefijo);
+    teleofi=e.txteleoficina.value;
+    //alert(teleofi);
+    telecel=e.txtcelular.value;
+    //alert(telecel);
+    ocupacion=e.txtocupacion.value;
+    //alert(ocupacion);
+    empresa=e.txtemp.value;
+    //alert(empresa);
+    religion=e.txtreligion.value;
+    //alert(religion);
+    raza=e.txtraza.value;
+    //alert(raza);
+    email=e.txtemail.value;
+    //alert(email);
+    codimun=e.txtcodmun.value;
+    //alert(codimun);
+    numcontrato=e.txtcodigoconv.value;
+    //alert(numcontrato);
+    codpac=e.txtcodigopac.value;
+    //alert(codpac);
+    if((nivel=="SELECCIONE...")){
+    	nivel="";
+    }
+    if((fecha=="")||(fecha=="aaaa/mm/dd")){
+    	fecha="0000/00/00";
+    }
+    
+    //alert(paciente);
+    if((paciente=="SELECCIONE...")){
+    	numcontrato="0";
+    	//alert(numcontrato);
+    }
+    
+    if((telefijo=="")||(teleofi=="")||(telecel=="")){
+    	telefijo="0";
+    	teleofi="0";
+    	telecel="0";
+    }
+    
+   if((direccion=="")||(cedula=="")||(papellido=="")||(nombre=="")||(afiliacion=="SELECCIONE...")||(genero=="SELECCIONE...")||(nacionalidad=="SELECCIONE...")||(ocupacion=="")||(empresa=="")||(zona=="SELECCIONE...")||(estadocivil=="SELECCIONE...")||(estrato=="SELECCIONE...")||(codimun=="")||(dep=="SELECCIONE...")||(muni=="SELECCIONE...")){
+	   alert("Falta LLenar Campos Requeridos...!");
+   }else{
+	 //  alert("la direccion es: "+direccion);
+	   window.location.href="ControlActualizarDemografico?va=5&nom="+nombre+"&pape="+papellido+"&sape="+sapellido+"&ced="+cedula+"&fe="+fecha+"&dir="+direccion+"&telefi="+telefijo+"&teleofici="+teleofi+"&telecel="+telecel+"&ocu="+ocupacion+"&emp="+empresa+"&re="+religion+"&ra="+raza+"&ema="+email+"&codmun="+codimun+"&numco="+numcontrato+"&ti="+tipo+"&afi="+afiliacion+"&ni="+nivel+"&ge="+genero+"&naci="+nacionalidad+"&zona="+zona+"&esta="+estadocivil+"&estra="+estrato+"&codpac="+codpac+"",true;
+		  alert("Ingreso Exitoso...!");
+		  
+		  window.location.href="Adm_ActualizarDemografico.jsp?z=1";
+     
+    }
+
+}
+
+
+
+function validarcom(h,tecla, e){ 
+	//alert("entro");  
+		opc = false;
+		var s=h.txtnumdocu.value;
+		var n=0;
+		var pos=0;
+		for(i=0;i<s.length;i++){
+		   valor = parseInt(s.charAt(i));
+			if(isNaN(valor)){
+				n++;
+			}
+		}
+		if(n>0)
+		{
+			window.alert('El campo telefono solo acepta valores Numericos');
+			h.txtnumdocu.value="";
+			h.txtnumdocu.focus();
+			return false;
+		}
+		
+		tecla =   e.keyCode;  e.which;
+	if(tecla == 13)//Codigo Ascii de la tecla ENTER evento si se presiona enter
+      {
+	       
+	       var tipo,cedula,codurg;
+	        var gen=h.tipodoc.selectedIndex;
+			tipo=h.tipodoc.options[gen].text;
+			//codurg=h.txturgencia.value;
+			
+	        cedula=h.txtnumdocu.value;
+			window.location.href="ControlActualizarDemografico?va=0&tipo="+tipo+"&ced="+cedula+"",true;
+			//h.submit();
+			
+		
+		}
+	}
+
+
+
+var patron = new Array(4,2,2)
+var patron2 = new Array(1,3,3,3,3)  
+function mascara(d,sep,pat,nums){
+if(d.valant != d.value){
+	val = d.value
+	largo = val.length
+	val = val.split(sep)
+	val2 = ''
+	for(r=0;r<val.length;r++){
+		val2 += val[r]
+			
+	}
+	if(nums){
+		for(z=0;z<val2.length;z++){
+			if(isNaN(val2.charAt(z))){
+				letra = new RegExp(val2.charAt(z),"g")
+				val2 = val2.replace(letra,"")
+			}
+		}
+	}
+	val = ''
+	val3 = new Array()
+	for(s=0; s<pat.length; s++){
+    
+		val3[s] = val2.substring(0,pat[s])
+		val2 = val2.substr(pat[s])
+	}
+	for(q=0;q<val3.length; q++){
+		if(q ==0){
+			val = val3[q]
+		}
+		else{
+			if(val3[q] != ""){
+				val += sep + val3[q]
+				}
+		}
+	}
+	d.value = val
+	d.valant = val
+	}
+}
+</script>
+
+<script language=javascript src="1.js"></script>
+
+
+</head>
+
+<body onLoad="ajaxNacionalidad();">
+<form id="form2" name="form2" onkeypress = "return pulsar(event); ">
+<%
+String r=request.getParameter("r");
+String cedula=request.getParameter("cedula");
+if(r==null){r="1";}
+if(cedula==null){cedula="";}
+//System.out.println("CEDULA JSP "+cedula);
+
+String tip=request.getParameter("tipo");
+if(tip==null){tip="";}
+//System.out.println("TIPO JSP "+tip);
+
+String ocupacion=request.getParameter("ocupacion");
+if(ocupacion==null){ocupacion="";}
+//System.out.println("ocupacion JSP "+ocupacion);
+
+String municipio=request.getParameter("municipio");
+if(municipio==null){municipio="";}
+//System.out.println("municipio JSP "+municipio);
+
+String entidad=request.getParameter("entidad");
+if(entidad==null){entidad="";}
+//System.out.println("entidad JSP "+entidad);
+
+String tipodoc=request.getParameter("tipodoc");
+if(tipodoc==null){tipodoc="";}
+//System.out.println("tipodoc JSP "+tipodoc);
+
+String ced=request.getParameter("ced");
+if(ced==null){ced="";}
+//System.out.println("ced JSP "+ced);
+
+String afiliacion=request.getParameter("afiliacion");
+if(afiliacion==null){afiliacion="";}
+//System.out.println("afiliacion JSP "+afiliacion);
+
+String nivel=request.getParameter("nivel");
+if(nivel==null){nivel="";}
+//System.out.println("nivel JSP "+nivel);
+
+String papellido=request.getParameter("papellido");
+if(papellido==null){papellido="";}
+//System.out.println("papellido JSP "+papellido);
+
+String sapellido=request.getParameter("sapellido");
+if(sapellido==null){sapellido="";}
+//System.out.println("sapellido JSP "+sapellido);
+
+String nombre=request.getParameter("nombre");
+if(nombre==null){nombre="";}
+//System.out.println("nombre JSP "+nombre);
+
+String genero=request.getParameter("genero");
+if(genero==null){genero="";}
+//System.out.println("genero JSP "+genero);
+
+String nacionalidad=request.getParameter("nacionalidad");
+if(nacionalidad==null){nacionalidad="";}
+//System.out.println("nacionalidad JSP "+nacionalidad);
+
+String direccion=request.getParameter("direccion");
+if(direccion==null){direccion="";}
+//System.out.println("direccion JSP "+direccion);
+
+String telfijo=request.getParameter("telfijo");
+if(telfijo==null){telfijo="";}
+//System.out.println("telfijo JSP "+telfijo);
+
+String telofi=request.getParameter("telofi");
+if(telofi==null){telofi="";}
+//System.out.println("telofi JSP "+telofi);
+
+String telcel=request.getParameter("telcel");
+if(telcel==null){telcel="";}
+//System.out.println("telcel JSP "+telcel);
+
+String empresalab=request.getParameter("empresalab");
+if(empresalab==null){empresalab="";}
+//System.out.println("empresalab JSP "+empresalab);
+
+String zonares=request.getParameter("zonares");
+if(zonares==null){zonares="";}
+//System.out.println("zonares JSP "+zonares);
+
+String religion=request.getParameter("religion");
+if(religion==null){religion="";}
+//System.out.println("religion JSP "+religion);
+
+String estadocv=request.getParameter("estadocv");
+if(ocupacion==null){ocupacion="";}
+//System.out.println("estadocv JSP "+estadocv);
+
+String raza=request.getParameter("raza");
+if(raza==null){raza="";}
+//System.out.println("raza JSP "+raza);
+
+String estrato=request.getParameter("estrato");
+if(estrato==null){estrato="";}
+//System.out.println("estrato JSP "+estrato);
+
+String email=request.getParameter("email");
+if(email==null){email="";}
+//System.out.println("email JSP "+email);
+
+String codigopac=request.getParameter("codigopac");
+if(codigopac==null){codigopac="";}
+//System.out.println("codigopac JSP "+codigopac);
+
+String fechanac=request.getParameter("fechanac");
+if(fechanac==null){fechanac="";}
+//System.out.println("fechanac JSP "+fechanac);
+
+String departamento=request.getParameter("dep");
+if(departamento==null){departamento="";}
+//System.out.println("departamento JSP "+departamento);
+
+String codocu=request.getParameter("codocu");
+if(codocu==null){codocu="";}
+//System.out.println("codocu JSP "+codocu);
+
+String codmun=request.getParameter("codmun");
+if(codmun==null){codmun="";}
+//System.out.println("codmun JSP "+codmun);
+
+String codentidad=request.getParameter("codentidad");
+if(codentidad==null){codentidad="";}
+//System.out.println("codentidad JSP "+codentidad);
+%>	 
+
+
+<table width="850" border="1" align="center">
+  <tr>
+    <td colspan="5" align="center">ACTUALIZAR DATOS DEMOGRAFICOS </td>
+    </tr>
+  <tr>
+    <td width="113" align="center">&nbsp;</td>
+    <td width="158" align="center">&nbsp;</td>
+    <td width="107" align="center">&nbsp;</td>
+    <td width="144" align="center">&nbsp;</td>
+    <td width="144" align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Tipo Documento</span></td>
+    <td align="left"><select name="tipodoc" size="1" id="tipodoc" >
+	  
+<%if (tipodoc.equals("CC")) {%>  
+<option><%=tipodoc%></option>    
+      <option>TI</option>
+      <option>RC</option>
+      <option>Nacido Vivo</option>
+	  <%}%>
+<%if(tipodoc.equals("TI")){ %>
+<option><%=tipodoc%></option>
+      <option>CC</option>
+      <option>RC</option>
+      <option>Nacido Vivo</option>
+<%}%>
+<%if(tipodoc.equals("RC")){ %>
+<option><%=tipodoc%></option>
+      <option>CC</option>
+      <option>TI</option>
+      <option>Nacido Vivo</option>
+<%} %>
+<%if(tipodoc.equals("Nacido Vivo")){ %>
+<option><%=tipodoc%></option>
+      <option>CC</option>
+	  <option>TI</option>
+	  <option>RC</option>      
+<%} %>
+<%if(tipodoc.equals("")){ %>	  
+      <option>CC</option>
+	  <option>TI</option>
+      <option>RC</option>
+      <option>Nacido Vivo</option>
+<%} %>
+</select></td>
+    <td align="left"><span class="Estilo8">N&ordm; Identificacion</span></td>
+    <td align="left"><input name="txtnumdocu" type="text" id="txtnumdocu" onkeyup="validarcom(form2,this,event);" value="<%=ced %>" maxlength="12" /></td>
+    <td align="center"><label>
+      <input name="txtcodigopac" type="text" id="txtcodigopac" value="<%=codigopac %>" style="visibility:hidden"/>
+    </label></td>
+    </tr>
+ <%if(r.equals("0")){ %>
+  <tr>
+    <td colspan="5" align="center">DATOS A ACTUALIZAR </td>
+    </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Tipo Afiliacion</span></td>
+    <td align="left"><select name="select2" id="select2" onchange="ajaxEps()" >
+      <%if (afiliacion.equals("Cotizante")) {%>  
+	  <option><%=afiliacion%></option>    
+      <option>Particular</option>
+      <option>Beneficiario</option>
+	  <%}%>
+<%if (afiliacion.equals("Particular")) {%>  
+	  <option><%=afiliacion%></option>    
+      <option>Cotizante</option>
+      <option>Beneficiario</option>
+	  <%}%>
+<%if (afiliacion.equals("Beneficiario")) {%>  
+	  <option><%=afiliacion%></option>    
+      <option>Cotizante</option>
+      <option>Particular</option>
+	  <%}%>
+<%if (afiliacion.equals("")) {%>  
+	  <option>Cotizante</option>
+	  <option>Beneficiario</option>   
+      <option>Particular</option>
+	  <%}%>   
+    </select></td>
+    <td align="left"><span class="Estilo8">Nivel Cotizante</span></td>
+    <td align="left"><select name="cbnivel" id="cbnivel">
+	<%if (nivel.equals("")) {%> 
+	
+	 <option>I</option>
+     <option>II</option>
+     <option>III</option>
+	  <%}%> 
+	
+      <%if (nivel.equals("I")) {%> 
+	 <option selected="selected"><%=nivel%></option> 
+	 <option>II</option>
+     <option>III</option>
+	  <%}%> 
+	   <%if (nivel.equals("II")) {%> 
+	 <option selected="selected"><%=nivel%></option> 
+	 <option>I</option>
+     <option>III</option>
+	  <%}%> 
+        <%if (nivel.equals("III")) {%> 
+	 <option selected="selected"><%=nivel%></option> 
+	 <option>I</option>
+     <option>II</option>
+	  <%}%> 
+    </select></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Primer Apellido</span></td>
+    <td align="left"><input name="txtpapellido" type="text" id="txtpapellido" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtpapellido);" onkeypress="ajaxEps()" maxlength="20" value="<%=papellido %>"/></td>
+    <td align="left"><span class="Estilo8">Segundo Apellido</span></td>
+    <td align="left"><input name="txtsapellido" type="text" id="txtsapellido" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtsapellido);" onchange="datos();"  maxlength="20" value="<%=sapellido %>"/></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Nombres</span></td>
+    <td align="left"><input name="txtnombre" type="text" id="txtnombre" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtnombre);"  onkeypress="ajaxOcupacion()"onchange="" maxlength="20" value="<%=nombre %>"/></td>
+    <td align="left"><span class="Estilo8">Fecha Nacimiento</span></td>
+    <td align="left"><input type="text" name="txtfechanaci" id="txtfechanaci"   onkeyup="mascara(this,'/',patron,true)" maxlength="10" value="<%=fechanac %>"></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Nacionalidad</span></td>
+    <td align="left"><select name="cbnacionalidad" size="1" id="cbnacionalidad" onchange="ajaxDep(form2)"  >
+      <option selected="selected"><%=nacionalidad%></option>
+    </select></td>
+    <td align="left"><span class="Estilo8">Direccion</span></td>
+    <td align="left"><input name="txtdire" type="text" id="txtdire"  value="<%=direccion %>" maxlength="50"/></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Telefono Fijo</span></td>
+    <td align="left"><input name="txtelefijo" type="text" id="txtelefijo" onkeyup="validarte(form2.txtelefijo);" onchange="datos();"  maxlength="12" value="<%=telfijo %>"/></td>
+    <td align="left"><span class="Estilo8">Genero</span></td>
+    <td align="left"><select name="select4" id="select4" >
+         <%if (genero.equals("Masculino")) {%> 
+	 <option selected="selected"><%=genero%></option> 
+	 <option>Femenino</option>
+	  <%}%>
+ <%if (genero.equals("Femenino")) {%> 
+	 <option selected="selected"><%=genero%></option> 
+	 <option>Masculino</option>
+	  <%}%>
+<%if (genero.equals("")) {%> 
+	
+	 <option>Masculino</option>
+ <option>Femenino</option>
+	  <%}%>
+    </select></td>
+    <td align="left"><input name="txtcodigoconv" type="text" id="txtcodigoconv"  value="<%=codentidad%>"  style="visibility:hidden"/></td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Email</span></td>
+    <td align="left"><input name="txtemail" type="text" id="txtemail" onchange="checkmail(form2.txtemail);" maxlength="30" value="<%=email %>"/></td>
+    <td align="left"><span class="Estilo8">Telefono Celular</span></td>
+    <td align="left"><input name="txtcelular" type="text" id="txtcelular" onkeyup="validarte(form2.txtcelular);" onchange="datos();"  maxlength="12" value="<%=telcel %>"/></td>
+    <td align="left"><input name="txtcodmun" type="text" id="txtcodmun" value="<%=codmun%>"  style="visibility:hidden"/></td>
+    </tr>
+  <tr>
+    <td align="left">Ocupacion</td>
+    <td align="left"><select name="cbocupacion" size="1" id="cbocupacion" onchange="ajaxCambiarOcu(form2)">
+      <option selected="selected"><%=ocupacion%></option>
+    </select></td>
+    <td align="left"><span class="Estilo8">Departamento</span></td>
+    <td align="left"><select name="cbdep" size="1" id="cbdep" onchange="ajaxxMun(form2)">
+      <option selected="selected"><%=departamento%></option>
+    </select></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Municipio</span></td>
+    <td align="left"><select name="cbmun" size="1" id="cbmun" onchange="CodigoMun(form2)">
+      <option selected="selected"><%=municipio%></option>
+    </select></td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Telefono Oficina</span></td>
+    <td align="left"><input name="txteleoficina" type="text" id="txteleoficina" onkeyup="validarte(form2.txteleoficina);" onchange="datos();"  maxlength="12" value="<%=telofi%>"/></td>
+    <td align="left"><span class="Estilo8">Estado Civil</span></td>
+    <td align="left"><select name="select6" id="select6">
+      <%if (estadocv.equals("Soltero(a)")) {%>
+      <option selected="selected"><%=estadocv%></option>
+      <option>Casado(a)</option>
+      <option>Viudo(a)</option>
+      <%}%>
+      <%if (estadocv.equals("Casado(a)")) {%>
+      <option selected="selected"><%=estadocv%></option>
+      <option>Soltero(a)</option>
+      <option>Viudo(a)</option>
+      <%}%>
+      <%if (estadocv.equals("Viudo(a)")) {%>
+      <option selected="selected"><%=estadocv%></option>
+      <option>Casado(a)</option>
+      <option>Soltero(a)</option>
+      <%}%>
+      <%if (estadocv.equals("")) {%>
+      <option>Casado(a)</option>
+      <option>Soltero(a)</option>
+      <option>Viudo(a)</option>
+      <%}%>
+    </select></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Religion</span></td>
+    <td align="left"><input name="txtreligion" type="text" id="txtreligion" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtreligion);" onchange="datos();"  maxlength="20" value="<%=religion %>"/></td>
+    <td align="left"><span class="Estilo8">Raza</span></td>
+    <td align="left"><input name="txtraza" type="text" id="txtraza" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtraza);" onchange="datos();"  maxlength="20" value="<%=raza %>"/></td>
+    <td align="left"><input name="txtocupacion" type="text" id="txtocupacion"  value="<%=codocu%>" style="visibility:hidden" /></td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Estrato</span></td>
+    <td align="left"><select name="select7" id="select7">
+      <%if (estrato.equals("1")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <%}%>
+      <%if (estrato.equals("2")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <%}%>
+      <%if (estrato.equals("3")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>2</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <%}%>
+      <%if (estrato.equals("4")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>5</option>
+      <option>6</option>
+      <%}%>
+      <%if (estrato.equals("5")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>6</option>
+      <%}%>
+      <%if (estrato.equals("6")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <%}%>
+      <%if (estrato.equals("")) {%>
+      <option selected="selected"><%=estrato%></option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <%}%>
+    </select></td>
+    <td align="left"><span class="Estilo8">Nombre Entidad</span></td>
+    <td align="left"><select name="cbpacientidad" size="1" id="cbpacientidad" onchange="ajaxCodigoConv(form2)">
+      <option selected="selected"><%=entidad%></option>
+    </select></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="left"><span class="Estilo8">Zona Residencia</span></td>
+    <td align="left"><select name="cbzona" id="cbzona">
+      
+<%if (zonares.equals("")) {%> 
+	 <option>Rural</option>
+     <option>Urbana</option>
+	  <%}%>
+<%if (zonares.equals("Rural")) {%> 
+	<option selected="selected"><%=zonares%></option>
+	<option>Urbana</option>
+	  <%}%>
+<%if (zonares.equals("Urbana")) {%> 
+	<option selected="selected"><%=zonares%></option>
+	<option>Rural</option>
+	  <%}%>
+
+     
+     
+    </select></td>
+    <td align="left">Empresa</td>
+    <td align="left"><input name="txtemp" type="text" id="txtemp" onkeyup="this.value=this.value.toUpperCase(),caracter(form2.txtemp);" onchange="datos();"  maxlength="20" value="<%=empresalab %>"/></td>
+    <td align="left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td colspan="5" align="center">&nbsp;</td></tr>
+  <tr>
+    <td align="center"><label></label></td>
+    <td align="center">&nbsp;</td>
+    <td align="center"><input name="btnactualizar" type="button" id="btnactualizar" value="Actualizar" onclick="demografico(form2);" /></td>
+    <td align="center"><label></label></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    </tr>
+<%} %>
+</table>
+
+
+</form>
+</body>
+</html>

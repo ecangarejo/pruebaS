@@ -1,0 +1,38 @@
+////////////////////////////////////////////////////////////////////////////
+function enviar(h){
+	var nom=h.txtnombre.value;
+	var ape=h.txtapellido.value;
+	var dire=h.txtdireccion.value;
+	var tel=h.txttelefono.value;
+	var mail=h.txtemail.value;
+	var pro=h.txtprofesion.value;
+	var ocu=h.txtocupacion.value;
+	var ced=h.txtcedula.value;
+	//var estado=h.cmbestado.value;
+	
+	
+	var estado=h.cmbestado.selectedIndex;
+	estado=h.cmbestado.options[estado].text;
+	alert(estado)
+	
+////////////////////////////////////////////////////////////////////////////
+	  var i;      
+        for(i=0;i<dire.length;i++){
+          dire=dire.replace('#','Nº');          
+        }
+/////////////////////////////////////////////////////////////////////////////
+	var usu=h.txtusuario.value;
+	var contra=h.txtcontrasena.value;
+	var repcontra=h.txtrepcontra.value;
+	if(contra!=repcontra){
+		alert("Las Contraseñas No Coinciden")
+		}
+	else{
+	if((nom=="")||(ape=="")||(dire=="")||(tel=="")||(mail=="")||(pro=="")||(ocu=="")||(usu=="")||(contra=="")||(repcontra=="")||(ced=="")||(estado=="SELECCIONE")){
+		alert("Llene Todos Los Campos");
+	}
+	else{
+		window.location.href="Control_Usuarios?nom="+nom+"&ape="+ape+"&dire="+dire+"&tel="+tel+"&mail="+mail+"&pro="+pro+"&ocu="+ocu+"&usu="+usu+"&contra="+contra+"&ced="+ced+"&estado="+estado;
+		}
+	}	
+}

@@ -1,0 +1,94 @@
+/**
+ * Controlador:ControlFinalAdmi
+ * Seleccion de los datos a finalizar de la Admision
+ * Desarrollado:yosimar valega
+ */
+
+package Controlador;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import logica.MetodoAdmision;
+import logica.MetodoPaciente;
+
+/**
+ * Servlet implementation class ControlFinalAdmi
+ */
+public class ControlFinalAdmi extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Obtener datos cedula y tipo de cedula de enter/Final_Admision.jsp para mostrar los datos a finalizar
+	 * Se realiza una busquedad de los demas datos SQLPacPa/MetodoPaciente y obtenerDatosAd/MetodoAdmision
+	 * Si no hay admision se redirecciona a la misma pagina pero sin datos en la linea 78 y 90
+	 * Si hay se redirecciona con todos los datos. linea 88
+	 */
+	   
+   
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String numero_ingreso="";
+		String censo_num_cama="";
+		String autorizado_por="";
+		String registrado_por="";
+		String pripa="";
+		String sepa="";
+		String nompa="";
+		String fecha="";
+		String hora="";
+		String tipo=request.getParameter("tipo");
+		
+		String cedula=request.getParameter("ced");
+		
+		ResultSet rs=null;
+		ResultSet rs1=null;
+		MetodoPaciente pa1 =new MetodoPaciente();
+		MetodoAdmision ad =new MetodoAdmision();
+		try{
+           rs=pa1.SQLPacPa(cedula, tipo);
+			String pac="";
+            if(rs.next()){
+			  pac=rs.getString(1);
+			  pripa=rs.getString(2);
+			  sepa=rs.getString(3);
+			  nompa=rs.getString(4);
+			 
+			  
+			  try{
+				  rs1=ad.obtenerDatosAd(pac);
+				  if(rs1.next()){
+					  numero_ingreso=rs1.getString(1);
+					  censo_num_cama=rs1.getString(14);
+					  autorizado_por=rs1.getString(4);
+					  registrado_por=rs1.getString(5);
+					  fecha=rs1.getString(6);
+					  hora=rs1.getString(7);
+					
+				  }
+				  else{
+					  response.sendRedirect("Final_Admision.jsp?r=1");
+					  
+				  }
+					
+				  }catch(Exception e){
+					  
+				  }
+				  String nombrecompleto="";
+				  nombrecompleto=nompa+" "+pripa+" "+sepa;
+				  response.sendRedirect("Final_Admision.jsp?r=0&nombre="+nombrecompleto+"&cedula="+cedula+"&numeroing="+numero_ingreso+"&censo_num_cama="+censo_num_cama+"&autorizado_por="+autorizado_por+"&registrado_por="+registrado_por+"&fecha="+fecha+"&hora="+hora+"&codigo="+pac+"");
+            }else{
+            	response.sendRedirect("Final_Admision.jsp?r=1");
+            }
+			 
+		}catch(Exception e){
+			
+		}
+	}
+
+}

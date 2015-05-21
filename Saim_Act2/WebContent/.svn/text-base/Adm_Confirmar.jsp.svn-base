@@ -1,0 +1,130 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="bean.Paciente,java.util.*" import="logica.* "%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.style3 {color: #FF0000; font-weight: bold; font-size: 16px; }
+-->
+</style>
+<script language=javascript src="Validaciones.js"></script>
+</head>
+<body>
+<%
+String ce=request.getParameter("cedula");
+String ti=request.getParameter("tipo");
+String nom=request.getParameter("nom");
+String nomadre=request.getParameter("nomadre");
+String primadre=request.getParameter("primadre");
+String semadre=request.getParameter("semadre");
+
+if(ce==null){
+	ce="";
+}
+if(nom==null){
+	nom="";
+}
+if(nomadre==null){
+	nomadre="";
+}
+
+if(ti==null){
+	ti="";
+}
+//System.out.println(" Aca en confirmar: "+ti);
+
+%>
+<form name="form1" id="form1">
+  <table width="100%" border="0">
+    <tr>
+      <td><div align="center">
+        <table width="100%" border="0">
+          <tr>
+            <td><div align="center"><font face="Arial, Helvetica, sans-serif"><span class="style3">CLINICA DE LA COSTA</span></font></div></td>
+          </tr>
+          <tr>
+            <td><div align="center"><font face="Arial, Helvetica, sans-serif"><b class="style1"><font face="Verdana" size="3">Lista de Pacientes Sin Admision</font></b></font></div></td>
+          </tr>
+          <tr>
+            <td><div align="center"></div></td>
+          </tr>
+        </table>
+      </div></td>
+    </tr>
+  </table>
+
+  <center>
+    <font face="Arial, Helvetica, sans-serif">
+    <table border="1">
+      <tr>
+        <td width="10%"><font size="2">Nombre del Bebe</font></td>
+        <td width="10%"><font size="2">Primer Apellido de la Madre</font></td>
+        <td width="10%"><font size="2">Segundo Apellido de la Madre</font></td>
+        <td width="10%"><font size="2">Fecha de Nacimiento</font></td>
+        <td width="10%"><font size="2">Codigo</font></td>
+        <td width="10%"><font size="2">Crear Admision</font></td>
+      </tr>
+      <%
+Vector lista =(Vector)request.getSession().getAttribute("listaNacido");
+Vector lista1 =(Vector)request.getSession().getAttribute("listaNac"); 
+Paciente pa = new Paciente();
+//cen = (Censo)lista.get(1);
+//out.println(cen.getPaciente());
+String codpaciente="";
+for(int i=0; i< lista.size();i++){
+	pa = (Paciente)lista.get(i);
+	//codpaciente = cen.getCodigo();
+	
+%>
+      <tr>
+        <td><font size="1"><%=pa.getNombre() %></font></td>
+        <td><font size="1"><%=pa.getPapellido()%></font></td>
+        <td><font size="1"><%=pa.getSapellido()%></font></td>
+        <td><font size="1"><%=pa.getFecha() %></font></td>
+        <td><font size="1"><%=lista1.get(i) %></font></td>
+        <td><a href="Adm_Ingreso.jsp?z=1&cedula=<%=ce%>&tipo=<%=pa.getDocumento()%>&nom=<%=pa.getNombre()+" "+pa.getPapellido()+" "+pa.getSapellido()%>&cod=<%=lista1.get(i)%>"><font size="1">Realizar</font></a></td>
+      </tr>
+      <%} 
+
+%>
+    </table>
+    </font>
+  </center>
+  <p>&nbsp;</p>
+  <table width="100%" border="0">
+<tr>
+  <td colspan="4" class="style1">Ya Existe Ingreso De Hijo!!! 
+    <input name="txtnom" type="text" id="txtnom" value="<%=nom%>" style="visibility:hidden"></td>
+  </tr>
+<tr>
+      <td width="17%">Ingresar Otro...</td>
+      <td width="17%" nowrap bordercolor="#ECE9D8"><label>
+      <input name="button" type="button" id="button" value="Confirmar..." onClick="getCheckedValue(form1);">
+      </label></td>
+      <td width="12%" nowrap bordercolor="#ECE9D8"><label>
+      <input name="txtape" type="text" id="txtape" value="<%=nomadre %>" style="visibility:hidden" >
+      </label></td>
+      <td width="54%"><label>
+      <input name="txtce" type="text" id="txtce" value="<%=ce%>" style="visibility:hidden">
+        <input name="txttipo" type="text" id="txttipo" value="<%=ti%>" style="visibility:hidden">
+      </label></td>
+    </tr>
+</table>
+<% session.invalidate(); %>
+<label>
+<input name="txtpape" type="text" id="txtpape" value="<%=primadre %>" style="visibility:hidden"  >
+</label>
+<label>
+<input name="txtsap" type="text" id="txtsap" value="<%=semadre %>" style="visibility:hidden" >
+</label>
+</form>
+</body>
+</html>

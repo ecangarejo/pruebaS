@@ -1,0 +1,103 @@
+/**
+ * NOMBRE DE LA CLASE: ControlUsuarios
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario
+ * 				para ingresar y consultar un usuario(login) . 				
+ */
+package Controlador;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
+
+import logica.MetodoUsuario;
+
+public class ControlUsuarios extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		/**
+		 * se reciben las variables por parametros ya sea del formulario
+		 * Adm_Usuario.jsp, o de Adm_Login.jsp para posteriormente hacer es ingreso
+		 * o la consulta del usuario.
+		 */
+		
+		HttpSession session = req.getSession(true);
+		
+		String NomUsuario=null;
+		String Password=null;
+		String conPassword=null;
+		String va=null;
+		String Usuario=null;
+		String contra=null;
+		ResultSet rs=null;
+		MetodoUsuario mu = new MetodoUsuario();		
+		String entro=null;
+		NomUsuario=req.getParameter("NomUsuario");
+		Password=req.getParameter("Password");
+		conPassword=req.getParameter("conPassword");
+		Usuario=req.getParameter("Usuario");
+		contra=req.getParameter("contra");
+		va=req.getParameter("va");
+	
+		
+		if(va.equals("1")){
+			/**
+			 * en esta parte se recibe el nombre de usuario y la contraseña 
+			 * del nuevo usuario para su posterior ingreso mediante
+			 * MetodoUsuario/insertarusuario que lleva como variables
+			 * el nombre de usuario y contraseña, que se reciben desde 
+			 * Adm_Usuario.jsp. 
+			 */
+			if(Password.equals(conPassword)){
+				mu.insertarusuario(NomUsuario, Password);
+				res.sendRedirect("Adm_Usuario.jsp");
+			}
+			else{
+			}
+		}
+		
+		if(va.equals("2")){
+			/**
+			 * en esta parte se recibe el nombre de usuario y la contraseña 
+			 * del usuario para su posterior consulta mediante
+			 * MetodoUsuario/obtenerUsuario que lleva como variables
+			 * el nombre de usuario y contraseña, que se reiben desde
+			 * Adm_Login.jsp. 
+			 */
+			rs=mu.obtenerUsuario(Usuario, contra);
+			try {
+				if(rs.next()){
+					entro=rs.getString(1);					
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if(entro!=null){
+				session.setAttribute("codusuario", entro);
+				res.sendRedirect("Admisiones.jsp");
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña Erronea", "Consejo", JOptionPane.ERROR_MESSAGE);
+				res.sendRedirect("Adm_Login.jsp?d=0");
+				
+
+			}
+			
+		}
+	}
+
+}

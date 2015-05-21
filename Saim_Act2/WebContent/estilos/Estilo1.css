@@ -1,0 +1,282 @@
+
+@CHARSET "ISO-8859-1";
+#contenedor{
+text-align: left;
+width: 990px;
+margin: auto;
+}
+
+#precabecera{
+background-color: #F0F8FF;
+font-size:12pt;
+padding: 3 3 10 30px;
+height:0px;
+width: 800px;
+
+font-family:"Trebuchet MS";
+text-align:left;
+font-weight:bold;
+}
+
+#precabecera2{
+background-color: #BED9ED;
+font-size:12pt;
+padding: 3 3 3 10px;
+height:20px;
+width: 650px;
+font-family:"Trebuchet MS";
+text-align:left;
+}
+
+#cuadro_texto{
+background-color: #ffffff;
+padding: 20 20 20 10px;
+width: 650px;
+color:#000000;
+font-family:"Trebuchet MS";
+float: none;
+}
+
+#cabecera{
+background-color: #F0FFFF/*#0099ff;*/ /*#FF9900;*/
+color: #ffffff;/*#333300;*/
+font-size:12pt;
+font-weight: bold;
+padding: 5 10 10 10px;
+height:65px;
+}
+
+#cabecera2{
+background-color: #FFFFFF;  
+color: #ffffff;
+font-size:12pt;
+font-weight: bold;
+padding: 5 10 10 10px;
+height:20px;
+}
+
+#cuerpo{
+margin: 10 0 10 0px;
+}
+
+#lateralblanco{
+height:300px;
+background-color: #99CC33;
+float:left;
+font-weight: bold;
+font-family:"Trebuchet MS";
+padding: 5px 6px;
+width: 145px;
+color:#FFFFFF;
+font-size:13px;
+}
+
+#lateral{
+width: 159px;
+font-family:"Trebuchet MS";
+float:left;
+background: #62B4E8;
+color:#FFFFFF;
+}
+
+#lateral ul{
+margin : 0 0 0 0px;
+padding: 0 0 0 10px;
+list-style: none;
+}
+
+#lateral li{
+background-color:#ffffff;
+margin: 0 0 10 0px;
+padding: 0 0 0 10 px;
+font-family:"Trebuchet MS";
+}
+
+#lateral a{
+text-decoration: none;
+color: #ffffff;
+background: #ffffff;
+}
+
+#pie{
+background-color: #ffffff;
+padding: 3 10 3 10px;
+text-align:center;
+clear: both;
+font-family:"Trebuchet MS";
+color: #fcccccc;
+font-size:12px;
+}
+
+#principal{
+background-color: #F0F8FF;
+padding: 20 20 20 10px;
+width: 640px;
+float: left;
+padding-right: 8pt; 
+margin: 0 auto 40 auto width:390px;
+}
+
+#lateral_derecho{
+background-color: #ffffff;
+padding: 0 0 0 10px;
+width: 200px;
+float: left;
+margin-left: 10px;
+}
+
+.advertencia {
+font-size: 14px;
+color:#62B4E8;
+font-family: "Trebuchet MS";
+font-weight: bold;
+}
+
+#laterald{
+background-color: #ffffff;
+padding: 0 0 0 20px;
+width: 120px;
+float: left;
+}
+
+#menuv {
+font: 90% "Trebuchet MS", Arial, Helvetica, sans-serif;
+margin-top: 40px;
+float: left;
+width: 170px;
+}
+
+#menuv ul, li {
+list-style-type: none;
+}
+
+#menuv ul {
+list-style-type: none;
+margin: 0;
+padding:0;
+}
+
+#menuv li {
+float: left;
+}
+
+#menuv a {
+text-decoration: none;
+color: #3366CC;
+background: #BED9ED;
+display: block;
+padding: 5px 15px ;
+text-align: center;
+border: 1px solid #ACCFE8;
+border-width: 1px 1px 1px 1px;	
+width:149px;
+height:30px;
+font-weight:bold;
+}
+
+#menuv a:hover {
+background:#62B4E8;
+}
+
+#wrap{
+width:390px;
+margin: 0 auto;
+padding:5px;
+text-align: center;
+border: 1px solid #62B4E8;
+}
+
+A:link,A:visited{
+text-decoration:none;
+}
+
+A:hover{
+text-decoration:none;
+}
+
+.estilotabla{ 
+background-color:ffffff; 
+border-style:solid; 
+border-color:666666; 
+border-width:1px; 
+} 
+
+.cajadetexto {
+background-color: #FFFFFF;
+border-width: 2;
+color: #000000;
+font-size: 12pt;
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif ;
+font-weight: bold;
+}
+
+label{
+display:block; 
+font-weight:bold; 
+color:#3366CC;
+font-size:14px;
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.boton{
+font-size:12px;
+font-family:"Trebuchet MS";
+font-weight:bold;
+color:white;
+background:#62B4E8;
+border:1px;
+width:120px;
+height:25px;
+}
+
+#menuh {
+font: 90% "Trebuchet MS", Arial, Helvetica, sans-serif;
+margin-top: 20px;
+margin-left: 50px;
+}
+
+#menuh ul, li {
+list-style-type: none;
+}
+
+#menuh ul {
+list-style-type: none;
+margin: 0 auto;
+width: auto;
+}
+
+#menuh li {
+float: left;
+}
+
+#menuh a {
+text-decoration: none;
+color: #3366CC;
+background: #BED9ED;
+display: block;
+padding: 3px 10px ;
+text-align: center;
+border: 1px solid #ACCFE8;
+border-width: 1px 1px 1px 1px;	
+width:100px;
+height:40px;
+font-weight:bold;
+}
+
+#menuh a#primero {
+border-left: 1px solid #ACCFE8;
+}
+
+#menuh a:hover {
+background:#62B4E8;
+}
+
+.style4 {
+color:#62B4E8;
+font-weight: bold;
+font-size: 16px;
+}
+.style5 {
+color: #0066CC;
+}
+

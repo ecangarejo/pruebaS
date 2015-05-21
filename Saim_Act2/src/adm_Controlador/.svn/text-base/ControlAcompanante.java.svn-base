@@ -1,0 +1,39 @@
+package Controlador;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import logica.Conexion;
+import logica.MetodoAcompanante;
+
+public class ControlAcompanante extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doGet(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		String ced, nom, ape, dir, tel, par;
+		ced = re.getParameter("ced");
+		nom = re.getParameter("nom");
+		ape = re.getParameter("ape");
+		dir = re.getParameter("dire");
+		//System.out.println(dir);
+		tel = re.getParameter("tele");
+		par =re.getParameter("pare");
+		//System.out.println(tel);
+		//if(tel.equals("")||nom==""||ced==""||(par.equals("SELECCIONE..."))){
+		//	res.sendRedirect("Adm_Contacto.jsp?ing="+1+"");
+		//}else{
+			MetodoAcompanante ba=new MetodoAcompanante();
+			ba.insertar(ced, nom, ape, par, tel, dir);
+			//res.sendRedirect("Adm_Contacto.jsp?ing="+2+"");
+		//}
+			
+			
+					
+	} 
+	
+	
+	
+}

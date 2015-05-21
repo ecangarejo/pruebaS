@@ -1,0 +1,458 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*"  errorPage="" %>
+<!-- Los import -->
+<%@ page session="true"%>
+<%@ page language="java" %>
+<%@ page import = "java.sql.Connection"%>
+<%@ page import = "java.sql.DriverManager"%>
+<%@ page import = "java.sql.ResultSet"%> 
+<%@ page import = "java.sql.Statement"%> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%
+String codigou=(String)request.getSession().getAttribute("codusuario");
+//out.println(codigou);
+%>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Ingreso De Paciente</title>
+<link rel="shortcut icon" href="/Imagenes/favicon.ico">
+<style type="text/css">
+<!--
+body {
+	background-image: url(Imagenes/oscar.jpg);
+}
+body,td,th {
+	
+}
+#apDiv1 {
+	position:absolute;
+	left:185px;
+	top:42px;
+	width:56px;
+	height:530px;
+	z-index:1;
+}
+#apDiv2 {
+	position:absolute;
+	left:85px;
+	top:464px;
+	width:407px;
+	height:47px;
+	z-index:1;
+}
+#apDiv3 {
+	position:absolute;
+	left:76px;
+	top:485px;
+	width:307px;
+	height:92px;
+	z-index:2;
+}
+.style1 {color: #FF0000}
+-->
+</style>
+
+<script language="javascript">
+
+function validar(h){
+		if (h.txtnumdoc.value.length==0){
+			window.alert('Debe Digitar la Cedula');
+			h.nom.focus();
+			return false;
+		}
+	h.submit();
+	}
+
+function pulsar(e) {
+	  tecla = (document.all) ? e.keyCode : e.which;
+	  return (tecla != 13);
+	}
+
+
+function Abrir_ventana (pagina) {
+    var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no,";
+	opciones =opciones+"scrollbars=no, resizable=yes, width=600, height=300, top=85,  left=140";
+    window.open(pagina,"NUEVA",opciones);
+}
+function validarcom(h,tecla, e)
+	{ 
+	    
+		opc = false;
+		var s=h.txtnumdoc.value;
+		var n=0;
+		var pos=0;
+		for(i=0;i<s.length;i++){
+		   valor = parseInt(s.charAt(i));
+			if(isNaN(valor)){
+				n++;
+			}
+		}
+		if(n>0)
+		{
+			window.alert('El campo telefono solo acepta valores Numericos');
+			h.txtnumdoc.value="";
+			h.txtnumdoc.focus();
+			return false;
+		}
+		
+		tecla =   e.keyCode;  e.which;
+	if(tecla == 13)//Codigo Ascii de la tecla ENTER evento si se presiona enter
+      {
+	       
+	       var tipo,cedula,codurg;
+	        var gen=h.cbafiliacion.selectedIndex;
+			tipo=h.cbafiliacion.options[gen].text;
+			codurg=h.txturgencia.value;
+			
+	        cedula=h.txtnumdoc.value;
+	        if(cedula==""||tipo==""){
+		        alert("Digite cedula...!");
+	        }else{
+	        	<%
+	        	//HttpSession session = request.getSession(true);
+	        	session.setAttribute("codusuario", codigou);%>
+		        
+	        	window.location.href="ControlSeleccion?tipo="+tipo+"&ced="+cedula+"&id="+codurg+"",true;
+				//h.submit();
+	        }
+			
+			
+		
+		}
+	}
+
+//mensaje
+function goAway(h) { 
+	var codcama=h.textfield13.value;
+	if(codcama==""){ 
+		Abrir_ventana('Preingreso.jsp','Ayuda','width=500,height=300');
+		}else{
+if (confirm('Cama previamente Reservada para este Paciente... desea Cambiarla?')) 
+//return true; 
+	//window.location.href="Abrir_ventana('Preingreso.jsp','Ayuda','width=500,height=300')",true;
+	Abrir_ventana('Preingreso.jsp','Ayuda','width=500,height=300');
+else { 
+ 
+return false;}}}
+
+
+function validarsema(h,tecla, e)
+{ 
+    
+	opc = false;
+	var s=h.txtsemana.value;
+	var n=0;
+	var pos=0;
+	for(i=0;i<s.length;i++){
+	   valor = parseInt(s.charAt(i));
+		if(isNaN(valor)){
+			n++;
+		}
+	}
+	if(n>0)
+	{
+		window.alert('El campo  solo acepta valores Numericos');
+		h.txtsemana.value="";
+		h.txtsemana.focus();
+		return false;
+	}
+	
+
+}
+	
+	
+	
+</script>
+
+<%String x=(String)session.getAttribute("cama"); 
+%>
+<script language=javascript src="Validaciones.js"></script>
+
+</head>
+<body onload="fecha_ingreso(),hora()" >
+<form id="form1"  name="form1"  onkeypress = "return pulsar(event);">
+
+<%
+String nomusu=request.getParameter("nomUsu");
+String codigocama=request.getParameter("codcama");
+String boton="";
+if(codigocama==null||codigocama.equals("")){
+	codigocama="";
+	boton="1";
+	
+}else{
+	boton="0";
+}
+System.out.println("codigo de la cama en el ingreso "+codigocama);
+//String y=request.getParameter("y");
+String codna=request.getParameter("cod");
+String z=request.getParameter("z");
+ if(z==null){
+	 z="";
+ } 
+ String s=request.getParameter("s");
+
+ 
+ 
+ if(codna==null){
+	 codna="";
+ } 
+
+String eps=request.getParameter("eps");
+String cedula=request.getParameter("cedula");
+String id=request.getParameter("id");
+String tip=request.getParameter("tipo");
+String nom=request.getParameter("nom");
+
+if(nom==null){
+	nom="";
+}
+
+
+int i;
+ 
+ for(i=0;i<nom.length();i++){
+	 nom=nom.replace('9','ñ');
+	 nom=nom.replace('8','Ñ');
+   //alert(direccion);
+ }
+
+
+if(eps==null){
+	
+	eps="";
+}
+if(id==null){
+	
+	id="0";
+}
+//System.out.println("urgencia en jsp"+id);
+
+if(tip==null){
+	tip="";
+}
+if(cedula==null){
+	cedula="";
+}
+
+%>
+<%
+if(s==null){
+	 s="0";
+}else{%>
+	 <script>alert("Falta Admitir a la Madre...");</script>
+<%}%>
+
+<%
+String men=request.getParameter("men");
+if(men==null){
+	men="";
+}else{%>
+	<script>alert("El Paciente Ya Tiene Una Admision...");</script>
+<%} %>
+	 
+<table width="793" border="0" align="center">
+  <tr>
+    <td colspan="6" bgcolor="#0099FF"><div align="center">
+      <p><strong>SOLICITUD DE INGRESO</strong></p>
+    </div></td>
+ </tr>
+
+  <tr>
+    <td width="141">Tipo de Documento</td>
+    <td width="104">
+      <label>
+        <select name="cbafiliacion" size="1" id="cbafiliacion">
+ 
+		<%if(z.equals("1")){%>
+		<option selected="selected"><%=tip%></option>
+		 <%if(tip.equals("CC")){ %>
+        <option>TI</option>
+        <option>RC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+       <%if(tip.equals("TI")){ %>
+        <option>CC</option>
+        <option>RC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+         <%if(tip.equals("RC")){ %>
+        <option>TI</option>
+        <option>CC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+        <%if(tip.equals("Nacido Vivo")){ %>
+        <option>TI</option>
+        <option>RC</option>
+        <option>CC</option>
+         <%} %>
+       
+          <% }%>
+           <%if(tip.equals("")){ %>
+        <option selected>CC</option>
+        <option>TI</option>
+        <option>RC</option>
+      <option>Nacido Vivo</option>
+         <%} %>
+        </select>
+      </label>    </td>
+    <td width="154">Numero de Documento</td>
+    <td width="155"><label>
+      <input type="text" name="txtnumdoc" id="txtnumdoc" onkeyup="validarcom(form1,this,event);" value="<%=cedula %>" />
+    </label></td>
+<input  name="txturgencia" id="txturgencia" value=<%=id%> style="visibility:hidden" />
+    <td width="49">Entidad</td>
+    <td width="164"><label>
+      <input type="text" name="txtentidad"  id="txtentidad"  value="<%=eps %>" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtentidad);" maxlength="30"  />
+    </label></td>
+  </tr>
+</table>
+<%if(z.equals("1")){ %>
+<table width="794" border="0" align="center">
+  <tr>
+    <td height="21" colspan="4" bgcolor="#FFFFFF"> 
+    <div align="center">
+      <label></label>
+    </div>
+     <label>Nombre Del Paciente: <%=nom%>
+    <input name="txtnombre" type="text" id="txtnombre"  style="visibility:hidden"  value="<%=nom%>"/>
+    <input name="txtcodna" type="text" id="txtcodna" style="visibility:hidden" value="<%=codna%>"/>
+    <input name="txtcodcam" type="hidden" id="txtcodcam" value="<%=codigocama %>" />
+    </label></td>
+  </tr>
+  <tr>
+    <td height="21" colspan="4" bgcolor="#0099FF"><p align="center"><strong>INGRESO</strong></p></td>
+  </tr>
+  <tr>
+    <td width="161">Medio de Autorizacion</td>
+    <td width="203"><label>
+      <input type="text" name="txtmedio" id="txtmedio" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtmedio);" maxlength="20"  />
+      <span class="style1">* </span></label></td>
+    <td width="160">Numero de Autorizacion</td>
+    <td width="233"><label>
+      <input type="text" name="txtnumauto" id="txtnumauto" maxlength="20" onKeyUp="this.value=this.value.toUpperCase();" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Autorizado Por:</td>
+    <td><label>
+      <input type="text" name="txtautorizado" id="txtautorizado" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtautorizado);" maxlength="20" />
+      <span class="style1">*</span></label></td>
+    <td>Fecha de Registro</td>
+    <td><label>
+      <input type="text" name="txtfecha" id="txtfecha"  readonly="" />
+      <span class="style1">*</span></label></td>
+  </tr>
+  <tr>
+    <td>Registrado Por:</td>
+    <td><label>
+      <input type="text" name="txtregistro" id="txtregistro" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtregistro);" maxlength="20" value="<%=nomusu %>" />
+      <span class="style1">*</span></label></td>
+    <td>Hora De Registro</td>
+    <td><label>
+      <input type="text" name="txthora" id="txthora" readonly="" />
+      <span class="style1">*</span></label></td>
+  </tr>
+  <tr>
+    <td>Remitido De</td>
+    <td><label>
+      <input type="text" name="txtremitido" id="txtremitido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtremitido);" maxlength="20" />
+    </label></td>
+    <td>Numero de la Cama</td>
+    <td><input type="text" name="textfield13" value="<%=codigocama %>" id="textfield13" readonly=""/>
+
+             <input type="button" name="button" id="button" value=". . ." onclick="goAway(form1)"/>
+             <span class="style1">*</span></td>
+         
+  </tr>
+</table>
+<table width="793" height="288" border="0" align="center">
+  
+  <tr>
+    <td colspan="4" bgcolor="#0099FF"><div align="center"><strong>DATOS DE AFILIACION</strong></div></td>
+    </tr>
+  <tr>
+    <td width="159" height="51">Estado de la Afiliacion</td>
+    <td width="208"><label>
+      <select name="cbestadoa" id="cbestadoa">
+	  <option selected="selected">SELECCIONE...</option>
+	  <option>ACTIVO</option>
+      <option>INACTIVO</option> 
+      </select>
+      <span class="style1">*</span></label></td>
+    <td width="410"><div id="layer">
+      <table width="412" border="0">
+        <tr>
+          <td colspan="4" bgcolor="#0099FF"><div align="center"><strong><em>Documentos Anexos</em></strong></div></td>
+        </tr>
+        <tr>
+          <td width="21"><input type="checkbox" name="checkbox" id="checkbox" /></td>
+          <td width="200">Fotocopia Documento Identidad</td>
+          <td width="29"><label>
+            <input type="checkbox" name="checkbox2" id="checkbox2" />
+          </label></td>
+          <td width="144">Fotocopia del Carne</td>
+        </tr>
+      </table>
+    </div></td>
+    <td width="1"><label></label></td>
+  </tr>
+  <tr>
+    <td>Semanas Cotizadas</td>
+    <td><label>
+      <input type="text" name="txtsemana" id="txtsemana" onkeyup="validarsema(form1,this,event);"/>
+      <span class="style1">*</span></label></td>
+    <td colspan="2" rowspan="3" align="left"><div id="layer2">
+      <table width="423" border="0">
+        <tr>
+          <td width="417" bgcolor="#0099FF"><div align="center"><em><strong>Observaciones</strong></em></div></td>
+        </tr>
+        <tr>
+          <td><label>
+            <textarea name="txtobservacion" id="txtobservacion" cols="47" rows="4" onKeyUp="this.value=this.value.toUpperCase();" ></textarea>
+          </label></td>
+        </tr>
+      </table>
+    </div></td>
+    </tr>
+  <tr>
+    <td>Contacto </td>
+    <td><label>
+      <input type="text" name="textfield14" id="textfield14" readonly="" />
+      <input type="button" name="buttonn" value=". . ." onclick="Abrir_ventana('Adm_Contacto.jsp?va=1','Ayuda','width=3000,height=800')" />
+      <span class="style1">*</span>    </label></td>
+    </tr>
+  <tr>
+    <td height="46">&nbsp;</td>
+    <td><label></label></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><span class="style1">Campos Requeridos *</span></td>
+    <td>       </td>
+    <td><input type="button" name="btingresar" id="btingresar" value="Ingresar"  onclick="Admisiones(form1);" /></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="33">&nbsp;</td>
+    <td><label></label>
+      <label></label></td>
+    <td><label></label></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<%
+}
+%>
+</form>
+</body>
+</html>

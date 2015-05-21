@@ -1,0 +1,93 @@
+/**
+ * NOMBRE DE LA CLASE: MetodoUrgenciaVital
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este metodo se encuentra lo necesario para insertar,consultar y actualizar
+ * 				las urgencias vitales.
+ */
+
+package logica;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import bean.Urgencia_vital;
+
+public class MetodoUrgenciaVital {
+
+	public MetodoUrgenciaVital(){}	
+	
+	public void insertar(String fecha,String hora,String descripcion,String estado){
+		/**
+		 * en este metodo se toman todos los datos introducidos en el formulario
+		 * para hacer la respectiva insercion en la base de datos.
+		 * se toman como datos de entrada todos los datos introducidos en el formulario.
+		 */
+	Urgencia_vital bu = new Urgencia_vital();
+	bu.setFeha(fecha);	
+	bu.setHora(hora);
+	bu.setDescripcion(descripcion);
+	bu.setEstado(estado);	
+	//////////////CAMBIANDO EL FORMATO DE LA FECHA///////////////	
+	String anio,mes,dia,fechafinal=null;	
+	dia=bu.getFecha().substring(0,2);
+	mes=bu.getFecha().substring(3, 5);
+	anio=bu.getFecha().substring(6, 10);
+	fechafinal=anio+"-"+mes+"-"+dia;
+
+		try{
+			PreparedStatement ps = null;
+		    Conexion con=new Conexion();
+		    ps=con.conn.prepareStatement("insert into adm_urgencia_vital (fecha,hora,descripcion,estado) values (?,?,?,?)");				
+		    ps.setString(1,fechafinal);
+			ps.setString(2, bu.getHora());
+			ps.setString(3, bu.getDescripcion());
+			ps.setString(4, bu.getEstado());
+			ps.executeUpdate();
+			ps.close();
+			con.cerrar();			
+		}
+		catch(Exception ex){			
+		}		
+	}
+	
+	public java.sql.ResultSet CensoUrgenciaVital(){
+		/**
+		 * en este metodo se obtienen los datos del reporte de las urgencias vitales.
+		 */
+		 java.sql.ResultSet rs=null;
+	     Statement st = null;	        
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select descripcion,fecha,hora,urg_codigo from adm_urgencia_vital where estado='ACTIVO'");	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        }
+	        return rs;		
+	}
+	public void ActualizarUrgencia(String codigoUrg){
+		/**
+		 * en este metodo se actualiza la urgencia vital cuando esta ya es atendida
+		 * cambiando su estado de ACTIVO a INACTIVO.
+		 * se toma como dato de entrada el codigo de la urgencia vital.
+		 */
+	
+		       PreparedStatement st = null;
+		        try{
+		        	Conexion con=new Conexion();
+		        	st= con.conn.prepareStatement("Update adm_urgencia_vital set estado='INACTIVO' where urg_codigo ='"+codigoUrg+"'");
+		        	st.executeUpdate();
+		        	
+		        }
+		        catch(Exception ex){
+		        	ex.getMessage();
+		        
+		        }	
+		       
+		    }
+	
+	
+
+	
+}

@@ -1,0 +1,154 @@
+/**
+ * NOMBRE DE LA CLASE: ControlCrearCama
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario
+ * 				para crear una cama. 				
+ */
+package Controlador;
+
+import java.io.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import bean.CrearCama;
+import logica.MetodoCrearCama;
+import logica.MetodoPreingreso;
+import logica.MetodoSubarea;
+import bean.Area;
+import bean.SubArea;
+import java.sql.*;
+import java.util.*;
+
+
+public class ControlCrearCama extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("null")
+	public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+				
+		HttpSession session = req.getSession(true);
+		MetodoCrearCama ba= new MetodoCrearCama();		
+		String va = req.getParameter("va");		
+		ResultSet rs=null;	
+	if(va.equals("1")){
+		/**
+		 * se obtienen los datos del area mediante una consulta 
+		 * MetodoCrearCama/obtenerArea
+		 */
+		rs= ba.obtenerArea();
+		String v[] = new String[1000];
+		try{
+			int c=0;
+			while(rs.next()){
+				PrintWriter out=res.getWriter();
+				v[c]=rs.getString(1);
+				out.println(v[c]+"_");
+				
+				c++;
+			}
+		}
+		 catch(SQLException e1){
+			 e1.getMessage();
+		 }
+	}
+		 
+		 
+		 if (va.equals("5")){	
+			 /**
+				 * se obtienen datos del tipo de cama mediante una consulta 
+				 * MetodoCrearCama/obtenerTipoCama
+				 */
+				rs=ba.obtenerTipoCama();
+				String v[] = new String[1000];
+				try{
+					int c=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						v[c]=rs.getString(1);						
+						out.println(v[c]+"_");						
+					
+					}			
+				}
+				 catch(SQLException e1){
+					 e1.getMessage();
+				 }
+			}
+			
+	if (va.equals("6")){
+		/**
+		 * se obtienen datos del tipo de habitacion mediante una consulta 
+		 * MetodoCrearCama/obtenerTipoHab
+		 */
+				rs=ba.obtenerTipoHab();
+				String v[] = new String[1000];
+				try{
+					int c=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						v[c]=rs.getString(1);						
+							out.println(v[c]+"_");		
+					
+						c++;
+					}			
+				}
+				 catch(SQLException e1){
+					 e1.getMessage();
+				 }			 
+			}
+		 
+	if (va.equals("2")){
+		/**
+		 * se obtienen la posicion de la cama mediante una consulta 
+		 * MetodoCrearCama/obtenerPosicion
+		 */
+		rs=ba.obtenerPosicion();
+		String v[] = new String[1000];
+		try{
+			int c=0;
+			while(rs.next()){
+				PrintWriter out=res.getWriter();
+				v[c]=rs.getString(1);						
+					out.println(v[c]+"_");
+				c++;
+			}		
+		}
+		 catch(SQLException e1){
+			 e1.getMessage();
+		 }			 
+	}
+	
+	
+	}
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		/**
+		 * se recibe la variable del area y se obtienen las subareas mediante
+		 * una consulta MetodoCrearCama/obtenerSubArea.
+		 */
+		HttpSession session = req.getSession(true);
+		MetodoCrearCama ca = new MetodoCrearCama();
+		String area=null;
+		area = req.getParameter("x");
+		String validar="2";				
+		if(!validar.equals(null)){ 		
+		 ResultSet rs=null;
+		 rs= ca.obtenerSubArea(area);		
+		 String s[] = new String[1000];
+			try{
+				int k=0;
+				while(rs.next()){
+					PrintWriter out=res.getWriter();
+					s[k]=rs.getString(2);
+					out.println(s[k]+"_");
+					k++;								
+				}			
+			}			
+			 catch(SQLException e1){
+				 e1.getMessage();
+				 }
+		 }
+	}
+}

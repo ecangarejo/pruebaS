@@ -1,0 +1,128 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script language=javascript src="1.js"></script>
+<script language=javascript src="Validaciones.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+-->
+</style>
+</head>
+<body onLoad="focus(form1.txtnombre);">
+
+<%String va=request.getParameter("va");
+if(va==null){va="";}
+%>
+	<script>function vac(h){	
+		var nombre,apellido,cedula,telefono,direccion,parentesco;
+        var gen=h.cbparentesco.selectedIndex;
+		parentesco=h.cbparentesco.options[gen].text;
+		nombre=h.txtnombre.value;
+		//alert(nombre);
+		apellido=h.txtapellido.value;
+        cedula=h.txtcedula.value;
+        telefono=h.txtelefono.value;
+        direccion=h.txtdireccion.value;
+        var i;
+      // alert("este es el telefono"+telefono);
+      
+        for(i=0;i<direccion.length;i++){
+          direccion=direccion.replace('#','Nº');
+          
+        }
+     
+        if((telefono=="")||(nombre=="")||(cedula=="")||(parentesco=="SELECCIONE...")){
+            alert("Falta Campos Requeridos");
+        	//window.location.href="ControlAcompanante?nom="+nombre+"&ape="+apellido+"&ced="+cedula+"&tele="+telefono+"&dire="+direccion+"&pare="+parentesco+"",true;
+        }else{
+        	window.location.href="ControlAcompanante?nom="+nombre+"&ape="+apellido+"&ced="+cedula+"&tele="+telefono+"&dire="+direccion+"&pare="+parentesco+"",true;
+        	
+    		contacto(h);
+    		window.close();
+    		
+        }
+        
+		} </script>
+<%
+if(va.equals("1")){%>
+	<script> </script>
+<%}
+%>
+<form id="form1" name="form1" onkeypress = "return pulsar(event)" >
+  <table width="545" border="0">
+    <tr>
+      <td colspan="4" bgcolor="#0099FF"><div align="center"><strong>DATOS DEL ACOMPAÑANATE</strong></div></td>
+    </tr>
+    <tr>
+      <td width="65">&nbsp;</td>
+      <td width="177">&nbsp;</td>
+      <td width="107">&nbsp;</td>
+      <td width="178">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Nombres</td>
+      <td><label>
+        <input type="text" name="txtnombre" id="txtnombre" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtnombre);" maxlength="20"  />
+        <span class="Estilo1 style1">*</span></label></td>
+      <td>Apellidos</td>
+      <td><label>
+        <input type="text" name="txtapellido" id="txtapellido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtapellido);" maxlength="20"/>
+      </label></td>
+    </tr>
+    <tr>
+      <td>Cedula</td>
+      <td><label>
+        <input type="text" name="txtcedula" id="txtcedula"  onkeyup="validarte(form1.txtcedula);" maxlength="12" />
+        <span class="Estilo1 style1">*</span></label></td>
+      <td>Telefono</td>
+      <td><label>
+        <input type="text" name="txtelefono" id="txtelefono"  onkeyup="validarte(form1.txtelefono);" maxlength="12" />
+        <span class="Estilo1 style1">*</span></label></td>
+    </tr>
+    <tr>
+      <td>Direccion</td>
+      <td><label>
+        <input type="text" name="txtdireccion" id="txtdireccion" onKeyUp="this.value=this.value.toUpperCase();" maxlength="30"/>
+      </label></td>
+      <td>Parentesco</td>
+      <td><label>
+        <select name="cbparentesco" size="1" id="cbparentesco" >
+		<option selected="selected">SELECCIONE...</option>
+		
+          <option>PADRES</option>
+          <option>ESPOSO(a)</option>
+          <option>ABUELO(a)</option>
+          <option>HIJO</option>
+          <option>HERMANO(a)</option>
+          <option>TIO(a)</option>
+          <option>SOBRINO(a)</option>
+          <option>PRIMO(a)</option>
+          <option>AMIGO(a)</option>
+          <option>CONOCIDO</option>
+        </select>
+        <span class="Estilo1 style1">*</span></label></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center"><input type="button" name="button" id="button" value="      Guardar      "  onClick="vac(form1)" /></td>
+    </tr>
+    <tr>
+      <td><label></label></td>
+      <td><span class="Estilo1 style1">Datos Requeridos *</span></td>
+      <td>&nbsp;</td>
+      <td><label></label></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

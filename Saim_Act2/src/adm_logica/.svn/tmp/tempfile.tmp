@@ -1,0 +1,170 @@
+package logica;
+import java.sql.*;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.mysql.jdbc.ResultSet;
+
+import bean.Remision;
+
+public class MetodoRemision {
+	
+
+	public MetodoRemision(){
+    	
+    }
+<<<<<<< .mine
+    public void insertar(String ced,String ep, String nom, String pape,String td, String sape, String f, String hora, String numeroaut,String autori, String codcam){
+=======
+	
+	public java.sql.ResultSet obtenerCodigo(String cod){
+        java.sql.ResultSet rs=null;
+        PreparedStatement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st= con.conn.prepareStatement("select cen_numero_cama  from adm_censo_cama where codigocama =?");
+        	st.setString(1, cod);
+        	rs=st.executeQuery();
+        }
+        catch(Exception ex){
+        	ex.getMessage();
+        
+        }//("select nombre_entidad from adm_entidad");	
+        return rs;
+    }
+	
+	
+	public void Actualizar(String codcam){
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_censo_cama set est_codigo_estado_fk=2 where codigocama ='"+codcam+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	}
+	
+	
+	
+	    public void insertar(String ced,String ep, String nom, String pape,String td, String sape, String f, String hora, String numeroaut,String autori,String codcam){
+>>>>>>> .r177
+    	
+    	//System.out.println("Este es el codigo de la cama en el metodo remision"+codcam);
+    	
+    	Remision re = new Remision();
+		re.setCedula(ced);
+		re.setDireccion(hora);
+		re.setFecha(f);
+		re.setNombre(nom);
+		re.setPapellido(pape);
+		re.setSapellido(sape);
+		re.setTipodocumento(td);
+		re.setEps(ep);
+		re.setNautorizacion(numeroaut);
+		re.setAutorizacion(autori);
+		re.setCama(codcam);
+		
+
+	/*	String codigocama =pre.getNumeroCama();
+		ResultSet rs2 = obtenerCodigo(codigocama);
+	
+		String codcam=null;
+		if (rs2.next()){
+			 codcam = rs2.getString(1);
+				
+		 }else{
+			 codcam="";
+		 }*/
+		
+		try{
+<<<<<<< .mine
+			
+=======
+			
+			  String codigocama=re.getCama();	
+			//String codigocama =pre.getNumeroCama();
+			//ResultSet rs2 = obtenerCodigo(codcam);
+			  ResultSet rs = (ResultSet) obtenerCodigo(codcam);
+		
+			String codicam=null;
+			if (rs.next()){
+				 codicam = rs.getString(1);
+					
+			 }else{
+				 codicam="";
+			 }
+			
+			//System.out.println("codigo a guardar de la cama "+codicam);
+			
+>>>>>>> .r177
+			String fechapre,ini,med,fin=null;
+			ini=re.getFecha().substring(0,2);
+			med=re.getFecha().substring(3,5);
+			fin=re.getFecha().substring(6,10);
+			fechapre=fin+"/"+med+"/"+ini;
+			//System.out.println("dia:"+fechapre);
+			
+			PreparedStatement ps = null;
+		    Conexion con=new Conexion();
+		    ps=con.conn.prepareStatement("insert into adm_preadmision(cedula,eps,nombre,apellido,tipo_documento,segundo_apellido,fecha_ingreso,hora_ingreso,numero_autorizacion,autorizado_por,codigocama) values(?,?,?,?,?,?,?,?,?,?,?)");
+		    ps.setString(1,re.getCedula());
+			ps.setString(2,re.getEps());
+		    ps.setString(3, re.getNombre());
+			ps.setString(4,re.getPapellido());
+			ps.setString(5,re.getTipodocumento());
+			ps.setString(6,re.getSapellido());
+			ps.setString(7,fechapre);
+			ps.setString(8,re.getHora());
+			ps.setString(9,re.getNautorizacion());
+			ps.setString(10,re.getAutorizacion());
+			ps.setString(11, codicam);
+		    ps.executeUpdate();
+			ps.close();
+			con.cerrar();
+			
+		}catch(SQLException ex){
+			ex.getMessage();
+		}catch(Exception ex){
+			ex.getMessage();
+		}
+		
+		
+	}
+    public java.sql.ResultSet SQLEntidad(){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select nombre_entidad from adm_entidad");
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+    
+    public java.sql.ResultSet SQLEPS(String numero,String Tipo){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select eps,cedula,nombre,apellido,tipo_documento,segundo_apellido,hora_ingreso,numero_autorizacion,autorizado_por from adm_preadmision where cedula="+numero+" and tipo_documento='"+Tipo+"'");
+        }
+        catch(Exception ex){
+        	
+        }
+      
+        return rs;
+        
+    }
+}

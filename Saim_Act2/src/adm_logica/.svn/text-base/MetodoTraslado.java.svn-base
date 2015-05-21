@@ -1,0 +1,229 @@
+/**
+ * NOMBRE DE LA CLASE: MetodoTraslado
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este metodo se encuentra lo necesario para consultar y actualizar
+ * 				para hacer traslados entre dependencias de la clinica.
+ */
+
+package logica;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+public class MetodoTraslado {
+	
+	public MetodoTraslado(){}
+
+	public java.sql.ResultSet obtenerArea(){
+		/**
+		 * en este metodo se obtiene el nombre del area de la clinca
+		 * si es urgencia,hospitalizacion,uci's o cualquier otra.
+		 * */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select nombre  from adm_area");
+        }
+        catch(Exception ex){ 
+        }
+        return rs;
+    }	
+	
+	public java.sql.ResultSet obtenerCodCama(String camaCod){
+		/**
+		 * en este metodo se obtiene el codigo de la cama seleccionada.
+		 * se toma como dato de entrada el nombre de la cama.
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select cen_numero_cama from adm_censo_cama where codigocama='"+camaCod+"'");
+        	
+        }
+        
+        
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	public java.sql.ResultSet obtenerSubArea(String a){
+		/**
+		 * en este metodo se obtiene el nombre de la subarea
+		 * del area previamente seleccionada.
+		 * se toma como dato de entrada el nombre del area.  
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select adm_subarea.nombre  from adm_subarea,adm_area where adm_area.codigo=adm_subarea.codigoarea and adm_area.nombre='"+a+"'");
+        	
+        }
+        
+        
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	public java.sql.ResultSet obtenerCama(String cam){
+		/**
+		 * en este metodo se toman todas las camas que esten ocupadas estado(3)para
+		 * su posterior traslado.
+		 * se toma como dato de entrada el subarea o ubicacion de la cama.
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select DISTINCT adm_censo_cama.codigocama from adm_censo_cama,adm_subarea where adm_censo_cama.est_codigo_estado_fk='3'and adm_censo_cama.ubicacion_cama='"+ cam +"'");
+        	
+        }
+        
+        
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	
+	public void ActualizarAdmision(String codigoVieja,String codigoNueva,String codigoAd){
+		/**
+		 *en este metodo se actualiza la admision en cuanto a cualquier traslado
+		 *de cama que se haga a esta, se actualiza el campo de codigo de la cama
+		 *poniendo en cambio el codigo de la cama nueva a utilizar en esta admision.
+		 *se toman como datos de entrada el codigo de la cama anterior
+		 *el codigo de la cama a ocupar y el codigo de la admision.
+		 */
+	
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_admisiones set cen_numero_cama_fk='"+codigoNueva+"'  where  adm_numero_ingreso='"+codigoAd+"' and cen_numero_cama_fk='"+codigoVieja+"' and estado=0");
+	        	st.executeUpdate();	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+	
+	
+	public void ActualizarOcupada(String cama){
+		/**
+		 * en este metodo se actualiza la cama que estaba libre
+		 * cambiando su estado de disponible (1) a ocupada (3).
+		 * se toma como dato de entrada el nombre de la cama.
+		 */
+	
+		
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_censo_cama set est_codigo_estado_fk=3 where codigocama ='"+cama+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }	
+	
+	
+	public void ActualizarLibre(String camaAc){
+		/**
+  		* en este metodo se actualiza la cama que estaba ocupada
+ 		* cambiando su estado de ocupada (3) a disponible (1).
+ 		* se toma como dato de entrada el nombre de la cama. 
+ 		*/
+		PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_censo_cama set est_codigo_estado_fk=1 where codigocama ='"+camaAc+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+	
+	
+	public java.sql.ResultSet obtenerCamaActualizar(String cam){
+		/**
+		 * en este metodo se toman todas las camas que esten disponibles estado(1)para
+		 * su posterior traslado.
+		 * se toma como dato de entrada el subarea o ubicacion de la cama.
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select DISTINCT adm_censo_cama.codigocama from adm_censo_cama,adm_subarea where adm_censo_cama.est_codigo_estado_fk='1'and adm_censo_cama.ubicacion_cama='"+ cam +"'");
+        	
+        }
+        
+        
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	public java.sql.ResultSet obtenerPaciente(String cama){
+		/**
+		 * en este metodo se obtiene el numero de documento,nombre, primer apellido y 
+		 * codigo de la cama que ocupa el paciente.
+		 * se toma como dato de entrada el nombre de la cama.  
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	
+        	rs=st.executeQuery("select DISTINCT  numero_documento,nombre,primer_apellido,cen_numero_cama from adm_admisiones ad,adm_paciente pa,adm_censo_cama cc,adm_censo_estado ce where pa.pac_codigo_paciente=ad.pac_codigo_paciente_fk and ad.cen_numero_cama_fk=cc.cen_numero_cama and cc.codigocama='"+cama+"'and ad.estado=0");
+        }
+        
+        
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+
+	public java.sql.ResultSet obtenerCodigoAdmision(String codigoAd,String CamaNueva){
+		/**
+		 * en este metodo se obtiene el codigo de la admision y el codigo de la cama
+		 * a trasladar.
+		 * se toma como dato de entrada la cedula del paciente y el nombre de la cama
+		 */
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();        	
+        	rs=st.executeQuery("select DISTINCT adm_numero_ingreso,cen_numero_cama from adm_admisiones ad,adm_paciente pa,adm_censo_cama cc where ad.pac_codigo_paciente_fk=pa.pac_codigo_paciente and pa.numero_documento='"+codigoAd+"'and cc.codigocama='"+CamaNueva+"' and ad.estado=0");
+        }        
+        catch(Exception ex){        	
+        }
+        return rs;
+    }
+	
+	
+}

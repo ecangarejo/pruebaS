@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ReporteAreasCEUnidos"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="542"
+		 pageHeight="842"
+		 columnWidth="542"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="2" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="CodFormato" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="HoraFormato" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaFormato" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="CodPac" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="usuario" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="CodigoArea" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT DISTINCT 
+  har.nombre_area,
+  GROUP_CONCAT(hpr.nombre_pregunta,' ',ares.resultado,'-') AS Resultado
+FROM
+  hic_formato hfr,
+  hic_area har,
+  hic_pregunta hpr,
+  agm_resultadoce ares,
+  empresa emp,
+  adm_paciente apac,
+  seg_usuario sgu,
+  seg_datos_personales sdt,
+  adm_convenio acv,
+  adm_entidad aen 
+WHERE ares.codFormato_fk = $P{CodFormato} 
+  AND hpr.codigo = ares.codPreg_fk 
+  AND har.codigo = ares.codArea_Fk 
+  AND hfr.codigo = ares.CodFormato_fk 
+  AND ares.fecha = $P{FechaFormato} 
+  AND ares.hora = $P{HoraFormato} 
+  AND apac.pac_codigo_paciente = ares.codPac_fk 
+  AND ares.codPac_fk = $P{CodPac} 
+  AND ares.codUsu_Fk = $P{usuario} 
+  AND ares.codUsu_Fk = sgu.usu_codigo 
+  AND sdt.dat_codigo = sgu.dat_codigo_fk 
+  AND har.codigo = $P{CodigoArea} 
+  AND aen.ent_nit = acv.ent_nit_contratante_fk 
+  AND acv.conv_numero_contrato = apac.conv_numero_contrato_fk ]]></queryString>
+
+	<field name="nombre_area" class="java.lang.String"/>
+	<field name="Resultado" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="532"
+						height="17"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombre_area}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="17"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="532"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Resultado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

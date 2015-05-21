@@ -1,0 +1,98 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage=""%>
+<%@ page import="bean.Preingreso,java.util.*" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Pacientes en Espera</title>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+function hora(){
+	
+	  var time = new Date()
+	  var hour = time.getHours()
+	  var minute = time.getMinutes()
+	  var second = time.getSeconds()
+	  var temp = "" + ((hour < 10) ? "0" : "") + hour
+	  temp += ((minute < 10) ? ":0" : ":") + minute
+	  temp += ((second < 10) ? ":0" : ":") + second
+	
+	  form1.txthora.value = temp
+	  id = setTimeout("hora()",1000)
+	  }
+
+function Refresco() 
+{
+	 setTimeout("document.location.href='ControlCola';",20000);		
+}
+ 
+</script>
+
+
+
+</head>
+
+
+<body onLoad="hora(),Refresco();">
+
+<form id="form1" name="form1">
+
+
+
+  <table width="102%" border="0">
+    <tr bordercolor="#003399">
+      <td bgcolor>  <div align="center" style="background-color:#00CCFF">LISTA DE PACIENTES EN ESPERA </div></td>
+    </tr>
+  </table>
+ 
+  <table width="247" border="0" align="center">
+    <tr>
+      <td width="10%">Hora Actual. </td>
+      <td width="10%"><input name="txthora" type="text"  id="txthora"  /></td>
+    </tr>
+  </table>
+  <p>
+ 
+<%
+
+
+LinkedList ls = (LinkedList)request.getSession().getAttribute("lista");
+Preingreso p = new Preingreso();
+%>
+<TABLE Border="1" >
+  <tr>
+<td width="168" size="2">TIPO DE DOCUMENTO</td>
+<td width="150" size="2">NUMERO DE DOCUMENTO</td>
+<td width="90"  size="2">EPS</td>
+<td width="152" size="2">FECHA ENTRADA</td>
+<td width="151" size="2">HORA ENTRADA </td>
+</tr>
+
+<%
+for(int i=0; i< ls.size();i++){
+	p = (Preingreso)ls.get(i);
+%>
+	 <tr>       
+<TD size="1"><%=p.getTipodocumento()%></TD>
+<TD size="1"><%=p.getCedula()%></TD>
+<TD size="1"><%=p.getEps()%></TD>
+<TD size="1"><%=p.getFecha()%></TD>
+<TD size="1"><%=p.getHora()%></TD>
+  
+<% }%>
+
+</tr></table>
+    
+		
+	 <p>
+	   <label>
+       
+       </label>
+  </p>
+	 <p>&nbsp;     </p>
+
+</form>
+</body>
+</html>

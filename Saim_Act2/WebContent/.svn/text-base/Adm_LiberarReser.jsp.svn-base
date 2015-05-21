@@ -1,0 +1,301 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Liberar Cama Reservada</title>
+<script type="text/javascript">
+function getXMLObject()  //XML OBJECT
+{
+   var xmlHttp = false;
+   try {
+     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")  // For Old Microsoft Browsers
+   }
+   catch (e) {
+     try {
+       xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")  // For Microsoft IE 6.0+
+     }
+     catch (e2) {
+       xmlHttp = false   // No Browser accepts the XMLHTTP Object then false
+     }
+   }
+   if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+     xmlHttp = new XMLHttpRequest();        //For Mozilla, Opera Browsers
+   }
+   return xmlHttp;  // Mandatory Statement returning the ajax object created
+}
+var xmlhttp = new getXMLObject(); //xmlhttp holds the ajax object
+
+
+
+function ajaxLlenarArea() {
+	
+	  if(xmlhttp) { 	 
+	    xmlhttp.open("POST","ControlLiberarReser?va=1",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = ComprobarArea;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+	   }
+	
+	}	
+////////////////////////////////////////////////////////////////////////////////////////////////
+function ComprobarArea() {
+	
+	   if (xmlhttp.readyState == 4) {
+		if(xmlhttp.status == 200) {
+	     	var a=xmlhttp.responseText;
+	     	var y=a.split("_").length;
+	     	var z=a.split("_");		     	
+	     	form1.cmbarea.length=y;
+	        var h,ss;
+	     	for(x=0; x<y-1; x=x+1)
+	     	{ 
+		     form1.cmbarea.options[x+1].text=z[x];
+		    }		    		
+	    	            	
+	     }
+	     else {
+	        alert("Error during AJAX call. Please try again, AREA");
+	     }		
+	   }   
+	}
+
+
+function ajaxLlenarSubarea(h) {
+	  if(xmlhttp) { 
+		  var x=h.cmbarea.selectedIndex;
+		  x=h.cmbarea.options[x].text;		
+		xmlhttp.open("POST","ControlLiberarReser?x="+x+"&va=2",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = ComprobarSubarea;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+		  }
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////
+function ComprobarSubarea() {
+	
+	   if (xmlhttp.readyState == 4) {
+		   if(xmlhttp.status == 200) {
+		   	var a=xmlhttp.responseText;
+	     	var y=a.split("_").length;
+	     	var z=a.split("_");
+	       	form1.cmbsubarea.length=y;
+	     
+	        var h,ss;
+	     	for(x=0; x<y-1; x=x+1)
+	     	{ 
+		     form1.cmbsubarea.options[x+1].text=z[x];
+		    }
+	     	form1.cmbsubarea.selectedIndex=0;	    		
+	    }
+	     else {
+	        alert("Error during AJAX call. Please try again, SUBAREA");
+	     }
+	   }
+	}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+function ajaxLlenarCama(h) {
+	  if(xmlhttp) { 
+		  
+		var y=h.cmbsubarea.selectedIndex;
+		y=h.cmbsubarea.options[y].text;
+	    xmlhttp.open("POST","ControlLiberarReser?va=3&y="+y,true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = ComprobarCama;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+		  }
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+function ComprobarCama() {
+	
+	   if (xmlhttp.readyState == 4) {
+		if(xmlhttp.status == 200) {	     	
+	     	var a=xmlhttp.responseText;
+	     	var y=a.split("_").length;
+	     	var z=a.split("_");	     	
+	     	form1.cmbcama.length=y;
+	        var h,ss;
+	     	for(x=0; x<y-1; x=x+1)
+	     	{ 
+		     form1.cmbcama.options[x+1].text=z[x];
+		   
+		    }
+	     	 form1.cmbcama.selectedIndex=0;
+	     	
+	     }
+	     else {
+	        alert("Error during AJAX call. Please try again,CAMA");
+	     }
+	   }
+	   
+	}
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+function VerificarCama(h){	
+		if(xmlhttp) { 
+			var s=h.cmbcama.selectedIndex;
+			var cama=h.cmbcama.options[s].text;
+			
+		    xmlhttp.open("POST","ControlLiberarReser?va=4&cama="+cama,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarCodcama;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		 
+	}//fin de verificar index
+
+	function ComprobarCodcama() {
+		   if (xmlhttp.readyState == 4) {
+			   if(xmlhttp.status == 200) {
+			   	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+
+		     	
+		     	
+		     	 form1.txtcodpre.value=z[0];
+			     form1.txtcodreser.value=z[1];
+			     form1.txtnombre.value=z[2];
+			     form1.txtprapellido.value=z[3];
+			     form1.txtfecha.value=z[4];			     
+			     form1.txtcedula.value=z[5];
+			     form1.txteps.value=z[6];
+			     form1.txttipodoc.value=z[7];
+			     form1.txtseapellido.value=z[8];
+			     form1.txtnumauto.value=z[9];
+			     form1.txtautopor.value=z[10];
+		     	
+			     
+			   }  else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		   
+		}
+
+	function ActualizarCamaReser(h){
+	
+		var codigoCama=h.txtcodreser.value;
+		var codPre=h.txtcodpre.value;
+	
+		
+		if(codigoCama==""){
+		alert("No Se Ha Escogido Ninguna Cama")
+		}else{		
+
+		window.location.href="ControlLiberarReser?codigoCama="+codigoCama+"&codPre="+codPre;
+		alert("Actualizacion Exitosa!!!")
+		}	
+	}//fin de trasladar paciente	
+
+
+</script>
+</head>
+
+<body onload="ajaxLlenarArea()">
+<form id="form1" name="form1" method="post"  >
+
+<table width="637" border="0" align="center">
+  <tr>
+    <td colspan="3" align="center">LIBERAR CAMA </td>
+    </tr>
+  <tr>
+    <td width="209" align="center">AREA</td>
+    <td width="212" align="center">SUBAREA</td>
+    <td width="194" align="center">CAMA</td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <select name="cmbarea" id="cmbarea"  onchange="ajaxLlenarSubarea(form1)">
+        <option selected="selected">SELECCIONE...</option>
+	  </select>
+    </label></td>
+    <td align="center"><label>
+      <select name="cmbsubarea" id="cmbsubarea" onchange="ajaxLlenarCama(form1)">
+        <option selected="selected">SELECCIONE...</option>
+      </select>
+    </label></td>
+    <td align="center"><label>
+      <select name="cmbcama" id="cmbcama" onchange="VerificarCama(form1)">
+        <option selected="selected">SELECCIONE...</option>
+      </select>
+    </label></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">&nbsp;</td>
+    </tr>
+
+  <tr>
+    <td align="center">TIPO DOCUMENTO </td>
+    <td align="center">NUMERO DOCUMENTO </td>
+    <td align="center">EPS</td>
+  </tr>
+  <tr>
+    <td align="center"><input name="txttipodoc" type="text" id="txttipodoc" readonly="" /></td>
+    <td align="center"><label>
+      <input name="txtcedula" type="text" id="txtcedula" readonly="" />
+    </label></td>
+    <td align="center"><label>
+      <input name="txteps" type="text" id="txteps" readonly="" />
+    </label></td>
+  </tr>
+  <tr>
+    <td align="center"><label>NOMBRE</label></td>
+    <td align="center">PRIMER APELLIDO </td>
+    <td align="center">SEGUNDO APELLIDO </td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <input name="txtnombre" type="text" id="txtnombre" readonly="" />
+    </label></td>
+    <td align="center"><label>
+      <input name="txtprapellido" type="text" id="txtprapellido" readonly="" />
+    </label></td>
+    <td align="center"><label>
+      <input name="txtseapellido" type="text" id="txtseapellido" readonly="" />
+    </label></td>
+  </tr>
+  <tr>
+    <td align="center">FECHA</td>
+    <td align="center">NUMERO AUTORIZACION </td>
+    <td align="center">AUTORIZADO POR </td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <input name="txtfecha" type="text" id="txtfecha" readonly="" />
+    </label></td>
+    <td align="center"><label>
+      <input name="txtnumauto" type="text" id="txtnumauto"  readonly="" />
+    </label></td>
+    <td align="center"><label>
+      <input name="txtautopor" type="text" id="txtautopor" readonly="" />
+    </label></td>
+  </tr>
+  <tr>
+    <td><label>
+      <input name="txtcodpre" type="text" id="txtcodpre" style="visibility:hidden" />
+      </label></td>
+    <td><label></label></td>
+    <td><input name="txtcodreser" type="text" id="txtcodreser" style="visibility:hidden" /></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="center"><label>
+      <input name="btnliberar" type="button" id="btnliberar" value="     Liberar     " onclick="ActualizarCamaReser(form1)" />
+    </label></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    </tr>
+
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="img_auditoriaestudios"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="792"
+		 pageHeight="612"
+		 columnWidth="732"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="2" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ruta" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\Archivos de programa\\Apache Software Foundation\\Tomcat 6.0\\webapps\\Saim\\reportes"
+]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaIni" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2011-10-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2011-10-31"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="accion" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["Om"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT "1",CONCAT(apac.tipo_documento,'-',apac.numero_documento) AS NumDocumento,CONCAT(apac.nombre,' ',apac.primer_apellido,' ',apac.segundo_apellido)AS NomPaciente,
+aent.nombre_entidad,isb.nombre as nombre_examen,CONCAT(ice.fecha_cita,'/',ice.hora_cita) AS FechaAsignacion,CONCAT(isi.fecha,'/',isi.hora) AS FechaRealizado,
+su.usu_codigo,emp.*
+FROM
+  adm_paciente apac,
+  img_citas_espera ice,
+  img_seguimiento_imagen isi,adm_entidad aent,adm_convenio acv,
+  img_subexa isb,seg_usuario su,seg_datos_personales sdt,empresa emp
+WHERE apac.pac_codigo_paciente = ice.codigoPac_fk 
+  AND apac.conv_numero_contrato_fk=acv.conv_numero_contrato 
+  AND acv.ent_nit_contratante_fk=aent.ent_nit
+  AND ice.codigoExa_fk = isb.codigo 
+  AND ice.codigo=isi.cod_ice_fk 
+  AND su.usu_codigo=isi.cod_usu_fk
+  AND su.dat_codigo_fk=sdt.dat_codigo
+  AND ice.fecha_cita BETWEEN $P{FechaIni} AND $P{FechaFin} 
+  AND ice.realizadopor=$P{accion}
+  GROUP BY su.usu_codigo]]></queryString>
+
+	<field name="1" class="java.lang.Integer"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="codprestador" class="java.lang.String"/>
+	<field name="departamento" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="FechaAsignacion" class="java.lang.Object"/>
+	<field name="FechaRealizado" class="java.lang.Object"/>
+	<field name="incontec" class="java.lang.Object"/>
+	<field name="logo" class="java.io.InputStream"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="nit" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="nombre_entidad" class="java.lang.String"/>
+	<field name="nombre_examen" class="java.lang.String"/>
+	<field name="NomPaciente" class="java.lang.String"/>
+	<field name="NumDocumento" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="usu_codigo" class="java.lang.String"/>
+
+	<variable name="total" class="java.lang.Integer" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{1}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{1}]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="92"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="132"
+						y="3"
+						width="119"
+						height="68"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{logo}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="7"
+						width="366"
+						height="18"
+						key="textField-1"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="34"
+						width="366"
+						height="16"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{direccion}+"TEL "+$F{telefono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="46"
+						width="366"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{municipio}+" "+$F{departamento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="58"
+						width="366"
+						height="16"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NIT."+$F{nit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="22"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="23"
+						y="0"
+						width="698"
+						height="16"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($P{accion}.equals("Rv") ? "ESTUDIOS REALIZADOS ENTRE EL "+$P{FechaIni}+" Y "+$P{FechaFin}+" RELACIONADOS DE LA SIGUIENTE MANERA." :
+($P{accion}.equals("Om") ? "ESTUDIOS OMITIDOS ENTRE EL "+$P{FechaIni}+" Y "+$P{FechaFin}+" RELACIONADOS DE LA SIGUIENTE MANERA." :
+($P{accion}.length() > 0 ? $P{accion}:
+ ""
+ )
+ )
+ )]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="731"
+						height="17"
+						key="subreport-1"/>
+					<subreportParameter  name="FechaIni">
+						<subreportParameterExpression><![CDATA[$P{FechaIni}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FechaFin">
+						<subreportParameterExpression><![CDATA[$P{FechaFin}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="accion">
+						<subreportParameterExpression><![CDATA[$P{accion}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CodUsu">
+						<subreportParameterExpression><![CDATA[$F{usu_codigo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ruta}+"\\img_subreporteauditoriaestudios.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="17"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="633"
+						y="0"
+						width="99"
+						height="17"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL: "+$V{total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

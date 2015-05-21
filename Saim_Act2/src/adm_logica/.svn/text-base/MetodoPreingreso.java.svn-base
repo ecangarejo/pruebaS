@@ -1,0 +1,263 @@
+/**
+ * logica:MetodoPreingreso
+ * Desarrollado:yosimar valega
+ */
+
+package logica;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+//import com.mysql.jdbc.ResultSet;
+
+import bean.Preingreso;
+
+
+
+public class MetodoPreingreso {
+    
+	
+	private java.sql.Statement aux;
+	
+	public MetodoPreingreso(){
+    	
+    }
+	
+	/**
+	 * mostrar nombre de entidad existentes en la base de datos
+	 */
+			
+    public String enviarSQLEntidad(){
+    	String sql = "select nombre_entidad from adm_entidad";
+		return sql;	
+	}
+    
+    /**
+     * ingreso de pacientes en la tabla adm_cola
+     */
+     
+	
+    public void insertar(String ced, String nom, String pape, String sape,String ep , String f, String hora, String td,String es){
+    
+    	Preingreso pre = new Preingreso();
+		pre.setCedula(ced);
+		pre.setHora(hora);
+		pre.setFecha(f);
+		pre.setNombre(nom);
+		pre.setPapellido(pape);
+		pre.setSapellido(sape);
+		pre.setTipodocumento(td);
+		pre.setEps(ep);
+		pre.setEstado(es);
+		
+		
+		try{
+			String fechapre,ini,med,fin=null;
+			ini=pre.getFecha().substring(0,2);
+			med=pre.getFecha().substring(3,5);
+			fin=pre.getFecha().substring(6,10);
+			fechapre=fin+"/"+med+"/"+ini;
+			
+			
+			PreparedStatement ps = null;
+		    Conexion con=new Conexion();
+		    
+		    
+		    ps=con.conn.prepareStatement("insert into adm_cola(nombre,primer_apellido,segundo_apellido,numero_documento,eps,fecha_entrada,hora_entrada,tipo_documento,estado) values(?,?,?,?,?,?,?,?,?)");				
+			ps.setString(1, pre.getNombre());
+			ps.setString(2,pre.getPapellido());
+			ps.setString(3,pre.getSapellido());
+			ps.setString(4,pre.getCedula());
+			ps.setString(5,pre.getEps());
+			ps.setString(6,fechapre);
+			ps.setString(7, pre.getHora());
+			ps.setString(8,pre.getTipodocumento());
+			ps.setString(9,pre.getEstado());
+			ps.executeUpdate();
+			ps.close();
+			con.cerrar();
+		}catch(Exception ex){
+			
+		}
+		
+		
+	}
+    
+    /**
+	 * mostrar nombre de entidad existentes en la base de datos
+	 */
+    
+    public java.sql.ResultSet SQLEntidad(){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("SELECT nombre_entidad FROM adm_entidad ");
+        }
+        catch(Exception ex){
+        
+        }	
+        return rs;
+    }
+    /**
+	 * mostrar nombre de area existentes en la base de datos
+	 */
+    
+    public java.sql.ResultSet SQLArea(){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("SELECT nombre FROM adm_area ");
+        }
+        catch(Exception ex){
+        	
+        }	
+        return rs;
+    }
+    /**
+	 * mostrar nombre de subarea existentes en la base de datos
+	 */
+    
+    public java.sql.ResultSet SQLEnt(String x){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select nombre from adm_subarea where codigoarea="+x);
+        }
+        catch(Exception ex){
+        
+        }
+        return rs;
+    }
+    /**
+	 * mostrar codgio de area segun el nombre existentes en la base de datos
+	 */
+    public java.sql.ResultSet SQLEnto(String x){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	String urg="URGENCIAS";
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	
+        	String sql ="select codigo from adm_area where nombre ='"+urg+"'";
+        	
+        	rs=st.executeQuery(sql);
+        	//System.out.println("Hora "+rs.getString(1));
+        	
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+    /**
+	 * mostrar codgio de area segun el nombre existentes en la base de datos
+	 */
+    public ResultSet CargarCodigo(String par){
+    	ResultSet rs = null;
+    	PreparedStatement st=null;
+    	try{
+    		Conexion con = new Conexion();
+    		st = con.conn.prepareStatement("select codigo from adm_area where nombre = ?");
+    		
+    		st.setString(1, par);
+    		rs=st.executeQuery();
+    		
+    	}
+    	catch(SQLException ex){}
+    	catch(Exception e1){}
+    	return rs;
+    }
+
+    /**
+	 * mostrar codgio de subarea segun el nombre existentes en la base de datos
+	 */
+    public ResultSet SQLEntx(String y, String xx){
+        ResultSet rs=null;
+        PreparedStatement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.prepareStatement("select codigo from adm_subarea where nombre = ?");
+        	st.setString(1, y);
+        	rs=st.executeQuery();
+        	
+        	String xsx = "";
+            while(rs.next()){
+				xsx=rs.getString(1);
+			}
+            st = con.conn.prepareStatement("select codigocama from adm_censo_cama where codsubarea = ? and est_codigo_estado_fk=1");	
+            st.setString(1, xsx);
+            rs=st.executeQuery();
+           	}
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+    /**
+	 * obtener datos de los pacientes por atender en el triage
+	 */
+    public java.sql.ResultSet obtenerCola(){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select primer_apellido,segundo_apellido,tipo_documento,numero_documento,nombre,eps,fecha_entrada,hora_entrada from adm_cola where estado=0");
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+    /**
+	 * mostrar codgio de area segun el nombre existentes en la base de datos segun el numero de documento
+	 */
+    
+    public java.sql.ResultSet SQLEPS(String numero,String Tipo){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select eps,numero_documento,fecha_entrada,hora_entrada,tipo_documento,estado,primer_apellido,segundo_apellido,nombre,col_codigo from adm_cola where numero_documento='"+numero+"' and tipo_documento='"+Tipo+"' ");
+        }
+        catch(Exception ex){
+        	
+        }
+      
+        return rs;
+        
+    }
+    /**
+	 * actualizar la cola en estado 1 cual numero es el digitado por el paciente
+	 */
+    public  void actualizarCola(String che){
+ 	   
+        PreparedStatement st;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.prepareStatement("update adm_cola set estado=1 where numero_documento='"+che+"'");
+        	st.executeUpdate();
+        	con.conn.commit();
+        	con.conn.close();
+        	
+        }
+        catch(Exception ex){
+        	
+        }	
+       
+    }
+    
+    
+}

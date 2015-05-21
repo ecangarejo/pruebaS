@@ -1,0 +1,41 @@
+package seguridad_logica;
+
+import java.sql.PreparedStatement;
+
+import seguridad_bean.OpcionesAutorizadas;
+
+import logica.Conexion;
+
+public class MetodoOpcionesAutorizadas {
+
+	public MetodoOpcionesAutorizadas(){}
+	
+	
+	public void insertarAutorizadas(String codusu,String codigo){
+		
+		OpcionesAutorizadas oa=new OpcionesAutorizadas();
+		
+		oa.setDisponible(codigo);
+		oa.setUsuario(codusu);
+		//Area ar=new Area();
+		//ar.setNombre(nombre);
+		
+		try{
+			
+			PreparedStatement ps = null;
+		    Conexion con=new Conexion();
+		    ps=con.conn.prepareStatement("insert into seg_opciones_autorizadas (usu_codigo_fk,opd_codigo_fk) value (?,?)");				
+			ps.setString(1, oa.getUsuario());
+			ps.setString(2, oa.getDisponible());
+			ps.executeUpdate();
+			ps.close();
+			con.cerrar();
+		}//fin del try
+		catch(Exception ex){
+			System.out.println(ex);
+		}//fin del catch
+		
+		
+	}//fin insercion
+	
+}

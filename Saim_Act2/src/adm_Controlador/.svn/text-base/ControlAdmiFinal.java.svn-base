@@ -1,0 +1,49 @@
+/**
+ * NOMBRE DE LA CLASE: ControlAdmiFinal
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario para 
+ * 				finalizar la admision, actualiza la admision,la cama y el historico de la cama 				
+ */
+package Controlador;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import logica.MetodoFinalizarAdmision;
+
+/**
+ * Servlet implementation class ControlAdmiFinal
+ */
+public class ControlAdmiFinal extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+ 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * se finaliza la admision haciendo una actualizacion en  
+	 * la admision mediante MetodoFinalizarAdmision/ActualizarAdmision
+	 * la cama mediante MetodoFinalizarAdmision/ActualizarCama
+	 * el historico mediante MetodoFinalizarAdmision/ActualizarHistoria
+	 */
+		MetodoFinalizarAdmision fa = new MetodoFinalizarAdmision ();		
+		String numingreso="";
+		String numcama="";
+		String codpaciente="";
+		String autopor="";
+		String fecha="";		
+		numingreso=request.getParameter("numingreso");
+		numcama=request.getParameter("numcama");
+		codpaciente=request.getParameter("codpaciente");
+		autopor=request.getParameter("autopor");
+		fecha=request.getParameter("fecha");
+		fa.ActualizarAdmision(numingreso);
+		fa.ActualizarCama(numcama);
+		fa.ActualizarHistoria(numcama, numingreso, fecha);
+		
+	}
+
+	
+
+}

@@ -1,0 +1,128 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Eliminar Area</title>
+<script type="text/javascript">
+function getXMLObject()  //XML OBJECT
+{
+   var xmlHttp = false;
+   try {
+     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")  // For Old Microsoft Browsers
+   }
+   catch (e) {
+     try {
+       xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")  // For Microsoft IE 6.0+
+     }
+     catch (e2) {
+       xmlHttp = false   // No Browser accepts the XMLHTTP Object then false
+     }
+   }
+   if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+     xmlHttp = new XMLHttpRequest();        //For Mozilla, Opera Browsers
+   }
+   return xmlHttp;  // Mandatory Statement returning the ajax object created
+}
+ 
+var xmlhttp = new getXMLObject(); //xmlhttp holds the ajax object
+
+function ajaxFunctionTraslado() {
+	
+	  if(xmlhttp) { 	 
+	    xmlhttp.open("POST","ControlEliminarCama?va=1",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = ComprobarPeticionTraslado;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+	   }		
+	}
+
+function ComprobarPeticionTraslado() {		
+	   if (xmlhttp.readyState == 4) {	
+		if(xmlhttp.status == 200) {		
+	     	var a=xmlhttp.responseText;
+	     	var y=a.split("_").length;
+	     	var z=a.split("_");		     	
+	     	form1.cmbarea.length=y;		     	
+	        var h,ss;
+	     	for(x=0; x<y-1; x=x+1)
+	     	{ 
+		     form1.cmbarea.options[x+1].text=z[x];			   
+		    }
+	   	    	           	
+	     }
+	     else {
+	        alert("Error during AJAX call. Please try again");
+	       }			
+	   }	   
+	}
+	
+	function VerificarArea(h){
+	if(xmlhttp) { 
+		var s=h.cmbarea.selectedIndex;
+		var area=h.cmbarea.options[s].text;
+	    xmlhttp.open("POST","ControlEliminarArea?va=1&area="+area,true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = CoArea;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+		 }
+	
+}//fin de verificar cama
+
+function CoArea() {
+	//alert("CoSubAre");
+	   if (xmlhttp.readyState == 4) {
+		   if(xmlhttp.status == 200) {
+		   	var a=xmlhttp.responseText;
+	     	var y=a.split("_").length;
+	     	var z=a.split("_");
+	     	form1.txtcodarea.value=z[0];  
+	     	}  else {
+	        alert("Error during AJAX call. Please try again");
+	     	}
+	   }
+}
+function EliminarArea(h){
+	var codarea=h.txtcodarea.value;
+	if(codarea==""){
+alert("Seleccione Una Area")
+		}
+	else{
+	window.location.href="ControlEliminarArea?codarea="+codarea;
+	}
+}
+
+</script>
+
+</head>
+
+<body onload="ajaxFunctionTraslado()">
+<form id="form1" name="form1" method="post" >
+<table width="244" border="1" align="center">
+  <tr>
+    <td align="center">ELIMINAR AREA </td>
+  </tr>
+  <tr>
+    <td align="center">Seleccionar Area </td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <select name="cmbarea" id="cmbarea" onchange="VerificarArea(form1)">
+<option selected="selected">SELECCIONE...</option>
+      </select>
+    </label></td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <input name="txtcodarea" type="text" id="txtcodarea"  style="visibility:hidden"/>
+    </label></td>
+    </tr>
+  <tr>
+    <td align="center"><label>
+      <input name="btneliminar" type="button" id="btneliminar" value="Eliminar" onclick="EliminarArea(form1)"/>
+    </label>      <label></label></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,3767 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="odont_informe_odontologia"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="codTratamientoOdontologico" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="codHistoriaOdontologica" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+CONCAT(pac.nombre," ",pac.primer_apellido," ",pac.segundo_apellido) AS 'nombres',
+CONCAT(pac.tipo_documento," ",pac.numero_documento) AS 'identificacion',
+pac.telefono_celular AS 'telefono',
+pac.direccion,
+pac.fecha_nacimiento,
+(YEAR(CURDATE())-YEAR(pac.fecha_nacimiento))- (RIGHT(CURDATE(),5)<RIGHT(pac.fecha_nacimiento,5)) AS 'Edad',
+pac.genero,
+pac.estado_civil,
+ocu.ocu_nombre AS 'OcupacionPaciente',
+ent.nombre_entidad AS 'NombreEntidad',
+descrip.canvas_dsi1 AS "11",
+descrip.canvas_dsi2 AS "12",
+descrip.canvas_dsi3 AS "13",
+descrip.canvas_dsi4 AS "14",
+descrip.canvas_dsi5 AS "15",
+descrip.canvas_dsi6 AS "16",
+descrip.canvas_dsi7 AS "17",
+descrip.canvas_dsi8 AS "18",
+descrip.canvas_dsd1 AS "21",
+descrip.canvas_dsd2 AS "22",
+descrip.canvas_dsd3 AS "23",
+descrip.canvas_dsd4 AS "24",
+descrip.canvas_dsd5 AS "25",
+descrip.canvas_dsd6 AS "26",
+descrip.canvas_dsd7 AS "27",
+descrip.canvas_dsd8 AS "28",
+descrip.canvas_dii1 AS "41",
+descrip.canvas_dii2 AS "42",
+descrip.canvas_dii3 AS "43",
+descrip.canvas_dii4 AS "44",
+descrip.canvas_dii5 AS "45",
+descrip.canvas_dii6 AS "46",
+descrip.canvas_dii7 AS "47",
+descrip.canvas_dii8 AS "48",
+descrip.canvas_did1 AS "31",
+descrip.canvas_did2 AS "32",
+descrip.canvas_did3 AS "33",
+descrip.canvas_did4 AS "34",
+descrip.canvas_did5 AS "35",
+descrip.canvas_did6 AS "36",
+descrip.canvas_did7 AS "37",
+descrip.canvas_did8 AS "38",
+descrip.canvas_dcsi1 AS "51",
+descrip.canvas_dcsi2 AS "52",
+descrip.canvas_dcsi3 AS "53",
+descrip.canvas_dcsi4 AS "54",
+descrip.canvas_dcsi5 AS "55",
+descrip.canvas_dcsd1 AS "61",
+descrip.canvas_dcsd2 AS "62",
+descrip.canvas_dcsd3 AS "63",
+descrip.canvas_dcsd4 AS "64",
+descrip.canvas_dcsd5 AS "65",
+descrip.canvas_dcii1 AS "81", 
+descrip.canvas_dcii2 AS "82",
+descrip.canvas_dcii3 AS "83",
+descrip.canvas_dcii4 AS "84",
+descrip.canvas_dcii5 AS "85",
+descrip.canvas_dcid1 AS "71",
+descrip.canvas_dcid2 AS "72",
+descrip.canvas_dcid3 AS "73",
+descrip.canvas_dcid4 AS "74",
+descrip.canvas_dcid5 AS "75",
+hist.id_historia_odontologica,
+CONCAT(hist.fecha_realizacion," ",hist.hora_realizacion) AS "Fecha Historia",
+hist.motivo_consulta,
+hist.plan_tratamiento,
+hist.observaciones,
+hist.evolucion,
+ant.alergias,
+ant.hemorragias,
+ant.enfermedades_respiratorias,
+ant.cardiopatias,
+ant.fiebre_reumatica,
+ant.enfermedades_renales,
+ant.hepatitis,
+ant.trastornos_gastricos,
+ant.tension_arterial,
+ant.diabetes,
+ant.ingesta_medicamentos,
+ant.cirugias,
+ant.protesis,
+ant.hiv,
+ant.extracciones_dentales,
+ant.enfermedades_orales,
+ant.antecedentes_familiares,
+ant.otros_antecedentes,
+exa.lengua,
+exa.carrillos,
+exa.abrasion,
+exa.atricion,
+exa.hipoplasias,
+exa.gingivitis_marginal,
+exa.gingivitis_difusa,
+exa.micrognasia,
+exa.macrognasia,
+exa.desviacion_linea_media,
+exa.malposicion,
+exa.atm,
+exa.habitos_orales,
+exa.paladar_blando,
+exa.piso_de_boca,
+exa.supernumerarios,
+exa.hipodoncia,
+exa.fracturas,
+exa.periodontitis,
+exa.retracciones,
+exa.torus,
+exa.sobremordida_vertical,
+exa.sobremordida_horizontal,
+exa.otros_examenes,
+datos.firma AS 'FirmaMedico',
+CONCAT(datos.nombre," ",datos.apellido) AS 'NombreMedico',
+CONCAT(datos.profesion, " - " ,datos.ocupacion) AS 'OcupacionMedico',
+datos.cedula AS 'CedulaMedico',
+emp.nombre AS 'NombreEmpresa',
+emp.direccion AS 'DireccionEmpresa',
+CONCAT(emp.municipio , " - ",emp.departamento) AS 'DepartamentoCiudad',
+emp.nit AS 'NitEmpresa',
+emp.telefono AS 'TelefonoEmpresa',
+emp.logo AS 'LogoEmpresa',
+emp.incontec AS 'IncontecEmpresa'
+FROM 
+adm_paciente pac,
+adm_ocupacion_paciente ocu,
+odont_tratamiento_odontologico trat,
+odont_historia_odontologica hist,
+odont_descripcion_imagenes_dientes descrip,
+odont_antecedentes_medicos_odontologicos ant,
+odont_examen_clinico exa,
+adm_convenio con,
+adm_entidad ent,
+seg_usuario seg,
+seg_datos_personales datos,
+empresa emp
+
+WHERE
+trat.id_tratamiento_odontologico = $P{codTratamientoOdontologico}
+AND pac.pac_codigo_paciente= trat.cod_paciente
+AND pac.ocu_codigo_fk = ocu.ocu_codigo
+AND trat.id_tratamiento_odontologico = hist.id_tratamiento_odontologico_fk
+AND hist.id_historia_odontologica = $P{codHistoriaOdontologica}
+AND descrip.id_historia_odontologica_fk = hist.id_historia_odontologica 
+AND ant.id_historia_odontologica_fk = hist.id_historia_odontologica 
+AND exa.id_historia_odontologica_fk= hist.id_historia_odontologica
+AND ent.ent_nit=con.ent_nit_contratante_fk
+AND pac.conv_numero_contrato_fk=con.conv_numero_contrato 
+AND hist.cod_odontologo = seg.usu_codigo
+AND seg.dat_codigo_fk = datos.dat_codigo]]></queryString>
+
+	<field name="11" class="java.io.InputStream"/>
+	<field name="12" class="java.io.InputStream"/>
+	<field name="13" class="java.io.InputStream"/>
+	<field name="14" class="java.io.InputStream"/>
+	<field name="15" class="java.io.InputStream"/>
+	<field name="16" class="java.io.InputStream"/>
+	<field name="17" class="java.io.InputStream"/>
+	<field name="18" class="java.io.InputStream"/>
+	<field name="21" class="java.io.InputStream"/>
+	<field name="22" class="java.io.InputStream"/>
+	<field name="23" class="java.io.InputStream"/>
+	<field name="24" class="java.io.InputStream"/>
+	<field name="25" class="java.io.InputStream"/>
+	<field name="26" class="java.io.InputStream"/>
+	<field name="27" class="java.io.InputStream"/>
+	<field name="28" class="java.io.InputStream"/>
+	<field name="31" class="java.io.InputStream"/>
+	<field name="32" class="java.io.InputStream"/>
+	<field name="33" class="java.io.InputStream"/>
+	<field name="34" class="java.io.InputStream"/>
+	<field name="35" class="java.io.InputStream"/>
+	<field name="36" class="java.io.InputStream"/>
+	<field name="37" class="java.io.InputStream"/>
+	<field name="38" class="java.io.InputStream"/>
+	<field name="41" class="java.io.InputStream"/>
+	<field name="42" class="java.io.InputStream"/>
+	<field name="43" class="java.io.InputStream"/>
+	<field name="44" class="java.io.InputStream"/>
+	<field name="45" class="java.io.InputStream"/>
+	<field name="46" class="java.io.InputStream"/>
+	<field name="47" class="java.io.InputStream"/>
+	<field name="48" class="java.io.InputStream"/>
+	<field name="51" class="java.io.InputStream"/>
+	<field name="52" class="java.io.InputStream"/>
+	<field name="53" class="java.io.InputStream"/>
+	<field name="54" class="java.io.InputStream"/>
+	<field name="55" class="java.io.InputStream"/>
+	<field name="61" class="java.io.InputStream"/>
+	<field name="62" class="java.io.InputStream"/>
+	<field name="63" class="java.io.InputStream"/>
+	<field name="64" class="java.io.InputStream"/>
+	<field name="65" class="java.io.InputStream"/>
+	<field name="71" class="java.io.InputStream"/>
+	<field name="72" class="java.io.InputStream"/>
+	<field name="73" class="java.io.InputStream"/>
+	<field name="74" class="java.io.InputStream"/>
+	<field name="75" class="java.io.InputStream"/>
+	<field name="81" class="java.io.InputStream"/>
+	<field name="82" class="java.io.InputStream"/>
+	<field name="83" class="java.io.InputStream"/>
+	<field name="84" class="java.io.InputStream"/>
+	<field name="85" class="java.io.InputStream"/>
+	<field name="FirmaMedico" class="java.io.InputStream"/>
+	<field name="IncontecEmpresa" class="java.io.InputStream"/>
+	<field name="LogoEmpresa" class="java.io.InputStream"/>
+	<field name="abrasion" class="java.lang.String"/>
+	<field name="alergias" class="java.lang.String"/>
+	<field name="antecedentes_familiares" class="java.lang.String"/>
+	<field name="atm" class="java.lang.String"/>
+	<field name="atricion" class="java.lang.String"/>
+	<field name="cardiopatias" class="java.lang.String"/>
+	<field name="carrillos" class="java.lang.String"/>
+	<field name="CedulaMedico" class="java.lang.String"/>
+	<field name="cirugias" class="java.lang.String"/>
+	<field name="DepartamentoCiudad" class="java.lang.String"/>
+	<field name="desviacion_linea_media" class="java.lang.String"/>
+	<field name="diabetes" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="DireccionEmpresa" class="java.lang.String"/>
+	<field name="Edad" class="java.lang.String"/>
+	<field name="enfermedades_orales" class="java.lang.String"/>
+	<field name="enfermedades_renales" class="java.lang.String"/>
+	<field name="enfermedades_respiratorias" class="java.lang.String"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="evolucion" class="java.lang.String"/>
+	<field name="extracciones_dentales" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.lang.String"/>
+	<field name="Fecha Historia" class="java.lang.String"/>
+	<field name="fiebre_reumatica" class="java.lang.String"/>
+	<field name="fracturas" class="java.lang.String"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="gingivitis_difusa" class="java.lang.String"/>
+	<field name="gingivitis_marginal" class="java.lang.String"/>
+	<field name="habitos_orales" class="java.lang.String"/>
+	<field name="hemorragias" class="java.lang.String"/>
+	<field name="hepatitis" class="java.lang.String"/>
+	<field name="hipodoncia" class="java.lang.String"/>
+	<field name="hipoplasias" class="java.lang.String"/>
+	<field name="hiv" class="java.lang.String"/>
+	<field name="id_historia_odontologica" class="java.lang.String"/>
+	<field name="identificacion" class="java.lang.String"/>
+	<field name="ingesta_medicamentos" class="java.lang.String"/>
+	<field name="lengua" class="java.lang.String"/>
+	<field name="macrognasia" class="java.lang.String"/>
+	<field name="malposicion" class="java.lang.String"/>
+	<field name="micrognasia" class="java.lang.String"/>
+	<field name="motivo_consulta" class="java.lang.String"/>
+	<field name="NitEmpresa" class="java.lang.String"/>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<field name="NombreEntidad" class="java.lang.String"/>
+	<field name="NombreMedico" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="OcupacionMedico" class="java.lang.String"/>
+	<field name="OcupacionPaciente" class="java.lang.String"/>
+	<field name="otros_antecedentes" class="java.lang.String"/>
+	<field name="otros_examenes" class="java.lang.String"/>
+	<field name="paladar_blando" class="java.lang.String"/>
+	<field name="periodontitis" class="java.lang.String"/>
+	<field name="piso_de_boca" class="java.lang.String"/>
+	<field name="plan_tratamiento" class="java.lang.String"/>
+	<field name="protesis" class="java.lang.String"/>
+	<field name="retracciones" class="java.lang.String"/>
+	<field name="sobremordida_horizontal" class="java.lang.String"/>
+	<field name="sobremordida_vertical" class="java.lang.String"/>
+	<field name="supernumerarios" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="TelefonoEmpresa" class="java.lang.String"/>
+	<field name="tension_arterial" class="java.lang.String"/>
+	<field name="torus" class="java.lang.String"/>
+	<field name="trastornos_gastricos" class="java.lang.String"/>
+
+
+		<group  name="1" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="241"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="20"
+						width="25"
+						height="25"
+						key="image-3"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{18}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="114"
+						y="20"
+						width="25"
+						height="25"
+						key="image-4"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{15}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="20"
+						width="25"
+						height="25"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{16}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="142"
+						y="20"
+						width="25"
+						height="25"
+						key="image-6"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{14}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="58"
+						y="20"
+						width="25"
+						height="25"
+						key="image-7"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{17}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="198"
+						y="20"
+						width="25"
+						height="25"
+						key="image-8"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{12}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="20"
+						width="25"
+						height="25"
+						key="image-9"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{13}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="226"
+						y="20"
+						width="25"
+						height="25"
+						key="image-25"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{11}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="288"
+						y="21"
+						width="25"
+						height="25"
+						key="image-39"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{21}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="21"
+						width="25"
+						height="25"
+						key="image-40"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{24}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="344"
+						y="21"
+						width="25"
+						height="25"
+						key="image-41"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{23}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="21"
+						width="25"
+						height="25"
+						key="image-42"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{25}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="316"
+						y="21"
+						width="25"
+						height="25"
+						key="image-43"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{22}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="456"
+						y="21"
+						width="25"
+						height="25"
+						key="image-44"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{27}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="428"
+						y="21"
+						width="25"
+						height="25"
+						key="image-45"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{26}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="484"
+						y="21"
+						width="25"
+						height="25"
+						key="image-46"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{28}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="114"
+						y="69"
+						width="25"
+						height="25"
+						key="image-48"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{55}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="142"
+						y="69"
+						width="25"
+						height="25"
+						key="image-50"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{54}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="198"
+						y="69"
+						width="25"
+						height="25"
+						key="image-52"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{52}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="170"
+						y="69"
+						width="25"
+						height="25"
+						key="image-53"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{53}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="226"
+						y="69"
+						width="25"
+						height="25"
+						key="image-54"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{51}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="111"
+						y="135"
+						width="25"
+						height="25"
+						key="image-55"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{85}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="135"
+						width="25"
+						height="25"
+						key="image-56"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{84}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="195"
+						y="135"
+						width="25"
+						height="25"
+						key="image-57"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{82}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="167"
+						y="135"
+						width="25"
+						height="25"
+						key="image-58"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{83}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="135"
+						width="25"
+						height="25"
+						key="image-59"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{81}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="27"
+						y="185"
+						width="25"
+						height="25"
+						key="image-60"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{48}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="111"
+						y="185"
+						width="25"
+						height="25"
+						key="image-61"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{45}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="83"
+						y="185"
+						width="25"
+						height="25"
+						key="image-62"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{46}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="185"
+						width="25"
+						height="25"
+						key="image-63"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{44}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="185"
+						width="25"
+						height="25"
+						key="image-64"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{47}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="195"
+						y="185"
+						width="25"
+						height="25"
+						key="image-65"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{42}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="167"
+						y="185"
+						width="25"
+						height="25"
+						key="image-66"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{43}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="185"
+						width="25"
+						height="25"
+						key="image-67"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{41}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="288"
+						y="70"
+						width="25"
+						height="25"
+						key="image-68"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{61}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="316"
+						y="70"
+						width="25"
+						height="25"
+						key="image-69"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{62}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="70"
+						width="25"
+						height="25"
+						key="image-70"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{64}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="344"
+						y="70"
+						width="25"
+						height="25"
+						key="image-71"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{63}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="70"
+						width="25"
+						height="25"
+						key="image-72"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{65}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="287"
+						y="135"
+						width="25"
+						height="25"
+						key="image-73"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{71}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="315"
+						y="135"
+						width="25"
+						height="25"
+						key="image-74"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{72}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="371"
+						y="135"
+						width="25"
+						height="25"
+						key="image-75"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{74}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="343"
+						y="135"
+						width="25"
+						height="25"
+						key="image-76"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{73}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="399"
+						y="135"
+						width="25"
+						height="25"
+						key="image-77"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{75}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="287"
+						y="185"
+						width="25"
+						height="25"
+						key="image-78"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{31}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="371"
+						y="185"
+						width="25"
+						height="25"
+						key="image-79"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{34}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="343"
+						y="185"
+						width="25"
+						height="25"
+						key="image-80"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{33}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="399"
+						y="185"
+						width="25"
+						height="25"
+						key="image-81"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{35}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="315"
+						y="185"
+						width="25"
+						height="25"
+						key="image-82"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{32}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="455"
+						y="185"
+						width="25"
+						height="25"
+						key="image-83"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{37}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="427"
+						y="185"
+						width="25"
+						height="25"
+						key="image-84"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{36}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="185"
+						width="25"
+						height="25"
+						key="image-85"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{38}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="30"
+						y="46"
+						width="25"
+						height="14"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[18]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="58"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  17]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="86"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  16]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="114"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  15]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="142"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  14]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="170"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  13]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="198"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  12]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="226"
+						y="46"
+						width="25"
+						height="15"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  11]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="288"
+						y="47"
+						width="25"
+						height="15"
+						key="staticText-21"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   21]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="316"
+						y="47"
+						width="25"
+						height="15"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   22]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="344"
+						y="47"
+						width="25"
+						height="15"
+						key="staticText-23"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   23]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="372"
+						y="47"
+						width="25"
+						height="15"
+						key="staticText-24"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   24]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="400"
+						y="47"
+						width="24"
+						height="15"
+						key="staticText-25"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   25]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="429"
+						y="47"
+						width="23"
+						height="15"
+						key="staticText-26"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  26]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="456"
+						y="47"
+						width="25"
+						height="15"
+						key="staticText-27"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   27]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="484"
+						y="47"
+						width="24"
+						height="15"
+						key="staticText-28"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   28]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="114"
+						y="95"
+						width="25"
+						height="15"
+						key="staticText-29"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  55]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="142"
+						y="95"
+						width="25"
+						height="15"
+						key="staticText-30"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  54]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="170"
+						y="95"
+						width="24"
+						height="15"
+						key="staticText-31"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   53]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="198"
+						y="95"
+						width="25"
+						height="15"
+						key="staticText-32"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  52]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="226"
+						y="95"
+						width="25"
+						height="15"
+						key="staticText-33"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   51]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="288"
+						y="96"
+						width="25"
+						height="15"
+						key="staticText-34"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   61]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="316"
+						y="96"
+						width="25"
+						height="15"
+						key="staticText-35"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   62]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="344"
+						y="96"
+						width="26"
+						height="15"
+						key="staticText-36"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   63]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="372"
+						y="96"
+						width="25"
+						height="15"
+						key="staticText-37"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   64]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="400"
+						y="96"
+						width="25"
+						height="15"
+						key="staticText-38"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   65]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="111"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-39"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  85]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="139"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-40"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  84]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="167"
+						y="161"
+						width="24"
+						height="15"
+						key="staticText-41"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  83]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="195"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-42"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  82]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="223"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-43"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  81]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="287"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-44"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   71]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="315"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-45"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   72]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="370"
+						y="161"
+						width="26"
+						height="15"
+						key="staticText-47"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   74]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="399"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-48"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   75]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="26"
+						y="211"
+						width="27"
+						height="15"
+						key="staticText-49"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   48]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="55"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-50"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  47]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="83"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-51"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  46]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="111"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-52"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  45]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="139"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-53"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[ 44]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="167"
+						y="211"
+						width="24"
+						height="15"
+						key="staticText-54"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  43]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="195"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-55"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  42]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="223"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-56"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[  41]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="287"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-57"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   31]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="314"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-58"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   32]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="371"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-60"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   34]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="427"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-62"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   36]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="455"
+						y="211"
+						width="24"
+						height="15"
+						key="staticText-63"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   37]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="483"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-64"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   38]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="128"
+						width="535"
+						height="1"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="268"
+						y="16"
+						width="1"
+						height="224"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="19"
+						y="108"
+						width="34"
+						height="15"
+						key="staticText-65"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ DER.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="484"
+						y="109"
+						width="34"
+						height="15"
+						key="staticText-66"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ IZQ.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-69"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ODONTOGRAMA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="343"
+						y="161"
+						width="25"
+						height="15"
+						key="staticText-119"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   73]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="343"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-120"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   33]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="399"
+						y="211"
+						width="25"
+						height="15"
+						key="staticText-121"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<text><![CDATA[   35]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="2" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="29"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-70"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MOTIVO DE CONSULTA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="15"
+						width="535"
+						height="14"
+						key="textField-30"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{motivo_consulta}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="3" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="29"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-71"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[EVOLUCION]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="15"
+						width="535"
+						height="14"
+						key="textField-31"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{evolucion}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="4" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="29"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-72"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PLAN DE TRATAMIENTO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="15"
+						width="535"
+						height="14"
+						key="textField-32"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{plan_tratamiento}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="5" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="88"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="114"
+						y="0"
+						width="300"
+						height="15"
+						key="staticText-73"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ANTECEDENTES MEDICOS Y ODONTOLOGICOS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-33"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hemorragias}.equals("0")?"NO":
+($F{hemorragias}.equals("1")?"SI":
+($F{hemorragias}.length()>0?$F{hemorragias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="21"
+						width="150"
+						height="12"
+						key="staticText-74"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 1.  Alergias]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-34"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alergias}.equals("0")?"NO":
+($F{alergias}.equals("1")?"SI":
+($F{alergias}.length()>0?$F{alergias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="32"
+						width="150"
+						height="12"
+						key="staticText-75"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 2.  Hemorragias]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-35"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{enfermedades_respiratorias}.equals("0")?"NO":
+($F{enfermedades_respiratorias}.equals("1")?"SI":
+($F{enfermedades_respiratorias}.length()>0?$F{enfermedades_respiratorias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="43"
+						width="150"
+						height="12"
+						key="staticText-76"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 3.  Enfermedades Respiratorias ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="54"
+						width="150"
+						height="12"
+						key="staticText-77"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 4.  Cardiopatias]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="65"
+						width="150"
+						height="12"
+						key="staticText-78"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 5.  Fiebre Reumatica]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="76"
+						width="150"
+						height="12"
+						key="staticText-79"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 6.  Enfermedadedes Renales]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="21"
+						width="144"
+						height="12"
+						key="staticText-80"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 7.    Hepatitis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="32"
+						width="144"
+						height="12"
+						key="staticText-81"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 8.    Transtornos gastricos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="43"
+						width="144"
+						height="12"
+						key="staticText-82"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 9.    Tension Arterial]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="54"
+						width="144"
+						height="12"
+						key="staticText-83"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 10.  Diabetes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="65"
+						width="144"
+						height="12"
+						key="staticText-84"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 11.  Ingesta Alimentos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="181"
+						y="76"
+						width="144"
+						height="12"
+						key="staticText-85"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 12.  Cirugias (incluso orales)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="21"
+						width="148"
+						height="12"
+						key="staticText-86"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 13.  Aparatologia oral]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="32"
+						width="148"
+						height="12"
+						key="staticText-87"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 14.  HIV]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="43"
+						width="148"
+						height="12"
+						key="staticText-88"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 15.  Extracciones dentales]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="54"
+						width="148"
+						height="12"
+						key="staticText-89"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 16.  Extracciones orales]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="65"
+						width="148"
+						height="12"
+						key="staticText-90"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 17.  Antecedentes Familiares]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="356"
+						y="76"
+						width="148"
+						height="12"
+						key="staticText-91"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 18.  Otros]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-42"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{cardiopatias}.equals("0")?"NO":
+($F{cardiopatias}.equals("1")?"SI":
+($F{cardiopatias}.length()>0?$F{cardiopatias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-43"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{fiebre_reumatica}.equals("0")?"NO":
+($F{fiebre_reumatica}.equals("1")?"SI":
+($F{fiebre_reumatica}.length()>0?$F{fiebre_reumatica}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-44"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{enfermedades_renales}.equals("0")?"NO":
+($F{enfermedades_renales}.equals("1")?"SI":
+($F{enfermedades_renales}.length()>0?$F{enfermedades_renales}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-48"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hepatitis}.equals("0")?"NO":
+($F{hepatitis}.equals("1")?"SI":
+($F{hepatitis}.length()>0?$F{hepatitis}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-49"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{trastornos_gastricos}.equals("0")?"NO":
+($F{trastornos_gastricos}.equals("1")?"SI":
+($F{trastornos_gastricos}.length()>0?$F{trastornos_gastricos}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-50"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tension_arterial}.equals("0")?"NO":
+($F{tension_arterial}.equals("1")?"SI":
+($F{tension_arterial}.length()>0?$F{tension_arterial}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-51"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{diabetes}.equals("0")?"NO":
+($F{diabetes}.equals("1")?"SI":
+($F{diabetes}.length()>0?$F{diabetes}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-52"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{ingesta_medicamentos}.equals("0")?"NO":
+($F{ingesta_medicamentos}.equals("1")?"SI":
+($F{ingesta_medicamentos}.length()>0?$F{ingesta_medicamentos}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-53"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{cirugias}.equals("0")?"NO":
+($F{cirugias}.equals("1")?"SI":
+($F{cirugias}.length()>0?$F{cirugias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-54"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{protesis}.equals("0")?"NO":
+($F{protesis}.equals("1")?"SI":
+($F{protesis}.length()>0?$F{protesis}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-55"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hiv}.equals("0")?"NO":
+($F{hiv}.equals("1")?"SI":
+($F{hiv}.length()>0?$F{hiv}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-56"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{extracciones_dentales}.equals("0")?"NO":
+($F{extracciones_dentales}.equals("1")?"SI":
+($F{extracciones_dentales}.length()>0?$F{extracciones_dentales}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-57"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{enfermedades_orales}.equals("0")?"NO":
+($F{enfermedades_orales}.equals("1")?"SI":
+($F{enfermedades_orales}.length()>0?$F{enfermedades_orales}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-58"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{antecedentes_familiares}.equals("0")?"NO":
+($F{antecedentes_familiares}.equals("1")?"SI":
+($F{antecedentes_familiares}.length()>0?$F{antecedentes_familiares}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-59"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{otros_antecedentes}.equals("0")?"NO":
+($F{otros_antecedentes}.equals("1")?"SI":
+($F{otros_antecedentes}.length()>0?$F{otros_antecedentes}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="6" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="110"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="119"
+						y="0"
+						width="300"
+						height="15"
+						key="staticText-92"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[EXAMEN MEDICO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-60"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{lengua}.equals("0")?"NO":
+($F{lengua}.equals("1")?"SI":
+($F{lengua}.length()>0?$F{lengua}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="21"
+						width="150"
+						height="12"
+						key="staticText-93"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 1.  Lengua]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-61"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{carrillos}.equals("0")?"NO":
+($F{carrillos}.equals("1")?"SI":
+($F{carrillos}.length()>0?$F{carrillos}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="32"
+						width="150"
+						height="12"
+						key="staticText-94"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 2.  Carrillos]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-62"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{abrasion}.equals("0")?"NO":
+($F{abrasion}.equals("1")?"SI":
+($F{abrasion}.length()>0?$F{abrasion}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="43"
+						width="150"
+						height="12"
+						key="staticText-95"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 3.  Abrasion ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="54"
+						width="150"
+						height="12"
+						key="staticText-96"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 4.  Atricion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="65"
+						width="150"
+						height="12"
+						key="staticText-97"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 5.  hipoplasias]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="76"
+						width="150"
+						height="12"
+						key="staticText-98"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 6.  Gingivitis Marginal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="21"
+						width="144"
+						height="12"
+						key="staticText-99"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 9.    Macrognansia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="32"
+						width="144"
+						height="12"
+						key="staticText-100"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 10.  Desviacion Linea Media]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="43"
+						width="144"
+						height="12"
+						key="staticText-101"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 11.  Malposicion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="54"
+						width="144"
+						height="12"
+						key="staticText-102"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 12.  ATM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="65"
+						width="144"
+						height="12"
+						key="staticText-103"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 13.  Habitos Orales]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="87"
+						width="144"
+						height="12"
+						key="staticText-104"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 15.  Piso de Boca]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="21"
+						width="147"
+						height="12"
+						key="staticText-105"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 17.  Hipodoncia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="32"
+						width="147"
+						height="12"
+						key="staticText-106"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 18.  Fracturas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="43"
+						width="147"
+						height="12"
+						key="staticText-107"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 19.  Periodontitis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="54"
+						width="147"
+						height="12"
+						key="staticText-108"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 20.  Retracciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="65"
+						width="147"
+						height="12"
+						key="staticText-109"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 21.  Torus]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="87"
+						width="147"
+						height="12"
+						key="staticText-110"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 23.  Sobremordida Horizontal]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-63"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{atricion}.equals("0")?"NO":
+($F{atricion}.equals("1")?"SI":
+($F{atricion}.length()>0?$F{atricion}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-64"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hipoplasias}.equals("0")?"NO":
+($F{hipoplasias}.equals("1")?"SI":
+($F{hipoplasias}.length()>0?$F{hipoplasias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="87"
+						width="31"
+						height="12"
+						key="textField-65"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{gingivitis_difusa}.equals("0")?"NO":
+($F{gingivitis_difusa}.equals("1")?"SI":
+($F{gingivitis_difusa}.length()>0?$F{gingivitis_difusa}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-66"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{macrognasia}.equals("0")?"NO":
+($F{macrognasia}.equals("1")?"SI":
+($F{macrognasia}.length()>0?$F{macrognasia}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<elementGroup><!--  Start: 1 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-67"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{desviacion_linea_media}.equals("0")?"NO":
+($F{desviacion_linea_media}.equals("1")?"SI":
+($F{desviacion_linea_media}.length()>0?$F{desviacion_linea_media}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 1 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-68"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{malposicion}.equals("0")?"NO":
+($F{malposicion}.equals("1")?"SI":
+($F{malposicion}.length()>0?$F{malposicion}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-69"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{atm}.equals("0")?"NO":
+($F{atm}.equals("1")?"SI":
+($F{atm}.length()>0?$F{atm}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-70"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{habitos_orales}.equals("0")?"NO":
+($F{habitos_orales}.equals("1")?"SI":
+($F{habitos_orales}.length()>0?$F{habitos_orales}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="87"
+						width="31"
+						height="12"
+						key="textField-71"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{piso_de_boca}.equals("0")?"NO":
+($F{piso_de_boca}.equals("1")?"SI":
+($F{piso_de_boca}.length()>0?$F{piso_de_boca}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="21"
+						width="31"
+						height="12"
+						key="textField-72"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hipoplasias}.equals("0")?"NO":
+($F{hipoplasias}.equals("1")?"SI":
+($F{hipoplasias}.length()>0?$F{hipoplasias}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="32"
+						width="31"
+						height="12"
+						key="textField-73"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{fracturas}.equals("0")?"NO":
+($F{fracturas}.equals("1")?"SI":
+($F{fracturas}.length()>0?$F{fracturas}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="43"
+						width="31"
+						height="12"
+						key="textField-74"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{periodontitis}.equals("0")?"NO":
+($F{periodontitis}.equals("1")?"SI":
+($F{periodontitis}.length()>0?$F{periodontitis}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="54"
+						width="31"
+						height="12"
+						key="textField-75"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{retracciones}.equals("0")?"NO":
+($F{retracciones}.equals("1")?"SI":
+($F{retracciones}.length()>0?$F{retracciones}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="65"
+						width="31"
+						height="12"
+						key="textField-76"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{torus}.equals("0")?"NO":
+($F{torus}.equals("1")?"SI":
+($F{torus}.length()>0?$F{torus}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-77"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{sobremordida_vertical}.equals("0")?"NO":
+($F{sobremordida_vertical}.equals("1")?"SI":
+($F{sobremordida_vertical}.length()>0?$F{sobremordida_vertical}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="98"
+						width="150"
+						height="12"
+						key="staticText-112"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 8.  Micrognasia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="76"
+						width="144"
+						height="12"
+						key="staticText-113"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 14.  Paladar Blando]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="182"
+						y="98"
+						width="144"
+						height="12"
+						key="staticText-114"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 16.  Supernumerarios]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="76"
+						width="147"
+						height="12"
+						key="staticText-115"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 22.  Sobremordida Vertical]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="357"
+						y="98"
+						width="147"
+						height="12"
+						key="staticText-116"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 24.  Otros]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-78"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{gingivitis_marginal}.equals("0")?"NO":
+($F{gingivitis_marginal}.equals("1")?"SI":
+($F{gingivitis_marginal}.length()>0?$F{gingivitis_marginal}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="151"
+						y="98"
+						width="31"
+						height="12"
+						key="textField-79"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{micrognasia}.equals("0")?"NO":
+($F{micrognasia}.equals("1")?"SI":
+($F{micrognasia}.length()>0?$F{micrognasia}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="76"
+						width="31"
+						height="12"
+						key="textField-80"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{paladar_blando}.equals("0")?"NO":
+($F{paladar_blando}.equals("1")?"SI":
+($F{paladar_blando}.length()>0?$F{paladar_blando}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="98"
+						width="31"
+						height="12"
+						key="textField-81"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{supernumerarios}.equals("0")?"NO":
+($F{supernumerarios}.equals("1")?"SI":
+($F{supernumerarios}.length()>0?$F{supernumerarios}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="87"
+						width="31"
+						height="12"
+						key="textField-82"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{sobremordida_horizontal}.equals("0")?"NO":
+($F{sobremordida_horizontal}.equals("1")?"SI":
+($F{sobremordida_horizontal}.length()>0?$F{sobremordida_horizontal}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="98"
+						width="31"
+						height="12"
+						key="textField-83"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{otros_examenes}.equals("0")?"NO":
+($F{otros_examenes}.equals("1")?"SI":
+($F{otros_examenes}.length()>0?$F{otros_examenes}:
+"NO"
+)
+)
+)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="87"
+						width="150"
+						height="12"
+						key="staticText-117"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ 7.  Gingivitis Difusa]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="7" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="61"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-118"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[OBSERVACIONES]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="15"
+						width="535"
+						height="14"
+						key="textField-84"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{observaciones}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="106"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="19"
+						width="114"
+						height="86"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{LogoEmpresa}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="171"
+						y="19"
+						width="181"
+						height="19"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="140"
+						y="38"
+						width="251"
+						height="17"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DEPARTAMENTO DE ODONTOLOGIA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="171"
+						y="55"
+						width="181"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DireccionEmpresa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="171"
+						y="72"
+						width="181"
+						height="17"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DepartamentoCiudad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="171"
+						y="89"
+						width="181"
+						height="16"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NitEmpresa}]]></textFieldExpression>
+				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="19"
+						width="114"
+						height="87"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{IncontecEmpresa}]]></imageExpression>
+				</image>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="111"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="2"
+						width="535"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="21"
+						width="361"
+						height="12"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombres}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="83"
+						width="361"
+						height="12"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NombreEntidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="96"
+						width="176"
+						height="12"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Fecha Historia}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="33"
+						width="120"
+						height="12"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{identificacion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="58"
+						width="31"
+						height="12"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Edad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="449"
+						y="58"
+						width="85"
+						height="12"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{genero}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="21"
+						width="173"
+						height="12"
+						key="staticText-3"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ NOMBRE DEL PACIENTE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="33"
+						width="173"
+						height="12"
+						key="staticText-4"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ IDENTIFICACIÓN:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="83"
+						width="173"
+						height="12"
+						key="staticText-5"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ ENTIDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="293"
+						y="58"
+						width="56"
+						height="12"
+						key="staticText-6"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ EDAD:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="380"
+						y="58"
+						width="69"
+						height="12"
+						key="staticText-7"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ GÉNERO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="96"
+						width="173"
+						height="12"
+						key="staticText-8"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ FECHA: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="53"
+						y="4"
+						width="79"
+						height="13"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["de  "+$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2"
+						y="4"
+						width="74"
+						height="13"
+						key="textField-12"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Página  "+$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="46"
+						width="173"
+						height="12"
+						key="staticText-9"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ DIRECCION DE RESIDENCIA:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="46"
+						width="361"
+						height="12"
+						key="textField-25"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="293"
+						y="33"
+						width="72"
+						height="12"
+						key="staticText-10"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ TELEFONO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="71"
+						width="173"
+						height="12"
+						key="staticText-11"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ ESTADO CIVIL:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="365"
+						y="33"
+						width="135"
+						height="12"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{telefono}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="71"
+						width="120"
+						height="12"
+						key="textField-27"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{estado_civil}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="58"
+						width="173"
+						height="12"
+						key="staticText-12"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ FECHA NACIMIENTO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="58"
+						width="120"
+						height="12"
+						key="textField-28"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="110"
+						width="535"
+						height="1"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="3"
+						width="144"
+						height="14"
+						key="textField-29"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{id_historia_odontologica}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="150"
+						y="2"
+						width="194"
+						height="15"
+						key="staticText-67"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[HISTORIA CLINICA ODONTOLOGICA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="360"
+						y="3"
+						width="31"
+						height="15"
+						key="staticText-68"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ NO.]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="48"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="34"
+						width="251"
+						height="14"
+						key="textField-36"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["R.M "+$F{CedulaMedico}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="20"
+						width="251"
+						height="14"
+						key="textField-37"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OcupacionMedico}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="7"
+						width="251"
+						height="13"
+						key="textField-38"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NombreMedico}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="7"
+						width="181"
+						height="1"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="78"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="53"
+						width="251"
+						height="14"
+						key="textField-39"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["R.M "+$F{CedulaMedico}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="39"
+						width="251"
+						height="14"
+						key="textField-40"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{OcupacionMedico}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="26"
+						width="251"
+						height="13"
+						key="textField-41"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NombreMedico}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="26"
+						width="181"
+						height="1"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

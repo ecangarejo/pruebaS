@@ -1,0 +1,135 @@
+/**
+ * NOMBRE DE LA CLASE: ControlActualizarDemografico
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario para hacer la actualizacion
+ * 				de los datos demograficos del paciente.
+ * 				
+ */
+package Controlador;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.ResultSet;
+
+import logica.MetodoActualizarDemografico;
+
+public class ControlActualizarDemografico extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		/**
+		 * se declaran las variables que se van a utilizar y se reciben los datos
+		 * por parametros desde el Adm_ActualizarDemografico.jsp
+		 */
+		
+		String va = req.getParameter("va");		
+		String ced,tipodoc,x,nombrepac = null,papellidos = null,sapellidos = null,y=null;
+		String ocupacion = null,municipio = null,entidad = null,afiliacion = null,nivel = null,papellido = null,sapellido = null,nombre = null,genero = null,nacionalidad = null,direccion = null,telfijo = null,telofi = null,telcel = null,empresalab = null,zonares = null,religion = null,estadocv = null,raza = null,estrato = null,email = null,codigopac = null,fechanac = null;
+		String dep=null,codocu=null,codmun=null,codentidad=null; 
+		MetodoActualizarDemografico mad = new MetodoActualizarDemografico ();
+		java.sql.ResultSet rs=null;
+		ced = req.getParameter("ced");
+		tipodoc=req.getParameter("tipo");
+		if(va.equals("0")){
+			/**
+			 * se obtienen los datos del paciente que se va actualizar
+			 * estos se obtienen mediante una consulta MetodoActualizarDemografico/obtenerDatosPaciente
+			 * si el resultado es vacio se redirecciona a la misma jsp sino
+			 * muestra los datos en pantalla.
+			 */
+		 try{		 
+		
+			  rs=mad.obtenerDatosPaciente(ced,tipodoc);
+			  if(rs.next()){
+				  ocupacion=rs.getString(1);				 
+				  municipio=rs.getString(2);				 
+				  entidad=rs.getString(3);				 
+				  tipodoc=rs.getString(4);				 
+				  ced=rs.getString(5);				 
+				  afiliacion=rs.getString(6);				 
+				  nivel=rs.getString(7);				 
+				  papellido=rs.getString(8);				  
+				  sapellido=rs.getString(9);				  
+				  nombre=rs.getString(10);				 
+				  genero=rs.getString(11);				
+				  nacionalidad=rs.getString(12);				 
+				  direccion=rs.getString(13);				
+				  telfijo=rs.getString(14);
+				  telofi=rs.getString(15);
+				  telcel=rs.getString(16);
+				  empresalab=rs.getString(17);
+				  zonares=rs.getString(18);
+				  religion=rs.getString(19);
+				  estadocv=rs.getString(20);
+				  raza=rs.getString(21);
+				  estrato=rs.getString(22);
+				  email=rs.getString(23);
+				  codigopac=rs.getString(24);
+				  fechanac=rs.getString(25);
+				  dep=rs.getString(26);
+				  codocu=rs.getString(27);
+				  codmun=rs.getString(28);
+				  codentidad=rs.getString(29); 
+				  res.sendRedirect("Adm_ActualizarDemografico.jsp?r=0&ocupacion="+ocupacion+"&municipio="+municipio+"&entidad="+entidad+"&tipodoc="+tipodoc+"&ced="+ced+"&afiliacion="+afiliacion+"&nivel="+nivel+"&papellido="+papellido+"&sapellido="+sapellido+"&nombre="+nombre+"&genero="+genero+"&nacionalidad="+nacionalidad+"&direccion="+direccion+"&telfijo="+telfijo+"&telofi="+telofi+"&telcel="+telcel+"&empresalab="+empresalab+"&zonares="+zonares+"&religion="+religion+"&estadocv="+estadocv+"&raza="+raza+"&estrato="+estrato+"&email="+email+"&codigopac="+codigopac+"&fechanac="+fechanac+"&dep="+dep+"&codocu="+codocu+"&codmun="+codmun+"&codentidad="+codentidad+"");
+			  }
+			  else{
+				  res.sendRedirect("Adm_ActualizarDemografico.jsp");
+			  }
+		 }
+		 catch(SQLException e1){
+			 e1.getMessage();
+		 }
+		}	 
+		 if (va.equals("5")){
+			 /**
+			  * se obtienen todos los datos a actualizar y se envian al
+			  * MetodoActualizarDemografico/Actualizar para su actualizacion.
+			  */
+			 String codpac, tip,ced1, afiliacion1, nivel1, pape, sape, nom, gene,nacionali, dir, tel, telofi1, telcel1, ocu, emp,zona, reli, estadoci, ra, estra, ema, mun_cod, fechanaci, numcontra;
+				
+				tip=req.getParameter("ti");
+				ced1=req.getParameter("ced");
+				afiliacion1=req.getParameter("afi");
+				nivel1=req.getParameter("ni");
+				pape=req.getParameter("pape");				
+				sape=req.getParameter("sape");
+				nom=req.getParameter("nom");
+				gene=req.getParameter("ge");
+				nacionali=req.getParameter("naci");
+				dir=req.getParameter("dir");				
+				tel=req.getParameter("telefi");
+				telofi1=req.getParameter("teleofici");
+				telcel1=req.getParameter("telecel");
+				ocu=req.getParameter("ocu");
+				emp=req.getParameter("emp");				
+				zona=req.getParameter("zona");
+				reli=req.getParameter("re");
+				estadoci=req.getParameter("esta");
+				ra=req.getParameter("ra");
+				estra=req.getParameter("estra");				
+				ema=req.getParameter("ema");
+				mun_cod=req.getParameter("codmun");
+				fechanaci=req.getParameter("fe");
+				numcontra=req.getParameter("numco");
+				codpac = req.getParameter("codpac");
+				mad.Actualizar(tip, ced1, afiliacion1, nivel1, pape, sape, nom, gene, nacionali, dir, tel, telofi1, telcel1, ocu, emp, zona, reli, estadoci, ra, estra, ema, mun_cod, fechanaci, numcontra,codpac);	 
+			 
+			 
+			 
+		 }
+
+
+		
+	}	
+	
+}

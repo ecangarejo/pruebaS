@@ -1,0 +1,82 @@
+package logica;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.*;
+
+
+public class Conexion {
+	public Connection conn = null;  // La conexión con la BD
+	private static final Conexion conexion =null;
+	
+	 static int cent = 0; 
+		/**
+		 * Metodo: 		Basedatos 
+		 * Proposito:	Crear la conexión con la BD
+		 */
+		public Conexion() throws Exception { // se encarga de realizar la conexión
+			try {
+		    // Cargamos el Driver
+				Class.forName( "com.mysql.jdbc.Driver" );
+		        // Armamos la conexión
+		        conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/admisiones","root","123" );
+		        //cent = 1;
+		        //System.out.println("Se conecto a la BD Exitosa");
+			
+		    }
+		    catch (Exception ex) {
+		       // Regeneramos la excepcion
+		        throw ex;
+		    }
+		 }
+		
+		/**
+		 * Metodo: 		Basedatos 
+		 * Proposito:	Este método cierra la conexion con la BD
+		 */
+
+	   public void cerrar() {
+	       try {
+	           conn.close();
+	       }
+	       catch (Exception ex) { }
+	   
+	   }
+	   
+	   public ResultSet recibirSql(String r)throws SQLException{
+		   Statement st=null;
+		   st= conn.createStatement();
+		   return st.executeQuery(r);
+		   
+	   }
+		
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			if (cent == 1){
+				System.out.println("Se conecto a la BD Exitosa");
+			}
+			try{
+				Conexion bd = new Conexion();
+			}
+			catch(Exception ex){
+				System.out.println(ex.getMessage());
+			}
+		}
+		
+		/*public void insertar(String ced, String nom, String ape, String par, String tel, String dir)throws SQLException{
+			PreparedStatement ps = null;
+			System.out.println("comenzando la insercion");
+			ps = conn.prepareStatement("insert into adm_contacto(cedula,nombre,apellido,parentesco,telefono,direccion) values(?,?,?,?,?,?)");
+			ps.setString(1, ced);
+			ps.setString(2,nom);
+			ps.setString(3, ape);
+			ps.setString(4,par);
+			ps.setString(5, tel);
+			ps.setString(6,dir);
+			ps.executeUpdate();
+			ps.close();
+			System.out.println("terminando la insercion");
+		}*/
+		
+
+}

@@ -1,0 +1,288 @@
+/**
+ * logica:MetodoPaciente
+ * Desarrollado:yosimar valega
+ */
+package logica;
+import java.io.*;
+import java.sql.Statement;
+import  logica.Conexion;
+import java.sql.*;
+import bean.Paciente;
+
+public class MetodoPaciente {
+	
+	/**
+	 * obtiene el nombre apellido de la madre admitida
+	 */
+	
+	 public java.sql.ResultSet SQLPacMadre(String ce){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        //String numero="Nacido Vivo";
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select adm_paciente.nombre,adm_paciente.primer_apellido,adm_paciente.segundo_apellido from adm_paciente,adm_admisiones where numero_documento="+ce+" and genero='Femenino' and adm_admisiones.pac_codigo_paciente_fk=adm_paciente.pac_codigo_paciente");
+
+	        }
+	        catch(Exception ex){
+	        	
+	        }
+	      
+	        return rs;
+	        
+	    }
+	 
+	 /**
+	  * obtiene el codigo del paciente admitido
+	  */
+	 public java.sql.ResultSet SQLPacPa(String ce, String tipo){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        //String numero="Nacido Vivo";
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select adm_paciente.pac_codigo_paciente,adm_paciente.primer_apellido,adm_paciente.segundo_apellido,adm_paciente.nombre from adm_paciente,adm_admisiones where numero_documento='"+ce+"' and tipo_documento='"+tipo+"' and adm_admisiones.pac_codigo_paciente_fk=adm_paciente.pac_codigo_paciente");
+
+	        }
+	        catch(Exception ex){
+	        	
+	        }
+	      
+	        return rs;
+	        
+	    }
+	 
+	 /**
+	  * obtienen la lista del nacidos vivos sin admision
+	  */
+	
+	 public java.sql.ResultSet SQLNacido(){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        String numero="Nacido Vivo";
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select DISTINCT nombre,primer_apellido,segundo_apellido,fecha_nacimiento,pac_codigo_paciente,numero_documento,tipo_documento from adm_paciente  where  tipo_documento='Nacido Vivo' and pac_codigo_paciente not in (select pac_codigo_paciente_fk from adm_admisiones)");
+	        }
+	        catch(Exception ex){
+	        	
+	        }//("select nombre_entidad from adm_entidad");
+	      
+	        return rs;
+	        
+	    }
+	 /**
+	  * obtiene entidad,nombre de paciente, primer apellido
+	  */
+	 
+	 public java.sql.ResultSet SQLEntidad(String numero,String Tipo){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select adm_entidad.nombre_entidad,adm_paciente.nombre,adm_paciente.primer_apellido,adm_paciente.segundo_apellido from adm_paciente, adm_entidad, adm_convenio where adm_paciente.tipo_documento='"+Tipo+"' and adm_paciente.numero_documento='"+ numero+"'and adm_paciente.conv_numero_contrato_fk=adm_convenio.conv_numero_contrato and adm_convenio.ent_nit_contratante_fk=adm_entidad.ent_nit_contratante");
+	        }
+	        catch(Exception ex){
+	        	
+	        }//("select nombre_entidad from adm_entidad");
+	      
+	        return rs;
+	        
+	    }
+	 /**
+	  * obtiene nombre de entidad, numero de convenio
+	  */
+	 
+	 public java.sql.ResultSet SQLEps(){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select adm_entidad.nombre_entidad, adm_convenio.conv_numero_contrato from  adm_entidad, adm_convenio where adm_convenio.ent_nit_contratante_fk=adm_entidad.ent_nit_contratante");
+	        }
+	        catch(Exception ex){
+	        	
+	        }//("select nombre_entidad from adm_entidad");
+	      
+	        return rs;
+	        
+	    }
+	 
+	 /**
+	  * obtiene numero de convenio
+	  */
+	 public java.sql.ResultSet SQLCodConv(String nom){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select  adm_convenio.conv_numero_contrato from  adm_entidad, adm_convenio where adm_entidad.nombre_entidad='"+nom+"'and adm_convenio.ent_nit_contratante_fk=adm_entidad.ent_nit_contratante");
+	        }
+	        catch(Exception ex){
+	        	
+	        }
+	      
+	        return rs;
+	        
+	    }
+	 
+	 /**
+	  * obtiene datos de los pacientes segun el codigo
+	  */
+	 
+	 public java.sql.ResultSet SQLDatosPac(String codigo){
+	        java.sql.ResultSet rs=null;
+	        Statement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st = con.conn.createStatement();
+	        	rs=st.executeQuery("select nombre,numero_documento,fecha_nacimiento,genero,tipo_afiliacion from  adm_paciente where pac_codigo_paciente="+codigo+"");
+	        }
+	        catch(Exception ex){
+	        	
+	        }//("select nombre_entidad from adm_entidad");
+	      
+	        return rs;
+	        
+	    }
+	 /**
+	  * ingresar datos de pacientes en la table adm_demografico
+	  */
+	 
+	 public void insertar(String tip, String ced,String afiliacion,String nivel,  String pape,String sape,String nom,String gene,String nacionali,String dir,String tel,String telofi,String telcel,String ocu,String emp,String zona,String reli,String estadoci,String ra,String estra,String ema,String mun_cod,String fechanaci, String numcontra){
+			Paciente pac = new Paciente();
+			pac.setDocumento(tip);
+			//System.out.println("nacido vivo en el metodo 1 "+tip);
+			pac.setCedula(ced);
+			//System.out.println("nacido vivo en el metodo 2 "+ced);
+			pac.setAfiliacion(afiliacion);
+			//System.out.println("nacido vivo en el metodo 3 "+afiliacion);
+			pac.setCotizante(nivel);
+			//System.out.println("nacido vivo en el metodo 4 "+nivel);
+			pac.setPapellido(pape);
+			//System.out.println("nacido vivo en el metodo 5 "+pape);
+			pac.setSapellido(sape);
+			//System.out.println("nacido vivo en el metodo 6 "+sape);
+			pac.setNombre(nom);
+			//System.out.println("nacido vivo en el metodo 7 "+nom);
+			pac.setGenero(gene);
+			//System.out.println("nacido vivo en el metodo 8 "+gene);
+			pac.setNacionalidad(nacionali);
+			//System.out.println("nacido vivo en el metodo 9 "+nacionali);
+			pac.setDireccion(dir);
+			//System.out.println("nacido vivo en el metodo 10 "+dir);
+			pac.setTelefonofijo(tel);
+			//System.out.println("nacido vivo en el metodo 11 "+tel);
+			pac.setTelefonooficina(telofi);
+			//System.out.println("nacido vivo en el metodo 12 "+telofi);
+			pac.setTelefonocelular(telcel);
+			//System.out.println("nacido vivo en el metodo 13 "+telcel);
+			pac.setOcupacion(ocu);
+			//System.out.println("nacido vivo en el metodo 14 "+ocu);
+			pac.setEmpresa(emp);
+			//System.out.println("nacido vivo en el metodo 15 "+emp);
+			pac.setZona(zona);
+			//System.out.println("nacido vivo en el metodo 16 "+zona);
+			pac.setReligion(reli);
+			//System.out.println("nacido vivo en el metodo 17 "+reli);
+			pac.setEstadocivil(estadoci);
+			//System.out.println("nacido vivo en el metodo 18 "+estadoci);
+			pac.setRaza(ra);
+			//System.out.println("nacido vivo en el metodo 19 "+ra);
+			pac.setEstrato(estra);
+			//System.out.println("nacido vivo en el metodo 20 "+estra);
+			pac.setEmail(ema);
+			//System.out.println("nacido vivo en el metodo 21 "+ema);
+			pac.setCodigoMun(mun_cod);
+			//System.out.println("nacido vivo en el metodo 22 "+mun_cod);
+			pac.setFecha(fechanaci);
+			//System.out.println("nacido vivo en el metodo 23 "+fechanaci);
+			pac.setContrato(numcontra);
+			//System.out.println("nacido vivo en el metodo 24 "+numcontra);
+			//
+			
+			//System.out.println(mun_cod);
+			
+			try{
+				
+				String fechapre,ini,med,fin=null;
+				ini=pac.getFecha().substring(0,2);
+				med=pac.getFecha().substring(3,5);
+				fin=pac.getFecha().substring(6,10);
+				fechapre=fin+"/"+med+"/"+ini;
+				//System.out.println("dia:"+fechapre);
+				
+				PreparedStatement ps = null;
+			    Conexion con=new Conexion();
+			    ps=con.conn.prepareStatement("insert into adm_paciente(tipo_documento,numero_documento,tipo_afiliacion,nivel_cotizante,primer_apellido,segundo_apellido,nombre,genero,nacionalidad,direccion,telefono_fijo,telefono_oficina,telefono_celular,ocu_codigo_fk,empresa_labora,zona_residencial,religion,estado_civil,raza,estrato,email,mun_codigo_fk,fecha_nacimiento,conv_numero_contrato_fk) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");				
+				ps.setString(1, pac.getDocumento());
+				//System.out.println("nacido vivo en el metodo insercion 1 "+pac.getDocumento());
+				ps.setString(2,pac.getCedula());
+				//System.out.println("nacido vivo en el metodo insercion 2 "+pac.getCedula());
+				ps.setString(3, pac.getAfiliacion());
+				//System.out.println("nacido vivo en el metodo insercion 3 "+pac.getAfiliacion());
+				ps.setString(4,pac.getCotizante());
+				//System.out.println("nacido vivo en el metodo insercion 4 "+pac.getCotizante());
+				ps.setString(5, pac.getPapellido());
+				//System.out.println("nacido vivo en el metodo insercion 5 "+pac.getPapellido());
+				ps.setString(6,pac.getSapellido());
+				//System.out.println("nacido vivo en el metodo insercion 6 "+pac.getSapellido());
+				ps.setString(7,pac.getNombre());
+				//System.out.println("nacido vivo en el metodo insercion 7 "+pac.getNombre());
+				ps.setString(8,pac.getGenero());
+				//System.out.println("nacido vivo en el metodo insercion 8 "+pac.getGenero());
+				ps.setString(9,pac.getNacionalidad());
+				//System.out.println("nacido vivo en el metodo insercion 9 "+pac.getNacionalidad());
+				ps.setString(10,pac.getDireccion());
+				//System.out.println("nacido vivo en el metodo insercion 10 "+pac.getDireccion());
+				ps.setString(11,pac.getTelefonofijo());
+				//System.out.println("nacido vivo en el metodo insercion 11 "+pac.getTelefonofijo());
+				ps.setString(12,pac.getTelefonooficina());
+				//System.out.println("nacido vivo en el metodo insercion 12 "+pac.getTelefonooficina());
+				ps.setString(13,pac.getTelefonocelular());
+				//System.out.println("nacido vivo en el metodo insercion 13 "+pac.getTelefonocelular());
+				ps.setString(14,pac.getOcupacion());
+				//System.out.println("nacido vivo en el metodo insercion 14 "+pac.getOcupacion());
+				ps.setString(15,pac.getEmpresa());
+				//System.out.println("nacido vivo en el metodo insercion 15 "+pac.getEmpresa());
+				ps.setString(16,pac.getZona());
+				//System.out.println("nacido vivo en el metodo insercion 16 "+pac.getZona());
+				ps.setString(17,pac.getReligion());
+				//System.out.println("nacido vivo en el metodo insercion 17 "+pac.getReligion());
+				ps.setString(18,pac.getEstadocivil());
+				//System.out.println("nacido vivo en el metodo insercion 18 "+pac.getEstadocivil());
+				ps.setString(19,pac.getRaza());
+				//System.out.println("nacido vivo en el metodo insercion 19 "+pac.getRaza());
+				ps.setString(20,pac.getEstrato());
+				//System.out.println("nacido vivo en el metodo insercion 20 "+pac.getEstrato());
+				ps.setString(21,pac.getEmail());
+				//System.out.println("nacido vivo en el metodo insercion 21 "+pac.getEmail());
+				ps.setString(22,pac.getCodigoMun());
+				//System.out.println("nacido vivo en el metodo insercion 22 "+pac.getCodigoMun());
+				ps.setString(23,fechapre);
+				//System.out.println("nacido vivo en el metodo insercion 23 "+fechapre);
+				ps.setString(24,pac.getContrato());
+				//System.out.println("nacido vivo en el metodo insercion 24 "+pac.getContrato());
+				
+				ps.executeUpdate();
+				ps.close();
+				con.cerrar();
+				System.out.println("Termino Inserccion");
+			
+			
+			}catch(Exception ex){
+				ex.getMessage();
+				System.out.print(ex);
+			}
+			
+			
+		}
+	
+}
+

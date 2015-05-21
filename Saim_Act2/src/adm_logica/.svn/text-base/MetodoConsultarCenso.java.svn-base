@@ -1,0 +1,75 @@
+/**
+ * logica:MetodoConsultarCenso
+ * Desarrollado:yosimar valega
+ */
+package logica;
+
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+
+/**
+ * Obtiene datos para mostrar el censo
+ *
+ */
+public class MetodoConsultarCenso {
+	public java.sql.ResultSet obtenerCenso(){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+rs=st.executeQuery("select c.codigocama, a.semana_cotizadas, p.genero, p.primer_apellido, p.nombre, ent.nombre_entidad, p.pac_codigo_paciente,p.fecha_nacimiento,a.observaciones,a.fecha_registro,DATEDIFF(CURDATE(),a.fecha_registro) as cesar,c.pabellon,c.ubicacion_cama " +
+        			"from  adm_paciente p, adm_censo_cama c, adm_admisiones a, adm_entidad ent, adm_convenio con " +
+        			"where a.pac_codigo_paciente_fk = p.pac_codigo_paciente and " +
+        			"c.cen_numero_cama = a.cen_numero_cama_fk and "+
+"ent.ent_nit_contratante = con.ent_nit_contratante_fk and "+
+"con.conv_numero_contrato = p.conv_numero_contrato_fk and a.estado='0'ORDER BY c.pabellon");
+
+        	
+        }
+        catch(Exception ex){
+        	ex.getMessage();
+        }
+        return rs;
+    }
+	
+	/**
+	 * obtiene edad del paciente consulta current_date
+	 */
+	
+	public java.sql.ResultSet obtenerEdad(String codigo) throws SQLException{
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	
+        	st.executeQuery("SELECT CURRENT_DATE,(YEAR(CURRENT_DATE) - YEAR(fecha_nacimiento)) -(RIGHT(CURRENT_DATE,5) < RIGHT(fecha_nacimiento,5)) AS edad FROM adm_paciente");
+        	      	
+        	
+        }
+        catch(Exception ex){
+        	ex.getMessage();
+        }
+        return rs;
+    }
+	
+	/**
+	 * obtiene edad del paciente por funcion
+	 */
+	
+	public int calcularEdad(Calendar fechaNac){
+	    Calendar today = Calendar.getInstance();
+	   
+	    int diff_year = today.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
+	    int diff_month = today.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
+	    int diff_day = today.get(Calendar.DAY_OF_MONTH) - fechaNac.get(Calendar.DAY_OF_MONTH);
+
+	    //Si está en ese año pero todavía no los ha cumplido
+	    if(diff_month<0 || (diff_month==0 && diff_day<0)){
+	        diff_year = diff_year - 1; //no aparecían los dos guiones del postincremento :|
+	    }
+	    return diff_year;
+	}
+}

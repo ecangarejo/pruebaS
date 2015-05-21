@@ -1,0 +1,63 @@
+/**
+ * NOMBRE DE LA CLASE: MetodoActualizarDemografico
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este metodo se encuentra lo necesario para consultar y actualizar
+ * 				los datos demograficos del paciente.
+ * 				
+ */
+package logica;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+public class MetodoActualizarDemografico {
+	
+	public java.sql.ResultSet obtenerDatosPaciente(String ced,String tipodoc){
+		/**
+		 * en este metodo se obtienen los datos del paciente 
+		 * al cual se le quiere modificar algun dato demografico
+		 * y tiene como datos de entrada el tipo de documento y el numero del documento.  
+		 * */
+		
+	    java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select op.ocu_nombre,mu.nombre,en.nombre_entidad,pa.tipo_documento,pa.numero_documento,pa.tipo_afiliacion,pa.nivel_cotizante,pa.primer_apellido,pa.segundo_apellido,pa.nombre,pa.genero,pa.nacionalidad,pa.direccion,pa.telefono_fijo,pa.telefono_oficina,pa.telefono_celular,pa.empresa_labora,pa.zona_residencial,pa.religion,pa.estado_civil,pa.raza,pa.estrato,pa.email,pa.pac_codigo_paciente,pa.fecha_nacimiento,de.nombre,pa.ocu_codigo_fk,pa.mun_codigo_fk,pa.conv_numero_contrato_fk from adm_paciente pa,adm_convenio co,adm_entidad en,adm_municipio mu,adm_ocupacion_paciente op,adm_departamento de where de.dept_codigo=mu.dept_codigo_fk and  pa.tipo_documento='"+tipodoc+"' and pa.numero_documento='"+ced+"' and pa.ocu_codigo_fk=op.ocu_codigo and mu.mun_codigo=pa.mun_codigo_fk and co.conv_numero_contrato=pa.conv_numero_contrato_fk and co.ent_nit_contratante_fk=en.ent_nit_contratante");
+        }
+        catch(Exception ex){
+        	
+        }
+      
+        return rs;
+        
+    }
+	
+	
+public void Actualizar( String tip,String ced, String afiliacion, String nivel, String pape,String sape, String nom,String gene,String nacionali,String dir,String tel,String telofi,String telcel,String ocu,String emp,String zona,String reli,String estadoci,String ra,String estra,String ema,String mun_cod,String fechanaci,String numcontra,String codpac){
+
+	/**
+	 * en este metodo se obtienen los datos que fueron 
+	 * modificados para su posterior actualizacion.
+	 * se tienen como datos de entrada todos los datos que fueron modificados
+	 * */
+	
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+
+	        	st= con.conn.prepareStatement("update adm_paciente set tipo_documento='"+tip+"',numero_documento='"+ced+"',tipo_afiliacion='"+afiliacion+"',nivel_cotizante='"+nivel+"',primer_apellido='"+pape+"',segundo_apellido='"+sape+"',nombre='"+nom+"',genero='"+gene+"',nacionalidad='"+nacionali+"',direccion='"+dir+"',telefono_fijo='"+tel+"',telefono_oficina='"+telofi+"',telefono_celular='"+telcel+"',ocu_codigo_fk='"+ocu+"',empresa_labora='"+emp+"',zona_residencial='"+zona+"',religion='"+reli+"',estado_civil='"+estadoci+"',raza='"+ra+"',estrato='"+estra+"',email='"+ema+"',mun_codigo_fk='"+mun_cod+"',fecha_nacimiento='"+fechanaci+"',conv_numero_contrato_fk='"+numcontra+"' where pac_codigo_paciente='"+codpac+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+	
+	
+
+}

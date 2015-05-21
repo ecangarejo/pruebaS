@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>
+	Admisiones</display-name>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAcudiente</display-name>
+		<servlet-name>ControlAcudiente</servlet-name>
+		<servlet-class>
+		Controlador.ControlAcudiente</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		DatosPaciente</display-name>
+		<servlet-name>DatosPaciente</servlet-name>
+		<servlet-class>
+		Controlador.DatosPaciente</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		Control_Datos_UrgenciaV</display-name>
+		<servlet-name>Control_Datos_UrgenciaV</servlet-name>
+		<servlet-class>
+		Controlador.Control_Datos_UrgenciaV</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlUrgenciaVital</display-name>
+		<servlet-name>ControlUrgenciaVital</servlet-name>
+		<servlet-class>
+		Controlador.ControlUrgenciaVital</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlTrasladoLlenar</display-name>
+		<servlet-name>ControlTrasladoLlenar</servlet-name>
+		<servlet-class>
+		Controlador.ControlTrasladoLlenar</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlInsertarCama</display-name>
+		<servlet-name>ControlInsertarCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlInsertarCama</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlArea</display-name>
+		<servlet-name>ControlArea</servlet-name>
+		<servlet-class>
+		Controlador.ControlArea</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCenso</display-name>
+		<servlet-name>ControlCenso</servlet-name>
+		<servlet-class>
+		Controlador.ControlCenso</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEstado</display-name>
+		<servlet-name>ControlEstado</servlet-name>
+		<servlet-class>
+		Controlador.ControlEstado</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCodigoSubarea</display-name>
+		<servlet-name>ControlCodigoSubarea</servlet-name>
+		<servlet-class>
+		Controlador.ControlCodigoSubarea</servlet-class>
+	</servlet>
+	
+	
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCodigoEstado</display-name>
+		<servlet-name>ControlCodigoEstado</servlet-name>
+		<servlet-class>
+		Controlador.ControlCodigoEstado</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSubarea</display-name>
+		<servlet-name>ControlSubarea</servlet-name>
+		<servlet-class>
+		Controlador.ControlSubarea</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCrearCama</display-name>
+		<servlet-name>ControlCrearCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlCrearCama</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAcompanante</display-name>
+		<servlet-name>ControlAcompanante</servlet-name>
+		<servlet-class>
+		Controlador.ControlAcompanante</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPreingreso</display-name>
+		<servlet-name>ControlPreingreso</servlet-name>
+		<servlet-class>
+		Controlador.ControlPreingreso</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCola</display-name>
+		<servlet-name>ControlCola</servlet-name>
+		<servlet-class>
+		Controlador.ControlCola</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlRemision</display-name>
+		<servlet-name>ControlRemision</servlet-name>
+		<servlet-class>
+		Controlador.ControlRemision</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAdmision</display-name>
+		<servlet-name>ControlAdmision</servlet-name>
+		<servlet-class>
+		Controlador.ControlAdmision</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlAsignarCama</display-name>
+		<servlet-name>ControlAsignarCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlAsignarCama</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMunicipio</display-name>
+		<servlet-name>ControlMunicipio</servlet-name>
+		<servlet-class>
+		Controlador.ControlMunicipio</servlet-class>
+	</servlet>
+	
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSeleccion</display-name>
+		<servlet-name>ControlSeleccion</servlet-name>
+		<servlet-class>
+		Controlador.ControlSeleccion</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControladorMedico</display-name>
+		<servlet-name>ControladorMedico</servlet-name>
+		<servlet-class>
+		Controlador.ControladorMedico</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPing</display-name>
+		<servlet-name>ControlPing</servlet-name>
+		<servlet-class>
+		Controlador.ControlPing</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPais</display-name>
+		<servlet-name>ControlPais</servlet-name>
+		<servlet-class>
+		Controlador.ControlPais</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlPaciente</display-name>
+		<servlet-name>ControlPaciente</servlet-name>
+		<servlet-class>
+		Controlador.ControlPaciente</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlMuni</display-name>
+		<servlet-name>ControlMuni</servlet-name>
+		<servlet-class>
+		Controlador.ControlMuni</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlIngresoPac</display-name>
+		<servlet-name>ControlIngresoPac</servlet-name>
+		<servlet-class>
+		Controlador.ControlIngresoPac</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlErrorAdm</display-name>
+		<servlet-name>ControlErrorAdm</servlet-name>
+		<servlet-class>
+		Controlador.ControlErrorAdm</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlHistoricoCama</display-name>
+		<servlet-name>ControlHistoricoCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlHistoricoCama</servlet-class>
+	</servlet>
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlSelAct</display-name>
+		<servlet-name>ControlSelAct</servlet-name>
+		<servlet-class>
+		Controlador.ControlSelAct</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlSelAct</servlet-name>
+		<url-pattern>/ControlSelAct</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarArea</display-name>
+		<servlet-name>ControlEliminarArea</servlet-name>
+		<servlet-class>
+		Controlador.ControlEliminarArea</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarArea</servlet-name>
+		<url-pattern>/ControlEliminarArea</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlCensoGrafico</display-name>
+		<servlet-name>ControlCensoGrafico</servlet-name>
+		<servlet-class>
+		Controlador.ControlCensoGrafico</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlCensoGrafico</servlet-name>
+		<url-pattern>/ControlCensoGrafico</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarSubarea</display-name>
+		<servlet-name>ControlEliminarSubarea</servlet-name>
+		<servlet-class>
+		Controlador.ControlEliminarSubarea</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarSubarea</servlet-name>
+		<url-pattern>/ControlEliminarSubarea</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlEliminarCama</display-name>
+		<servlet-name>ControlEliminarCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlEliminarCama</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlEliminarCama</servlet-name>
+		<url-pattern>/ControlEliminarCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActualizarCama</display-name>
+		<servlet-name>ControlActualizarCama</servlet-name>
+		<servlet-class>
+		Controlador.ControlActualizarCama</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActualizarCama</servlet-name>
+		<url-pattern>/ControlActualizarCama</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlActualizarDemografico</display-name>
+		<servlet-name>ControlActualizarDemografico</servlet-name>
+		<servlet-class>
+		Controlador.ControlActualizarDemografico</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlActualizarDemografico</servlet-name>
+		<url-pattern>/ControlActualizarDemografico</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		ControlNacido</display-name>
+		<servlet-name>ControlNacido</servlet-name>
+		<servlet-class>
+		Controlador.ControlNacido</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlCrearCama</servlet-name>
+		<url-pattern>/ControlCrearCama</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlAcudiente</servlet-name>
+		<url-pattern>/ControlAcudiente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlEstado</servlet-name>
+		<url-pattern>/ControlEstado</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>ControlCodigoSubarea</servlet-name>
+		<url-pattern>/ControlCodigoSubarea</url-pattern>
+	</servlet-mapping>
+
+	
+	<servlet-mapping>
+		<servlet-name>ControlArea</servlet-name>
+		<url-pattern>/ControlArea</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlCenso</servlet-name>
+		<url-pattern>/ControlCenso</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlMunicipio</servlet-name>
+		<url-pattern>/ControlMunicipio</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlInsertarCama</servlet-name>
+		<url-pattern>/ControlInsertarCama</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlAcompanante</servlet-name>
+		<url-pattern>/ControlAcompanante</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlPreingreso</servlet-name>
+		<url-pattern>/ControlPreingreso</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlCola</servlet-name>
+		<url-pattern>/ControlCola</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlRemision</servlet-name>
+		<url-pattern>/ControlRemision</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlAdmision</servlet-name>
+		<url-pattern>/ControlAdmision</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>ControlCodigoEstado</servlet-name>
+		<url-pattern>/ControlCodigoEstado</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlAsignarCama</servlet-name>
+		<url-pattern>/ControlAsignarCama</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlSeleccion</servlet-name>
+		<url-pattern>/ControlSeleccion</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlSubarea</servlet-name>
+		<url-pattern>/ControlSubarea</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControladorMedico</servlet-name>
+		<url-pattern>/ControladorMedico</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlPing</servlet-name>
+		<url-pattern>/ControlPing</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlPais</servlet-name>
+		<url-pattern>/ControlPais</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlPaciente</servlet-name>
+		<url-pattern>/ControlPaciente</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlMuni</servlet-name>
+		<url-pattern>/ControlMuni</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlIngresoPac</servlet-name>
+		<url-pattern>/ControlIngresoPac</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlErrorAdm</servlet-name>
+		<url-pattern>/ControlErrorAdm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ControlHistoricoCama</servlet-name>
+		<url-pattern>/ControlHistoricoCama</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlTrasladoLlenar</servlet-name>
+		<url-pattern>/ControlTrasladoLlenar</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DatosPaciente</servlet-name>
+		<url-pattern>/DatosPaciente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Control_Datos_UrgenciaV</servlet-name>
+		<url-pattern>/Control_Datos_UrgenciaV</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ControlUrgenciaVital</servlet-name>
+		<url-pattern>/ControlUrgenciaVital</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>ControlNacido</servlet-name>
+		<url-pattern>/ControlNacido</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

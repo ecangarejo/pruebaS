@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="eco_subreporte_aorta_arco" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9db44442-ecbc-406a-9ea7-623d5e5a4d34">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CodInformeCardiologia" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["45"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+aorta.medicion
+FROM
+eco_analisis_aorta aorta,
+eco_encabezado_informe inf
+WHERE
+inf.idInformeEcocardio = $P{CodInformeCardiologia}
+AND aorta.idInforme_fk = inf.idInformeEcocardio
+AND aorta.id_tipo_analisis_aorta_fk = '5']]>
+	</queryString>
+	<field name="medicion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="48f7a8bd-ff67-435d-9233-b0c80067d151" key="textField-1" x="218" y="11" width="61" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Boolean.valueOf($F{medicion}==0 )? "" :$F{medicion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="cfa1207b-771b-499c-baa2-29e55604722e" key="textField-23" x="10" y="11" width="180" height="15"/>
+				<textElement>
+					<font fontName="Verdana" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Boolean.valueOf($F{medicion}==0 )? "" :"MEDIDA ARCO AÓRTICO: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="046aab85-8052-40d5-8321-6f7180e7e05e" key="textField-23" x="279" y="11" width="130" height="15"/>
+				<textElement>
+					<font fontName="Verdana" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Boolean.valueOf($F{medicion}==0 )? "" :"mm"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

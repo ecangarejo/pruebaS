@@ -1,0 +1,86 @@
+package seguridad_controlador;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import seguridad_logica.Metodo_Usuario;
+
+
+/**
+ * Servlet implementation class Control_Usuarios
+ */
+public class Control_Usuarios extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+     
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String nom,ape,dire,tel,mail,pro,ocu,ced,contra,usu,codus="",cedula = null;
+		String estado,est="";
+		Metodo_Usuario mu=new Metodo_Usuario();
+		ResultSet rs=null;
+		ResultSet rs1=null;
+		nom=req.getParameter("nom");
+		ape=req.getParameter("ape");
+		dire=req.getParameter("dire");
+		tel=req.getParameter("tel");
+		mail=req.getParameter("mail");
+		pro=req.getParameter("pro");
+		ocu=req.getParameter("ocu");
+		ced=req.getParameter("ced");
+		contra=req.getParameter("contra");
+		usu=req.getParameter("usu");
+		estado=req.getParameter("estado");
+		System.out.println("ESTADO CUANDO ENTRA "+estado);
+		if(estado.equals("ACTIVO")){
+			est="0";
+			System.out.println("ESTA ACTIVO CODIGO= "+est);
+		}
+	
+		if(estado.equals("INACTIVO")){
+			est="1";
+			System.out.println("ESTA INACTIVO CODIGO= "+est);
+		}
+		
+		
+		/////////////////////////////////////////////////////////////
+		rs1=mu.VerificarExistensia(ced);
+		try {
+			while(rs1.next()){				
+				cedula=rs1.getString(1);			
+			}
+			rs1.close();
+		}
+		catch(SQLException e1){
+			 System.out.println(e1);
+		 }
+		if(cedula==null){
+		//////////////////////////////////////////////////////////////////////////////
+			mu.insertarusuario(ape, dire, mail, nom, ocu, pro, tel, ced,est);	
+			rs=mu.obtenerCodigousuario(ced);
+			////////////////////			
+			try{			
+				while(rs.next()){				
+					codus=rs.getString(1);			
+				}
+				rs.close();
+			}
+			 catch(SQLException e1){
+				 e1.getMessage();
+			 }			 
+			 mu.insertarLogin(usu, contra, codus);
+			 res.sendRedirect("Seg_login.jsp");		
+		}
+		else{
+			res.sendRedirect("Seg_Creacion.jsp?va=1");
+		}
+	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+
+	}
+}

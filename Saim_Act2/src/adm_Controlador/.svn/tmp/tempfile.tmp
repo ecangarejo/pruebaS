@@ -1,0 +1,76 @@
+package Controlador;
+import java.io.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import logica.Conexion;
+import logica.MetodoPreingreso;
+import logica.MetodoRemision;
+
+import java.sql.*;
+import java.util.*;
+
+public class ControlRemision extends HttpServlet{
+		public void doGet(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+			String ced, nom, pape,sape,eps,fecha,hora,tipodoc,numeroauto,autorizado,cama;
+		
+		    eps = new String();
+			ced = re.getParameter("ced");
+			tipodoc=re.getParameter("ti");
+			nom = re.getParameter("nom");
+			pape = re.getParameter("pape");
+			sape = re.getParameter("sape");
+			eps = re.getParameter("ep");
+			numeroauto = re.getParameter("num");
+			autorizado = re.getParameter("aut");
+			cama=re.getParameter("cama");
+			//System.out.println("cama en el control remision "+cama);
+			
+			
+			//Elimina los caracteres de ENTER y retorno o salto de linea 
+			//si se necesitan se complementa \r \t
+			
+			
+			
+			
+			fecha =re.getParameter("fe");
+			hora =re.getParameter("ho");
+			 
+			
+			MetodoRemision ba = new MetodoRemision();
+<<<<<<< .mine
+			ba.insertar(ced,eps, nom,  pape, tipodoc,sape,  fecha,  hora, numeroauto,autorizado,cama);
+=======
+			ba.insertar(ced,eps, nom,  pape, tipodoc,sape,  fecha,  hora, numeroauto,autorizado,cama);
+			ba.Actualizar(cama);
+			//ba.insertar(ced, ep, nom, pape, td, sape, f, hora, numeroaut, autori, codcam)
+>>>>>>> .r178
+			
+			
+		}
+		
+		public void doPost(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+			MetodoRemision ba = new MetodoRemision();
+			ResultSet rs=null;
+			rs=ba.SQLEntidad();	
+			String v[] = new String[1000];
+		
+			try {
+				int c=0;
+				while(rs.next()){
+					PrintWriter out=res.getWriter();
+					v[c]=rs.getString(1);
+					
+					out.println(v[c]+"_");
+					c++;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+}

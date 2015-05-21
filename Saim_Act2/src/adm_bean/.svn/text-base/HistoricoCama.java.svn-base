@@ -1,0 +1,51 @@
+package bean;
+
+import java.sql.Date;
+
+public class HistoricoCama{
+	
+		String cen_cama= "";
+		String fecha_ini;
+		String fecha_fi;
+		String num_ingre= "";
+		
+		public HistoricoCama(){
+			
+		}
+		public HistoricoCama(String censo, String feini, String fefi, String numi){
+			cen_cama = censo;
+			fecha_ini = feini;
+			fecha_fi = fefi;
+			num_ingre = numi;
+			
+		}
+		
+		public String getCama(){
+			return cen_cama;
+		}
+		
+		public String getFechai(){
+			return fecha_ini;
+		}
+		public String getFechafi(){
+			return fecha_fi;
+		}
+		public String getNumingreso(){
+			return num_ingre;
+		}
+		
+		//Modificar
+		public void setCama(String cam){
+			cen_cama = cam;
+		}
+		public void setFechai(String fei){
+			fecha_ini = fei;
+		}
+		public void setFechafi(String fefi){
+			fecha_fi = fefi;
+		}
+		public void setNumingreso(String num){
+			num_ingre= num;
+		}
+		
+}

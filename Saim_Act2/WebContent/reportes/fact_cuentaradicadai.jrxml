@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fact_cuentaradicadai" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="732" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="ec6e9cd0-fa37-49e7-bb74-1d04847aa062">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="consCTA" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT @rownum:=@rownum+1 AS ROW,CONCAT('RADI0', ffr.consRadicado) AS CuentaCobro,
+  fn.consecutivo,ffr.valor AS Valortotal,
+  ffr.fecha AS fechaEnvio,CONCAT(sdt.nombre, ' ', sdt.apellido) usuario ,
+  CONCAT(p.nombre,' ',p.primer_apellido,' ',p.segundo_apellido) paciente,
+  CONCAT(p.tipo_documento,' ',p.numero_documento) documento,YEAR(ffr.fecha) AS anio,MONTH(ffr.fecha) AS mes,DAY(ffr.fecha) AS dia,
+  fef.fecha_ingreso AS 'f.ingreso',fef.fecha_egreso  AS 'f.egreso',
+  fef.valor AS valorfactura,am.nombre AS municipioPaciente,ae.nombre_entidad,ae.ent_nit_contratante,emp.* ,ffr.valorLetra,ffra.fechaRadicado
+FROM
+ (SELECT @rownum:=0) r,
+  fact_numeradas fn,
+  fact_enc_factura fef,
+  adm_entidad ae,
+  adm_paciente p,
+  adm_admisiones adm,
+  adm_municipio am,
+  fact_factradicadasi ffr,
+  fact_facturas_radicadasi ffra ,
+  seg_usuario su,
+  seg_datos_personales sdt,empresa emp 
+WHERE ffr.consRadicado =  $P{consCTA} 
+  AND ffr.consRadicado = ffra.consRadicado 
+  AND ffra.codFact = fn.cod_fact_numerada 
+  AND fn.cod_enc_fact_fk = fef.cod_enc_factura 
+  AND fef.cod_admision = adm.adm_numero_ingreso 
+  AND adm.pac_codigo_paciente_fk = p.pac_codigo_paciente 
+  AND p.mun_codigo_fk = am.muni_cod 
+  AND fef.cod_eps = ae.ent_nit 
+  AND ffr.cod_usuario = su.usu_codigo         			       
+  AND su.dat_codigo_fk = sdt.dat_codigo]]>
+	</queryString>
+	<field name="ROW" class="java.lang.String"/>
+	<field name="CuentaCobro" class="java.lang.String"/>
+	<field name="consecutivo" class="java.lang.String"/>
+	<field name="Valortotal" class="java.lang.Integer"/>
+	<field name="fechaEnvio" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="paciente" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<field name="anio" class="java.lang.String"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="dia" class="java.lang.String"/>
+	<field name="f.ingreso" class="java.lang.String"/>
+	<field name="f.egreso" class="java.lang.String"/>
+	<field name="valorfactura" class="java.lang.Integer"/>
+	<field name="municipioPaciente" class="java.lang.String"/>
+	<field name="nombre_entidad" class="java.lang.String"/>
+	<field name="ent_nit_contratante" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="departamento" class="java.lang.String"/>
+	<field name="nit" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="logo" class="java.lang.Object"/>
+	<field name="incontec" class="java.lang.Object"/>
+	<field name="codprestador" class="java.lang.String"/>
+	<field name="valorLetra" class="java.lang.String"/>
+	<field name="fechaRadicado" class="java.lang.String"/>
+	<variable name="item" class="java.lang.String" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="163" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="fd7393b3-723f-439a-8fb2-cf5983f13c0b" key="textField-1" isPrintRepeatedValues="false" x="70" y="24" width="642" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="736c7554-adf7-426e-bb64-b2b7d50b09d8" key="textField-2" isPrintRepeatedValues="false" x="288" y="42" width="207" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NIT. "+$F{nit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="48442743-2e53-45fd-a237-ecd7d59af727" key="textField-3" isPrintRepeatedValues="false" x="70" y="75" width="642" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_entidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="65013327-4a15-4cd8-be84-73f165f8682a" key="textField-4" isPrintRepeatedValues="false" x="70" y="91" width="642" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NIT. "+$F{ent_nit_contratante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9093900d-6b27-4bf8-83fd-dd53240086fc" key="staticText-1" x="75" y="57" width="631" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[RELACION DE FACTURAS RADICADAS INTERNAMENTE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="168de679-e5ad-449a-84fe-f7035f19e814" key="textField-5" x="4" y="12" width="396" height="15"/>
+				<textElement>
+					<font size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{mes}.equals("1") ? $F{municipio}+","+$F{dia}+" de Enero "+$F{anio} :
+($F{mes}.equals("2") ? $F{municipio}+","+$F{dia}+" de Febrero "+$F{anio} :
+($F{mes}.equals("3") ? $F{municipio}+","+$F{dia}+" de Marzo "+$F{anio} :
+($F{mes}.equals("4") ? $F{municipio}+","+$F{dia}+" de Abril "+$F{anio} :
+($F{mes}.equals("5") ? $F{municipio}+","+$F{dia}+" de Mayo "+$F{anio} :
+($F{mes}.equals("6") ? $F{municipio}+","+$F{dia}+" de Junio "+$F{anio} :
+($F{mes}.equals("7") ? $F{municipio}+","+$F{dia}+" de Julio "+$F{anio} :
+($F{mes}.equals("8") ? $F{municipio}+","+$F{dia}+" de Agosto "+$F{anio} :
+($F{mes}.equals("9") ? $F{municipio}+","+$F{dia}+" de Septiembre "+$F{anio} :
+($F{mes}.equals("10") ? $F{municipio}+","+$F{dia}+" de Octubre "+$F{anio} :
+($F{mes}.equals("11") ? $F{municipio}+","+$F{dia}+" de Noviembre "+$F{anio} :
+($F{mes}.equals("12") ? $F{municipio}+","+$F{dia}+" de Diciembre "+$F{anio} :
+($F{mes}.length() > 0 ? $F{mes}:
+ ""
+ )
+ )
+ )
+)
+ )
+ )
+)
+ )
+ )
+)
+ )
+ )
+)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ec7422e8-79e0-465b-bac3-19aabe7365c7" key="textField-6" x="15" y="136" width="714" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["POR CONCEPTO DE PAGOS DE HONORARIOS DE SERVICIOS MEDICOS  "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="905ee3b2-db28-43d4-a521-9d559702a6c9" key="textField-7" isPrintRepeatedValues="false" x="459" y="12" width="271" height="18"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Radicado Interno Nº :  "+$F{CuentaCobro}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="48255602-03f3-4104-81d8-7d6c44d309a2" key="textField-8" x="16" y="113" width="150" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["TOTAL RADICADO INTERNO: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement uuid="5a601009-d6d1-4906-bc09-491ec421ac7b" key="textField-9" x="160" y="113" width="72" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Valortotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ff38cf0b-7e87-4eec-8cd4-f1e23daae6f4" key="textField-10" x="230" y="113" width="482" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["("+$F{valorLetra}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="55269322-b01f-4cb3-bb3a-38ebb608c194" key="staticText-2" x="4" y="20" width="24" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9aec2bf0-c885-4f06-9cd8-32689e574a05" key="staticText-3" x="28" y="20" width="86" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nº Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="efca7985-43f2-467e-a664-074d93025857" key="staticText-4" x="114" y="20" width="163" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombres y Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9bd5d536-3e7f-4ca5-ba1f-092fac3ad47c" key="staticText-5" x="277" y="20" width="90" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Identificacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3565509-ff73-488e-a7f9-8db077b504fe" key="staticText-6" x="367" y="20" width="63" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[F.Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="89ebb14d-c3de-4ef1-a64d-4098f452160d" key="staticText-7" x="430" y="20" width="63" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[F.Egreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8023167d-b048-4c4d-a565-d7361235a2d2" key="staticText-8" x="493" y="20" width="83" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0c8b2c9b-6510-41d0-b95e-ea163b64f768" key="staticText-9" x="576" y="20" width="88" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Municipio o Dpto]]></text>
+			</staticText>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement uuid="6e27d5a4-b6a9-4a35-a0cf-a68c66cfb751" key="textField-11" x="706" y="4" width="25" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="19ef21cb-7cc7-4bdd-804a-e21636cbd5ca" key="textField-12" x="648" y="4" width="63" height="14"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PÁGINA "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="04bc34e7-bbf9-4421-b518-3f2fe31118f9" key="staticText-10" x="664" y="20" width="64" height="19"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[F.Radicación]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="f4e69ebd-f06e-4589-91a6-018f3df637b4" key="textField-13" x="28" y="0" width="86" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{consecutivo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="06287eb9-cb36-4890-9ef8-10e506a4ebba" key="textField-14" x="114" y="0" width="163" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{paciente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="c82eb060-6722-4350-8be5-2b4a6ca478cb" key="textField-15" x="277" y="0" width="90" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{documento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="6e27ce5d-bdd6-4e3e-8f07-57480ce1b930" key="textField-16" x="367" y="0" width="63" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{f.ingreso}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="5a55cc42-6f67-4cf3-9fec-b8512919ee27" key="textField-17" x="430" y="0" width="63" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{f.egreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0" isBlankWhenNull="false">
+				<reportElement uuid="cae31e50-a46d-40e2-b0c9-e02d8628112e" key="textField-18" x="493" y="0" width="83" height="18"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{valorfactura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="3006c7cf-01a0-4036-aa14-a7de3b0fd7de" key="textField-19" x="576" y="0" width="88" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{municipioPaciente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="24e3b877-a6b4-468b-b680-4944e8de7e63" key="textField-20" x="6" y="0" width="22" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ROW}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="f931f781-5b2d-47dc-bd87-1bc560acec2c" key="textField-21" x="664" y="0" width="63" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaRadicado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="120" splitType="Stretch">
+			<line>
+				<reportElement uuid="79bdb6ec-c7dd-4e82-bb71-6493f10e2fb2" key="line-1" x="4" y="32" width="252" height="1"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="a7b9e543-b735-4d1e-a65e-28a3c64c03f4" key="textField-22" x="4" y="38" width="243" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="16f40cd0-d8bf-4423-b69b-91371625d382" key="staticText-11" x="4" y="54" width="243" height="14"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Encargado de Radicación]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="50" splitType="Stretch"/>
+	</summary>
+</jasperReport>

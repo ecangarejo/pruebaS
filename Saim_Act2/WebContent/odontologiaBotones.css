@@ -1,0 +1,177 @@
+@CHARSET "ISO-8859-1";
+/* CSS Document */
+.caries_boton_normal {
+	background-image: url('Imagenes/imagen_caries.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.caries_boton_seleccionado {
+	background-image: url('Imagenes/imagen_caries.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.obturacion_boton_normal {
+	background-image: url("Imagenes/imagen_obturacion.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.obturacion_boton_seleccionado {
+	background-image: url("Imagenes/imagen_obturacion.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.radicina_boton_normal {
+	background-image: url("Imagenes/imagen_radicina.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.radicina_boton_seleccionado {
+	background-image: url("Imagenes/imagen_radicina.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.ausencia_boton_normal {
+	background-image: url("Imagenes/imagen_ausenciaDiente.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.ausencia_boton_seleccionado {
+	background-image: url("Imagenes/imagen_ausenciaDiente.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.desmineralizacion_boton_normal {
+	background-image: url("Imagenes/imagen_desmineralizacion.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.desmineralizacion_boton_seleccionado {
+	background-image: url("Imagenes/imagen_desmineralizacion.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.sellante_ausente_boton_normal {
+	background-image: url("Imagenes/imagen_sellante_ausente.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.sellante_ausente_boton_seleccionado {
+	background-image: url("Imagenes/imagen_sellante_ausente.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.no_erupcionado_boton_normal {
+	background-image: url("Imagenes/imagen_no_erupcionado.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.no_erupcionado_boton_seleccionado {
+	background-image: url("Imagenes/imagen_no_erupcionado.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.restaurar_diente_boton_normal {
+	background-image: url("Imagenes/Diente_Modelo_css.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 1px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}
+
+.restaurar_diente_boton_seleccionado {
+	background-image: url("Imagenes/Diente_Modelo_css.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	border: solid 3px #333;
+	background-color: #CCC;
+	color: #FFFFFF;
+	width: 40px;
+	height: 30px;
+}

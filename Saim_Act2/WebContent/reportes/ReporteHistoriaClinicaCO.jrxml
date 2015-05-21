@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteHistoriaClinicaCO" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="912162e6-383e-4f76-a406-29f79e3c2f7c">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="CodFormato" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="HoraFormato" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CodPac" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="usuario" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ruta" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FechaFormato" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CodAdmision" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT hfr.nombre_formato,har.codigo,hres.fecha,hres.hora,emp.nombre AS NomEmpresa,emp.direccion AS EmpDire,emp.municipio AS EmpMuni,emp.departamento AS EmpDepa,emp.nit AS EmpNit,emp.telefono AS EmpTel,emp.logo AS EmpLogo,
+apac.tipo_documento,apac.numero_documento,apac.primer_apellido,apac.segundo_apellido,apac.nombre,apac.genero,apac.fecha_nacimiento,aen.nombre_entidad AS eps,sdt.nombre AS nomDato,sdt.apellido AS apeDato,
+sdt.cedula AS ceduladato,hcof.CodUsu as Cofirma,CONCAT(sdt.profesion,' ',sdt.ocupacion) as profesion,sdt.firma,(YEAR(CURDATE())-YEAR(apac.fecha_nacimiento)) - (RIGHT(CURDATE(),5) < RIGHT(apac.fecha_nacimiento, 5)) AS edad,apac.estado_civil,apac.direccion
+FROM hic_formato hfr,hic_area har,hic_pregunta hpr,hic_resultado hres,empresa emp,adm_paciente apac,
+seg_usuario sgu,seg_datos_personales sdt,hic_adm_formatos_pac hafp,adm_convenio acv,hic_cofirmahc hcof,adm_entidad aen,hic_formato_area hfa
+WHERE hres.CodFormato_fk=$P{CodFormato} AND hpr.codigo=hres.codPreg_fk
+AND hcof.CodForPac=hafp.codigo
+and hafp.codigo_pac_fk=hres.codPac_fk 
+AND har.codigo=hres.codArea_Fk AND hfr.codigo=hres.CodFormato_fk 
+AND hres.fecha=$P{FechaFormato}  AND hres.hora=$P{HoraFormato} 
+AND apac.pac_codigo_paciente=hres.codPac_fk AND hres.codPac_fk=$P{CodPac} 
+AND hres.codUsu_Fk=$P{usuario}  AND hres.codUsu_Fk=sgu.usu_codigo AND sdt.dat_codigo=sgu.dat_codigo_fk 
+AND aen.ent_nit=acv.ent_nit_contratante_fk AND acv.conv_numero_contrato=apac.conv_numero_contrato_fk
+AND hfa.codigo_area_fk=har.codigo AND hfa.codigo_formato_fk=hfr.codigo ORDER BY hfa.codigo]]>
+	</queryString>
+	<field name="EmpLogo" class="java.io.InputStream"/>
+	<field name="firma" class="java.io.InputStream"/>
+	<field name="nombre_formato" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<field name="NomEmpresa" class="java.lang.String"/>
+	<field name="EmpDire" class="java.lang.String"/>
+	<field name="EmpMuni" class="java.lang.String"/>
+	<field name="EmpDepa" class="java.lang.String"/>
+	<field name="EmpNit" class="java.lang.String"/>
+	<field name="EmpTel" class="java.lang.String"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="numero_documento" class="java.lang.String"/>
+	<field name="primer_apellido" class="java.lang.String"/>
+	<field name="segundo_apellido" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.lang.String"/>
+	<field name="eps" class="java.lang.String"/>
+	<field name="nomDato" class="java.lang.String"/>
+	<field name="apeDato" class="java.lang.String"/>
+	<field name="ceduladato" class="java.lang.String"/>
+	<field name="Cofirma" class="java.lang.String"/>
+	<field name="profesion" class="java.lang.String"/>
+	<field name="edad" class="java.lang.String"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<group name="EstadoDestinoSalida">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="19" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="4da5765c-6dd1-4be0-b1ff-a4a400cb88c7" key="subreport-1" x="2" y="2" width="525" height="17"/>
+					<subreportParameter name="CodAdmision">
+						<subreportParameterExpression><![CDATA[$P{CodAdmision}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"\\EstadoDestiniSalida.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DiagRel2">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="19" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="72f0f180-aceb-436a-a24a-63ca4019a928" key="subreport-2" x="2" y="2" width="525" height="17"/>
+					<subreportParameter name="CodAdmision">
+						<subreportParameterExpression><![CDATA[$P{CodAdmision}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"\\DiagRel2.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DiagRel1">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="19" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="d8bf1673-0cb6-4dde-b762-0f6948add043" key="subreport-3" x="2" y="2" width="525" height="17"/>
+					<subreportParameter name="CodAdmision">
+						<subreportParameterExpression><![CDATA[$P{CodAdmision}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"\\DiagRel1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="DiagEgreso">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="19" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="08c81706-738d-48e7-add8-4a16a7af8cb6" key="subreport-4" x="2" y="2" width="525" height="17"/>
+					<subreportParameter name="CodAdmision">
+						<subreportParameterExpression><![CDATA[$P{CodAdmision}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"\\DiagnosticoEgreso.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="1Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="2Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="3Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="4Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="5Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="6Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="7Ant">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<line>
+				<reportElement uuid="41a998f7-0f1c-4165-9325-83093ff6590b" key="line-1" x="0" y="73" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="181c9de1-5809-41dd-8e28-1ba7e482911e" key="line-2" x="0" y="77" width="535" height="1"/>
+			</line>
+			<image>
+				<reportElement uuid="98ad54fd-5fe6-41e8-bcfd-e9566caffc4e" key="image-1" x="14" y="2" width="119" height="68"/>
+				<imageExpression><![CDATA[$F{EmpLogo}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="443450fd-89fb-4cd6-aad7-ad74646ae937" key="textField-1" isPrintRepeatedValues="false" x="133" y="6" width="392" height="18"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="66dae538-5445-4dbb-986a-ea6e4587d530" key="textField-2" x="133" y="33" width="392" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EmpDire}+"TEL "+$F{EmpTel}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="b5376eda-5080-4c02-8f80-746c77ecb384" key="textField-3" x="133" y="45" width="392" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EmpMuni}+" "+$F{EmpDepa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="2ca1cc2e-b3e5-4ddc-b5ae-ae9ea3dcadd3" key="textField-4" x="133" y="57" width="392" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NIT."+$F{EmpNit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="38c29489-f40c-4cd4-b838-0e1f482f07df" key="staticText-1" x="6" y="2" width="52" height="13"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="508d7363-5559-4542-9d4f-ec5127a91ce3" key="staticText-2" x="305" y="2" width="71" height="13"/>
+				<textElement/>
+				<text><![CDATA[DOCUMENTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0738714-8df7-4179-abcf-0445cf43f508" key="staticText-3" x="6" y="15" width="52" height="15"/>
+				<textElement/>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ff6720eb-7687-4f13-abf9-9f804e5dd088" key="textField-5" x="59" y="2" width="246" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}+" "+$F{primer_apellido}+" "+$F{segundo_apellido}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="03228e19-bd51-4bf0-8485-c657affc9bfa" key="textField-6" x="376" y="2" width="149" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tipo_documento}+" "+$F{numero_documento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c8c42073-2993-46eb-a006-a1735b9afc0b" key="textField-7" x="44" y="15" width="93" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="37bf9ac1-fe37-430e-9f38-7d05b7c48aeb" key="staticText-4" x="6" y="49" width="53" height="15"/>
+				<textElement/>
+				<text><![CDATA[ENTIDAD:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ed7b59bb-496d-4482-8b8c-f8d861a7689d" key="textField-8" x="55" y="49" width="470" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eps}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6db0c664-d39f-4327-80b8-c17364867a40" key="staticText-5" x="186" y="15" width="52" height="15"/>
+				<textElement/>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="fd816d1d-3a7f-4443-92a2-f9c929dda65a" key="textField-9" x="223" y="15" width="93" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="427a5a7a-cf8f-43c1-9925-66ac38c7c649" key="line-3" x="0" y="67" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="6ac2e03d-b642-4cb0-b262-8726dc267245" key="line-4" x="0" y="71" width="535" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="41774128-f531-43c7-ae8d-63ab549faddd" key="textField-10" x="5" y="74" width="435" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["FORMATO Nº: "+$P{CodFormato}+"  Fecha/Hora: "+$P{FechaFormato}+" "+$P{HoraFormato}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c7dd4870-e9a1-4c7b-bdea-3cda8787b09f" key="textField-11" x="0" y="87" width="535" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_formato}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="261a9150-b053-4849-a1cd-1ebbae138638" key="line-5" x="0" y="102" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="e395584b-f8ab-46b9-9d00-9fbb4d42eda1" key="line-6" x="0" y="106" width="535" height="1"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="ec24a14c-e3e2-4b18-af92-d8c767a37c5d" key="textField-12" x="445" y="72" width="67" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Pagina "+String.valueOf($V{PAGE_NUMBER})+ " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement uuid="22b08114-c3f6-4465-a4b1-f066ac81422e" key="textField-13" x="500" y="72" width="27" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" "+String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8d2162ca-a4dd-42f9-93ef-846207fcffc3" key="staticText-6" x="7" y="32" width="78" height="15"/>
+				<textElement/>
+				<text><![CDATA[ESTADO CIVIL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="1d0e231c-80a9-4309-b0c8-d3f993c38472" key="textField-14" x="84" y="32" width="127" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado_civil}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="50420bdf-a868-4762-ba64-5e1592c182ad" key="staticText-7" x="218" y="32" width="62" height="15"/>
+				<textElement/>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="8307f96c-cee6-4a35-a5cf-d1d5844be631" key="textField-15" x="280" y="32" width="246" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement uuid="b408b333-6975-452c-87cc-d8c60ff46267" key="subreport-5" x="2" y="0" width="525" height="17"/>
+				<subreportParameter name="CodPac">
+					<subreportParameterExpression><![CDATA[$P{CodPac}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="usuario">
+					<subreportParameterExpression><![CDATA[$P{usuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HoraFormato">
+					<subreportParameterExpression><![CDATA[$P{HoraFormato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FechaFormato">
+					<subreportParameterExpression><![CDATA[$P{FechaFormato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CodFormato">
+					<subreportParameterExpression><![CDATA[$P{CodFormato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CodigoArea">
+					<subreportParameterExpression><![CDATA[$F{codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"\\ReporteDeAreas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="117" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="f4ddb263-f6c7-4aba-b46b-aad3cea20ad4" key="textField-16" x="2" y="64" width="271" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nomDato}+" "+$F{apeDato}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="79b79c7c-5288-441f-a9c4-ff0c1d151d39" key="line-7" x="1" y="59" width="236" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="47e7a475-161e-46f2-8e0d-0be7c4b3c328" key="textField-17" x="28" y="92" width="211" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ceduladato}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="13bbd4d9-7931-4829-b180-eae3829ffacb" key="textField-18" x="2" y="78" width="271" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{profesion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d3fae9af-1108-4804-8db9-6b09bf8c402e" key="staticText-8" x="2" y="92" width="24" height="15"/>
+				<textElement>
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[R.M]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="35d8d514-53e2-4b8e-93d6-30a923ef0baf" key="image-2" x="48" y="13" width="171" height="43"/>
+				<imageExpression><![CDATA[$F{firma}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="b005de2d-96c3-4be1-b57c-4b8629866324" key="textField-19" x="289" y="64" width="246" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{Cofirma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

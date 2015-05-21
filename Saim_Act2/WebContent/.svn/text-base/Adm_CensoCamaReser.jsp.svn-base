@@ -1,0 +1,80 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage=""%>
+<%@ page import="bean.Remision,java.util.*" import="Logica.* "%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<center><b><font face="Verdana" size="5"> CLINICA DE LA COSTA</font></b></center>
+<center><b><font face="Verdana" size="3"> Censo De Camas Reservadas</font></b></center>
+<font face="Arial, Helvetica, sans-serif">
+<table border="1">
+<tr>
+<td width="10%"><font size="2">Area  </font></td>
+<td width="10%"><font size="2">Subarea  </font></td>
+<td width="10%"><font size="2">Cama  </font></td>
+<td width="10%"><font size="2">Tipo Documento</font></td>
+<td width="10%"><font size="2">Cedula</font></td>
+<td width="10%"><font size="2">Primer Apellido</font></td>
+<td width="10%"><font size="2">Segunda Apellido</font></td>
+<td width="10%"><font size="2">Nombre</font></td>
+<td width="10%"><font size="2">Empresa o EPS</font></td>
+<td width="10%"><font size="2">Fecha</font></td>
+<td width="10%"><font size="2">Hora</font></td>
+<td width="10%"><font size="2">Numero Autorizacion</font></td>
+<td width="10%"><font size="2">Autorizado Por</font></td>
+</tr>
+
+<%
+
+Vector lista =(Vector)request.getSession().getAttribute("listacenso");
+
+
+String cama=null;
+//System.out.println(lista);
+  
+Remision rem = new Remision();
+cama=rem.getCama();
+//System.out.println("cama en el jsp "+cama);
+
+for(int i=0; i< lista.size();i++){
+	rem = (Remision)lista.get(i);
+//cen = (Censo)lista.get(1);
+//out.println(cen.getPaciente());
+/*String codpaciente="";
+for(int i=0; i< lista.size();i++){
+	cen = (Censo)lista.get(i);
+	codpaciente = cen.getCodigo();*/
+
+%>
+	<tr>
+	<td><font size="1"><%=rem.getArea() %></font></td>	
+	<td><font size="1"><%=rem.getSubarea() %></font></td>	
+	<td><font size="1"><%=rem.getCama() %></font></td>	
+	<td><font size="1"><%=rem.getTipodocumento() %></font></td>
+	<td><font size="1"><%=rem.getCedula()%></font></td>
+	<td><font size="1"><%=rem.getPapellido() %></font></td>
+	<td><font size="1"><%=rem.getSapellido()%></font></td>
+	<td><font size="1"><%=rem.getNombre()%></font></td>
+    <td><font size="1"><%=rem.getEps() %></font></td>
+	<td><font size="1"><%=rem.getFecha()%></font></td>
+	<td><font size="1"><%=rem.getHora()%></font></td>
+	<td><font size="1"><%=rem.getNautorizacion() %></font></td>
+	<td><font size="1"><%=rem.getAutorizacion() %></font></td>
+	
+	</tr>
+<%} 
+
+%>
+
+
+</table></font>
+<br>
+<center><input name="sbt_imprimir" type="button" class="botones" onClick="print();" value="Imprimir"></center>
+
+</body>
+</html>

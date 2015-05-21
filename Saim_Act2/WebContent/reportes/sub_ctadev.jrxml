@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_ctadev" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="90e2118a-46ed-4dd1-9b21-81060da71a42">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="codfact" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["CC0000198658"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ruta" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\Saim\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+  SUM(cdf.cantidad) , fef.valor, (fef.valor-(SUM(cdf.cantidad))) AS totalfact
+FROM
+  cont_detalle_factura cdf,
+  cont_factura cf,
+  fact_numeradas fn,
+  fact_enc_factura fef
+WHERE cdf.cod_fact_fk = cf.codigo 
+AND fn.consecutivo=cf.numero_factura
+AND fn.cod_enc_fact_fk=fef.cod_enc_factura
+  AND cf.numero_factura = $P{codfact}]]>
+	</queryString>
+	<field name="SUM(cdf.cantidad)" class="java.lang.Double"/>
+	<field name="totalfact" class="java.lang.Double"/>
+	<field name="valor" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement uuid="ed2d9b0b-3fef-4ff2-a8b7-82f26f92901b" key="textField-1" x="2" y="1" width="67" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(cdf.cantidad)}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement uuid="89b8bee7-4819-4220-b9c0-a9d897a29039" key="textField-2" x="69" y="1" width="85" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalfact}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

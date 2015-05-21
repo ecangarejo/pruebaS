@@ -1,0 +1,89 @@
+/**
+ * Controlador:Admision
+ * Realiza la Admision del los Pacientes si es normalmente o si es por una urgencia vital:Actualiza la cama la pone como estado ocupado y libera cama si cambia de una cama reservada por otra
+ * Desarrollado:yosimar valega
+ */
+package Controlador;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import logica.Conexion;
+import logica.MetodoAcompanante;
+import logica.MetodoPreingreso;
+import logica.MetodoAdmision;
+import logica.MetodoUrgenciaVital;
+
+
+import java.sql.*;
+
+public class ControlAdmision extends HttpServlet{
+	
+	/**Obtenemos los datos de la fucncion Admisiones de la js Validaciones para realizar la admision
+	 *llamamos al procedimeinto insertar/MetodoAdmision para ingresar la admision
+	 *Actualizamos la cama con Actualizar/MetodoAdmision
+	 *Actualizamos la Urgencia Vital ActualizarUrgencia/MetodoUrgenciaVital
+	 *Redireccionamos a ControlHistoricoCama la ingresar la tabla historico-cama.
+	 *liberamos cama reservada si hay!!! con liberar/MetodoAdmision
+	 *
+	 */
+	
+	public void doGet(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		String contacto,codcama,tipodoc,ced,eps,numeroingreso,numeroautorizacion,medioauto,fecha, 
+		autopor,hora,registradopor,remitidode,estadoa, semanac,nombrepaciente,
+		apellidopaciente,ra,numerocama, obs, doc1,doc2, documento,codigo_contac,nacido,urgencia,codcam;
+		
+		codcam=re.getParameter("cod");
+		
+		nacido=re.getParameter("codna");
+		
+		ced = re.getParameter("cedu");
+		
+		numeroautorizacion = re.getParameter("nume");
+		
+		//urgencia
+		
+		urgencia = re.getParameter("id");
+		
+		medioauto = re.getParameter("medio");
+		fecha = re.getParameter("fe");
+		autopor = re.getParameter("auto");
+		hora = re.getParameter("ho");
+		registradopor = re.getParameter("regis");
+		remitidode = re.getParameter("remi");
+		estadoa = re.getParameter("esta");
+		semanac = re.getParameter("se");
+		
+		obs = re.getParameter("ob");
+		
+		codcama=re.getParameter("num");
+		
+		contacto=re.getParameter("con");
+		documento=re.getParameter("ane");
+	
+		MetodoAdmision ba=new MetodoAdmision();
+		
+		
+		MetodoUrgenciaVital uv=new MetodoUrgenciaVital();
+		if(urgencia==null){
+			urgencia="0";
+			ba.insertar(contacto,codcama,ced,numeroautorizacion, medioauto,autopor,registradopor,fecha,hora,estadoa,semanac,documento,obs,remitidode,nacido,urgencia);
+		}else{
+			
+			ba.insertar(contacto,codcama,ced,numeroautorizacion, medioauto,autopor,registradopor,fecha,hora,estadoa,semanac,documento,obs,remitidode,nacido,urgencia);
+		}
+		
+		if(codcam.equals("")){
+			
+		}else{
+			ba.liberar(codcam);
+		}
+		ba.Actualizar(codcama);
+		uv.ActualizarUrgencia(urgencia);
+		res.sendRedirect("ControlHistoricoCama?cod="+codcama+"&fe="+fecha+"&ho="+hora+"");
+			
+	}
+	
+}	
+	
+	

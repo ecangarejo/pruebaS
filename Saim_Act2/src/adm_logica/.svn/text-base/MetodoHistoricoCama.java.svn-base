@@ -1,0 +1,121 @@
+/**
+ * logica:MetodoHistoricoCama
+ * Desarrollado:yosimar valega
+ */
+
+package logica;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import bean.HistoricoCama;
+
+
+public class MetodoHistoricoCama {
+public MetodoHistoricoCama(){	
+		
+	}
+
+/**
+ * actualiza datos de la tabla adm_historico_cama
+ */
+
+public void ActualizarHistoria(String CamaVieja,String NumeroAdmision,String FechaFinal){
+	
+	HistoricoCama hc=new HistoricoCama();
+	
+	
+	String fechafinal,dia,mes,anio=null;
+	dia=FechaFinal.substring(0,2);
+	
+	mes=FechaFinal.substring(3,5);
+	anio=FechaFinal.substring(6,10);
+	fechafinal=anio+"/"+mes+"/"+dia;
+	     
+	
+	
+	PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	
+	        	st= con.conn.prepareStatement("Update adm_historico_cama set fecha_final='"+fechafinal+"' where adm_numero_ingreso_fk='"+NumeroAdmision+"'and cen_numero_cama_fk='"+CamaVieja+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+
+/**
+ * obtiene numero de ingreso de un admision
+ */
+
+public java.sql.ResultSet obtenernumeroingre(String fecha,String hora,String cen){
+    java.sql.ResultSet rs=null;
+    Statement st = null;
+    
+	String fechainicio,iniin,medin,finin=null;
+	iniin=fecha.substring(0,2);
+	medin=fecha.substring(3,5);
+	finin=fecha.substring(6,10);
+	fechainicio=finin+"/"+medin+"/"+iniin;
+	
+    try{
+    	Conexion con=new Conexion();
+    	st = con.conn.createStatement();
+    	rs= st.executeQuery("select adm_numero_ingreso from adm_admisiones where fecha_registro='"+fechainicio+"' and hora_registro='"+hora+"' and cen_numero_cama_fk="+cen+"");
+    	
+    }
+    catch(Exception ex){
+    	ex.getMessage();
+    
+    }	
+    return rs;
+}  
+
+
+/**
+ * ingreso de datos en la tabla historico_cama
+ */
+
+		public void insertar(String cen, String fechain, String fechafi, String num_ing){
+			HistoricoCama hi = new HistoricoCama();
+			hi.setCama(cen);
+			hi.setFechai(fechain);
+			hi.setFechafi(fechafi);
+			hi.setNumingreso(num_ing);
+			
+			try{
+				String fechainicio,iniin,medin,finin=null;
+				iniin=hi.getFechai().substring(0,2);
+				medin=hi.getFechai().substring(3,5);
+				finin=hi.getFechai().substring(6,10);
+				fechainicio=finin+"/"+medin+"/"+iniin;
+				
+				PreparedStatement ps = null;
+			    Conexion con=new Conexion();
+			 
+			    ps=con.conn.prepareStatement("insert into adm_historico_cama(cen_numero_cama_fk,fecha_inicial,fecha_final,adm_numero_ingreso_fk) values(?,?,?,?)");				
+				ps.setString(1,hi.getCama());
+				ps.setString(2,fechainicio);
+				
+				ps.setString(3,hi.getFechafi());
+				ps.setString(4,hi.getNumingreso());
+				
+				ps.executeUpdate();
+				
+				ps.close();
+				con.cerrar();
+			
+			}catch(Exception ex){
+				ex.getMessage();
+			}
+			
+			
+		}
+
+	
+}

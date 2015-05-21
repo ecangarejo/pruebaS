@@ -1,0 +1,43 @@
+/**
+ * NOMBRE DE LA CLASE: ControlUrgenciaVital
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario
+ * 				para ingresar una urgencia vital. 				
+ */
+package Controlador;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+
+import logica.MetodoUrgenciaVital;
+
+public class ControlUrgenciaVital extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		/**
+		 * se obtienen los datos desde el Adm_UrgenciaVital.jsp
+		 * y se hace la insercion mediante MetodoUrgenciaVital/insertar
+		 * que lleva como parametro los datos a insertar.
+		 */
+		String fecha=null;
+		String hora=null;
+		String descripcion=null;
+		String estado=null;
+		MetodoUrgenciaVital mvu=new MetodoUrgenciaVital();
+		
+		fecha=req.getParameter("txtFechaUrg");		
+		hora=req.getParameter("txtHoraUrg");
+		descripcion=req.getParameter("txtdescripcion");
+		estado=req.getParameter("txtestado");
+		
+	    mvu.insertar(fecha, hora, descripcion, estado);
+	    res.sendRedirect("Adm_UrgenciaVital.jsp");	
+	}
+
+}

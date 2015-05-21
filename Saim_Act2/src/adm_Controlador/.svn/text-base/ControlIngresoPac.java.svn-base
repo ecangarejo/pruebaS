@@ -1,0 +1,109 @@
+/**
+ * Control:ControlIngresoPac
+ * Ingreso de los datos demograficos del paciente
+ * Desarrollado:yosimar valega
+ */
+
+package Controlador;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import logica.MetodoPaciente;
+import logica.MetodoUsuario;
+
+
+
+
+public class ControlIngresoPac extends HttpServlet {
+	
+	/**
+	 * Se obtiene el nombre del usuario con el procedimiento obtenerNomUsuario/MetodoUsuario
+	 * Se obtiene los datos del paciente de demografico de la js Validaciones
+	 * Se ingresa los datos en la tabla paciente.
+	 */
+	
+	protected void doGet(HttpServletRequest re, HttpServletResponse res) throws ServletException, IOException {
+		String tip,obs, doc1,doc2, documento, ced, afiliacion, nivel,   pape, sape, nom, gene,nacionali, dir, tel, telofi, telcel, ocu, emp,zona, reli, estadoci, ra, estra, ema, mun_cod, fechanaci, numcontra;
+//////////////////////////////////////////////////////////////////////////////////
+		String codigou =(String)re.getSession().getAttribute("codusuario");
+		
+		
+		
+		MetodoUsuario mu = new MetodoUsuario();
+		ResultSet rscodigou=null;
+		String nomusu="";
+		try{
+			rscodigou=mu.obtenerNomUsuario(codigou);
+			if(rscodigou.next()){
+				nomusu=rscodigou.getString(1);
+			}
+			
+			
+		}catch(Exception ex){
+   			ex.getMessage();
+   		}
+		
+		/////////////////////////////////////////////////////////////
+		tip=re.getParameter("ti");
+		//System.out.println("nacido vivo en el controlador 1 "+tip);
+		ced=re.getParameter("ced");
+		//System.out.println("nacido vivo en el controlador 2 "+ced);
+		afiliacion=re.getParameter("afi");
+		//System.out.println("nacido vivo en el controlador 3 "+afiliacion);
+		nivel=re.getParameter("ni");
+		//System.out.println("nacido vivo en el controlador 4 "+nivel);
+		pape=re.getParameter("pape");
+		//System.out.println("nacido vivo en el controlador 5 "+pape);
+		sape=re.getParameter("sape");
+		//System.out.println("nacido vivo en el controlador 6 "+sape);
+		nom=re.getParameter("nom");
+		//System.out.println("nacido vivo en el controlador 7 "+nom);
+		gene=re.getParameter("ge");
+		//System.out.println("nacido vivo en el controlador 8 "+gene);
+		nacionali=re.getParameter("naci");
+		//System.out.println("nacido vivo en el controlador 9 "+nacionali);
+		dir=re.getParameter("dir");
+		//System.out.println("nacido vivo en el controlador 10 "+dir);
+		
+		tel=re.getParameter("telefi");
+		//System.out.println("nacido vivo en el controlador 11 "+tel);
+		telofi=re.getParameter("teleofici");
+		//System.out.println("nacido vivo en el controlador 12 "+telofi);
+		telcel=re.getParameter("telecel");
+		//System.out.println("nacido vivo en el controlador 13 "+telcel);
+		ocu=re.getParameter("ocu");
+		//System.out.println("nacido vivo en el controlador 14 "+ocu);
+		emp=re.getParameter("emp");
+		//System.out.println("nacido vivo en el controlador 15 "+emp);
+		zona=re.getParameter("zona");
+		//System.out.println("nacido vivo en el controlador 16 "+zona);
+		reli=re.getParameter("re");
+		//System.out.println("nacido vivo en el controlador 17 "+reli);
+		estadoci=re.getParameter("esta"); 
+		//System.out.println("nacido vivo en el controlador 18 "+estadoci);
+		ra=re.getParameter("ra");
+		//System.out.println("nacido vivo en el controlador 19 "+ra);
+		estra=re.getParameter("estra");
+		//System.out.println("nacido vivo en el controlador 20 "+estra);
+		ema=re.getParameter("ema");
+		//System.out.println("nacido vivo en el controlador 21 "+ema);
+		mun_cod=re.getParameter("codmun");
+		//System.out.println("nacido vivo en el controlador 22 "+mun_cod);
+		fechanaci=re.getParameter("fe");
+		//System.out.println("nacido vivo en el controlador 23 "+fechanaci);
+		numcontra=re.getParameter("numco");
+		//System.out.println("nacido vivo en el controlador 24 "+numcontra);
+				
+			MetodoPaciente pac=new MetodoPaciente();
+			pac.insertar(tip, ced, afiliacion, nivel, pape, sape, nom, gene, nacionali, dir, tel, telofi, telcel, ocu, emp, zona, reli, estadoci, ra, estra, ema, mun_cod, fechanaci, numcontra);
+			
+		
+	}
+
+}

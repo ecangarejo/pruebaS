@@ -1,0 +1,62 @@
+package seguridad_controlador;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import seguridad_logica.MetodoModulos;
+public class Modulos2 extends HttpServlet {
+	public void doPost(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		MetodoModulos mo=new MetodoModulos();
+		String yo=re.getParameter("va");
+		String area=re.getParameter("area");
+		String codigo;
+		ResultSet rs=null;
+		String v[] = new String[1000];
+		
+		if(yo.equals("1")){
+			rs=mo.SQLModulo();
+		}
+		
+		if(yo.equals("2")){
+			rs=mo.opcion_disponible(area);
+		}
+		PrintWriter out=res.getWriter();
+		int contador=0;
+		try {
+			int c=0;
+			
+			
+	
+			out.println("<table id='prueba' name='prueba' width='650px' border='1' cellpadding='2'><tr><td bgcolor='#ffffff' width='600'>"+"Nombre"+"</td><td bgcolor='#ffffff' width='600'>"+"Permitir"+"&nbsp;&nbsp;"+"(Seleccionar Todos"+"<input type='checkbox' name='all' id='all' onclick='checkAll();'  />"+")"+"</td></tr>");
+		
+				
+				while(rs.next()){
+					out.println("<tr><td name='tu'>"+rs.getString(1)+"</td><td><input type='checkbox'name='ca' id='ca' value="+rs.getString(1)+" ></td></tr>");
+					out.println("<input name='fe' id='fe' type='hidden' value="+rs.getString(2)+">");
+					contador=contador+1;
+				}
+				rs.close();
+			
+			out.println("</table>");
+			out.println("<input name='yo' type='hidden' value="+contador+">");
+		
+				
+		
+			
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	
+		
+			}
+	   
+
+
+	
+}

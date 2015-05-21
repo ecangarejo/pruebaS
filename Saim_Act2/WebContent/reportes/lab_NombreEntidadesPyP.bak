@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="lab_NombreEntidadesPyP"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="fechaIni" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fechaFin" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="TipoPyP" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ruta" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select * from (select lent.nombre_entidad
+from lab_area lar,lab_subarea lsub,ord_pac_lab opl,empresa emp,adm_convenio lcon,adm_entidad lent,adm_paciente lpac 
+where lar.codigo=lsub.codarea_fk 
+and lsub.codigo=opl.codigo_estudio
+and opl.codigo_pac_fk=lpac.pac_codigo_paciente
+and lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato 
+and lent.ent_nit=lcon.ent_nit_contratante_fk
+and opl.tipopyp=$P{TipoPyP} 
+and opl.fecha between $P{fechaIni} and $P{fechaFin}
+group by lsub.nombre 
+union
+select lent.nombre_entidad
+from ord_pac_lab opl,lab_examen lex,empresa emp,adm_convenio lcon,adm_entidad lent,adm_paciente lpac
+where lex.codigo=opl.codigo_estudio
+and opl.codigo_pac_fk=lpac.pac_codigo_paciente
+and  lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato 
+and lent.ent_nit=lcon.ent_nit_contratante_fk
+and opl.tipopyp=$P{TipoPyP} 
+and opl.fecha between $P{fechaIni} and $P{fechaFin}
+group by lex.nombre) as c]]></queryString>
+
+	<field name="nombre_entidad" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="464"
+						height="19"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tipo de PyP: "+$P{TipoPyP}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="2"
+						width="496"
+						height="19"
+						key="subreport-1"/>
+					<subreportParameter  name="TipoPyP">
+						<subreportParameterExpression><![CDATA[$P{TipoPyP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="Entidad">
+						<subreportParameterExpression><![CDATA[$F{nombre_entidad}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="fechaFin">
+						<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="fechaIni">
+						<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ruta">
+						<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ruta}+"\\lab_ExamenesPorPyP.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

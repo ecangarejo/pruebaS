@@ -1,0 +1,55 @@
+package Controlador;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import logica.MetodoCrearCama;
+
+public class ControlCodigoEstado extends HttpServlet{
+	
+public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		
+		/*HttpSession session = req.getSession(true);
+		MetodoCrearCama ba= new MetodoCrearCama();
+		ResultSet rs1=null;
+		String nomest=null;
+		nomest = req.getParameter("nomest");
+		
+		rs1=ba.CodigoEstado(nomest);
+		
+///////////////////////////////////// ESTADO DE LA CAMA///////////////
+		String e[] = new String[1000];
+		try{
+			int t=0;
+			while(rs1.next()){
+				PrintWriter out=res.getWriter();
+				e[t]=rs1.getString(1);
+				out.println(e[t]);
+				
+				t++;
+			}
+		
+		}//end try
+		 catch(SQLException e1){
+			 e1.getMessage();
+		 }
+		*/
+		
+		
+		
+		///////////////////////////////////// FIN ESTADO DE LA CAMA//////////////////
+		
+		
+	}//fin del DoPost
+
+	
+
+}

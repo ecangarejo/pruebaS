@@ -1,0 +1,298 @@
+/**
+ * logica:MetodoAdmision
+ * Desarrollado:yosimar valega
+ */
+
+package logica;
+import java.sql.*;
+
+import bean.Admisiones;
+public class MetodoAdmision {
+	
+	/**comprobar si hay una admision segun el codigo del paciente
+	**/
+	public java.sql.ResultSet comprobaradmision(String pac){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	String cd=null;
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select estado from adm_admisiones where pac_codigo_paciente_fk="+pac+" and estado=0");
+                	
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	/**
+	 * Actualiza la admision segun el numero de ingreso
+	 */
+	
+	public void ActualizarAd(String ing, String numauto, String medio, String autorizado, String registrado, String fecha,String hora, String estado_afiliacion, String remision){
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_admisiones set numero_autorizacion='"+numauto+"',medio_autorizacion='"+medio+"',autorizado_por='"+autorizado+"',registrado_por='"+registrado+"',fecha_registro='"+fecha+"',hora_registro='"+hora+"',estado_afiliacion='"+estado_afiliacion+"',remision='"+remision+"' where adm_numero_ingreso="+ing+"");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+
+	/**
+	 * Obtiene los datos de la admision segun el codigo del paciente
+	 */
+	
+	public java.sql.ResultSet obtenerDatosAd(String pac){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	String cd=null;
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select adm_numero_ingreso,numero_autorizacion,medio_autorizacion,autorizado_por,registrado_por,fecha_registro,hora_registro,estado_afiliacion,dir_codigo_fk,semana_cotizadas,documentos,observaciones,remision,cen_numero_cama_fk,pac_codigo_paciente_fk,codigo_contacto_fk,estado,codigoUrgVit from adm_admisiones where adm_admisiones.pac_codigo_paciente_fk="+pac+" and adm_admisiones.estado=0");
+                	
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	/**
+	 * obtiene cen_numero_cama de la cama segun el codigo
+	 */
+	
+	public java.sql.ResultSet obtenerCodigo(String cod){
+        java.sql.ResultSet rs=null;
+        PreparedStatement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st= con.conn.prepareStatement("select cen_numero_cama  from adm_censo_cama where codigocama =?");
+        	st.setString(1, cod);
+        	rs=st.executeQuery();
+        }
+        catch(Exception ex){
+        	ex.getMessage();
+        
+        }//("select nombre_entidad from adm_entidad");	
+        return rs;
+    }
+	
+	/**
+	 * Actualiza la cama la pone en estado tres segun el codigocama
+	 */
+	
+	public void Actualizar(String cod){
+       PreparedStatement st = null;
+        try{
+        	Conexion con=new Conexion();
+        	st= con.conn.prepareStatement("Update adm_censo_cama set est_codigo_estado_fk=3 where codigocama ='"+cod+"'");
+        	st.executeUpdate();
+        	
+        }
+        catch(Exception ex){
+        	ex.getMessage();
+        
+        }	
+       
+    }
+	
+	/**
+	 * liberar cama en reserva
+	 */
+	
+	public void liberar(String cod){
+	       PreparedStatement st = null;
+	        try{
+	        	Conexion con=new Conexion();
+	        	st= con.conn.prepareStatement("Update adm_censo_cama set est_codigo_estado_fk=1 where codigocama ='"+cod+"'");
+	        	st.executeUpdate();
+	        	
+	        }
+	        catch(Exception ex){
+	        	ex.getMessage();
+	        
+	        }	
+	       
+	    }
+	
+	/**
+	 * Se obtiene codigo del paciente segun el numero de documento
+	 */
+	public java.sql.ResultSet obtenerCodigoPaciente(String cod){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	String cd=null;
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select pac_codigo_paciente  from adm_paciente where numero_documento ="+cod);
+                	
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	/**
+	 * Se obtiene codigo del contacto segun el numero de documento
+	 */
+   
+	public java.sql.ResultSet obtenerCodigoContacto(String cod){
+        java.sql.ResultSet rs=null;
+        Statement st = null;
+        try{
+        	String cd=null;
+        	Conexion con=new Conexion();
+        	st = con.conn.createStatement();
+        	rs=st.executeQuery("select con_contactos_codigo  from adm_contacto where cedula="+cod);
+        
+        	
+        }
+        catch(Exception ex){
+        	
+        }
+        return rs;
+    }
+	
+	/**
+	 * Se ingresa una admision
+	 */
+	
+	public void insertar(String contacto,String codcama,String cedula,String numeroautorizacion,String medioauto,String autopor,String registradopor,String fecha, 
+			String hora,String estadoa,String semanac,String documentos,String obs,String remitidode, String na, String urgencia){//,String nombrepaciente,
+			//String apellidopaciente,String numerocama, String obs, String documentos){
+		
+		Admisiones pre = new Admisiones();
+		
+		//pre.setNumeroingreso(numeroingreso);
+		pre.setNumeroAutorizacion(numeroautorizacion);
+		pre.setMedioAutorizacion(medioauto);
+		pre.setFechaRegistro(fecha);
+		pre.setAutorizadoPor(autopor);
+		pre.setHoraRegistro(hora);
+		pre.setRegistradodoPor(registradopor);
+		pre.setRemitidoDe(remitidode);
+		pre.setEstadoAfilicacion(estadoa);
+		pre.setSemanasCotizadas(semanac);
+	     pre.setCedula(cedula);
+		pre.setObservaciones(obs);
+		pre.setDocumentos(documentos);
+		pre.setNumeroCama(codcama);
+		pre.setContacto(contacto);
+		String nombrecompleto = pre.getNombrePaciente()+" "+pre.getApellidoPaciente();
+		
+		//System.out.println("Codigo de la urgencia"+urgencia);
+		
+		
+		try{
+			
+			String codigoconta =pre.getContacto();
+			ResultSet rs3;
+			rs3=null;
+			rs3 = obtenerCodigoContacto(codigoconta);
+		
+			String codcontacto="";
+			if (rs3.next()){
+				 codcontacto = rs3.getString(1);
+					
+			 }else{
+				 codcontacto="";
+			 }
+			
+			
+			String codigocama =pre.getNumeroCama();
+			ResultSet rs2 = obtenerCodigo(codigocama);
+		
+			String codcam=null;
+			if (rs2.next()){
+				 codcam = rs2.getString(1);
+					
+			 }else{
+				 codcam="";
+			 }
+			
+			String codigo=pre.getCedula();
+			
+			ResultSet rs1=null;
+			 rs1 = obtenerCodigoPaciente(codigo);
+			
+			 String codpac=null;
+			 if (rs1.next()){
+				 codpac = rs1.getString(1);
+					
+			 }else{
+				 codpac="";
+			 }
+			// System.out.println("codigo del paciente"+codpac);
+			// System.out.println("codigo del na antes del si"+na);
+			 
+		 if(na.equals("0")){
+			//System.out.println("yosi");
+			
+		}
+		 else{
+			 codpac=na;
+		 }
+		 //System.out.println("codigo del na en el metodo"+na); 
+		 
+		// System.out.println("codigo del paciente en el metodo"+codpac); 
+			PreparedStatement ps = null;
+			PreparedStatement ps1 = null;
+		    Conexion con=new Conexion();
+		    
+		    String fechainicio,iniin,medin,finin=null;
+			iniin=pre.getFechaRegistro().substring(0,2);
+			
+			medin=pre.getFechaRegistro().substring(3,5);
+			finin=pre.getFechaRegistro().substring(6,10);
+			fechainicio=finin+"/"+medin+"/"+iniin;
+		//	System.out.println("dia:"+fechainicio);
+		    
+		    
+		    ps=con.conn.prepareStatement("insert into adm_admisiones(numero_autorizacion, medio_autorizacion, autorizado_por, registrado_por, fecha_registro,hora_registro,estado_afiliacion,dir_codigo_fk,semana_cotizadas,documentos,observaciones,remision,cen_numero_cama_fk,pac_codigo_paciente_fk,codigo_contacto_fk,codigoUrgVit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");	
+		    //ps.setString(1, pre.getNumeroingreso());
+			ps.setString(1, pre.getNumeroAutorizacion());
+			ps.setString(2,pre.getMedioAutorizacion());
+			ps.setString(3,pre.getAutorizadoPor());
+			ps.setString(4,pre.getRegistradoPor());
+			ps.setString(5,fechainicio);
+			ps.setString(6,pre.getHoraRegistro());
+			ps.setString(7,pre.getEstadoAfilicacion());
+			ps.setString(8,"1");//dir_codigo_fk direccionamiento
+			ps.setString(9,pre.getSemanasCotizadas());
+			ps.setString(10, pre.getDocumentos());//documentos
+			ps.setString(11, pre.getObservaciones());
+			ps.setString(12, pre.getRemitidoDe());
+			ps.setString(13, codcam);//numero de la cama
+			ps.setString(14, codpac);//codigo paciente
+			ps.setString(15, codcontacto);//codigo del contacto
+			ps.setString(16, urgencia);
+			ps.executeUpdate();
+			ps.close();
+			//System.out.println("Termino insercion");
+			//insert paciente_contacto
+			 ps1=con.conn.prepareStatement("insert into adm_paciente_contacto(con_contactos_codigo_fk,pac_codigo_paciente_fk) values(?,?)");
+			    ps1.setString(1,codcontacto);//codigo paciente
+				ps1.setString(2,codpac);//codigo del contacto
+				ps1.executeUpdate();
+				ps1.close();
+			con.cerrar();
+			
+		}catch(Exception ex){
+			ex.getMessage();
+			//System.out.println("fallo admision");
+		}
+	}
+	
+	
+}

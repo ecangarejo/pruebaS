@@ -1,0 +1,162 @@
+
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage=""%>
+<%@ page import="bean.Preingreso,java.util.*" import="Logica.* "%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="refresh" content="20" />
+ 
+<title>Triage</title>
+<style type="text/css">
+
+</style>
+<script language='javascript'>
+
+function hora(){
+  var time = new Date()
+  var hour = time.getHours()
+  var minute = time.getMinutes()
+  var second = time.getSeconds()
+  var temp = "" + ((hour < 10) ? "0" : "") + hour
+  temp += ((minute < 10) ? ":0" : ":") + minute
+  temp += ((second < 10) ? ":0" : ":") + second
+  document.Adm_ListaMedico.txthora.value=temp
+  //document.form1.txthora.value = temp
+  id = setTimeout("hora()",1000)
+  }  
+
+ function validar(h){
+	var gk;
+	var c=h.cesar.value;
+	var cc=c;
+	// alert("esta es c"+c);
+	if(c!=1){
+	 for (i=0;i<=c-1;i++){
+      if(h.oscar[i].checked){//inicio si de la prueba
+	   gk=h.oscar[i].value;
+	  }
+      cc--;
+     }
+	}else{
+	 gk=h.oscar.value;
+    }
+	window.location.href="ControladorMedico?va="+gk+"&z="+1+"";
+ }//fin de la funcion   
+
+ function Refresco() 
+ {
+ 	 setTimeout("document.location.href='ControladorMedico';",20000);		
+ }
+</script>
+<%
+int contador=0;
+int tam=0;
+String va=request.getParameter("va");
+String z=request.getParameter("z");
+if(va==null)va="";
+if(z==null)z="";
+
+//System.out.println(va);
+//System.out.println(z);
+%>
+
+
+</head>
+<%//System.out.println("jsp inicia"); %>
+<body onload="hora(),Refresco();">
+<form  id="Adm_ListaMedico" name="Adm_ListaMedico" method="get" action="ControladorMedico">
+
+
+
+  <table width="83%" border="0">
+    <tr>
+      <td bgcolor="#FFFFFF"> <div align="center">LISTA DE PACIENTES </div></td>
+    </tr>
+  </table>
+ 
+  <table width="200" border="1">
+    <tr>
+      <td>Hora Actual. </td>
+      <td><input name="txthora" type="text"  id="txthora" value="" style="background-color:#CEFBF7" /></td>
+    </tr>
+    <tr>
+      <td>Atender</td>
+      <td><label>
+      		<input type="button" name="Button2" value="Atender" onclick="validar(Adm_ListaMedico);" >
+      </label></td>
+    </tr>
+  </table>
+  <p>
+<%
+
+String che="";
+//System.out.println("jsp inicia 2");
+LinkedList ls = (LinkedList)request.getSession().getAttribute("lista");
+Preingreso p = new Preingreso();
+//session.invalidate();
+//System.out.println("Este el la lista tamaño");
+
+%>
+	
+<table border=1><tr><td ><strong>Tipo Documento</strong></td><td><strong>Identificacion</strong></td><td><strong>Nombre</strong></td><td><strong>Eps</strong></td><td><strong>Fecha Entrada</strong></td><td><strong>Hora Entrada</strong></td><td><strong>Atendido</strong></td></tr>
+<%
+
+
+
+for(int i=0; i< ls.size();i++){
+	p = (Preingreso)ls.get(i);
+
+	
+%>
+		
+		<tr>
+		<td><%=p.getTipodocumento() %></td>
+		<td><%=p.getCedula() %></td>
+		<td><%=p.getNombre() %></td>
+		<td><%=p.getEps() %></td>
+		<td><%=p.getFecha() %></td>
+		<td><%=p.getHora() %></td>
+		
+
+	
+<% 
+
+che=p.getCedula();
+session.setAttribute("cedula",che);
+contador++;
+//System.out.println(contador);
+
+
+//System.out.println(che);
+
+%>
+<td><input type="checkbox" name="oscar"  value=<%=che%> id="oscar"/></td>
+<% 
+}//fin for
+//System.out.println("esta es longitud de la lista FOR"+ls.size());
+if (ls.size()==1){
+	
+	
+	tam=ls.size();
+	//System.out.println(" Tamaño de la lista"+tam);
+	
+	
+	//System.out.println("hey falta solo "+contador);
+	
+}//fin del si
+%>
+
+</tr></table>
+    
+	 <p>
+	   <label>
+       
+       </label>
+  </p>
+	 <p>&nbsp;     </p>
+	<input type="hidden" value="<%=contador%>" name="cesar"/> 
+    <input type="hidden" value="<%=che%>" name="cedula"/>
+	<input type="hidden" value="<%=tam%>" name="tamano"/>  
+</form>
+</body>
+</html>

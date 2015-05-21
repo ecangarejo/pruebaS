@@ -1,0 +1,246 @@
+/**
+ * NOMBRE DE LA CLASE: ControlTrasladoLlenar
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario
+ * 				para realizar traslados. 				
+ */
+package Controlador;
+
+import java.io.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import bean.CrearCama;
+import logica.MetodoCrearCama;
+import logica.MetodoHistoricoCama;
+import logica.MetodoPreingreso;
+import logica.MetodoSubarea;
+import bean.Area;
+import bean.SubArea;
+import java.sql.*;
+import java.util.*;
+import logica.MetodoTraslado;
+
+
+public class ControlTrasladoLlenar extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("null")
+	public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		HttpSession session = req.getSession(true);
+		MetodoTraslado ta= new MetodoTraslado();		
+		String va = req.getParameter("va");	
+		String x=req.getParameter("x");		
+		String xa=req.getParameter("xa");		
+		String area=req.getParameter("area");		
+		String y=req.getParameter("y");		
+		String ya=req.getParameter("ya");		
+		String cama=req.getParameter("cama");
+		String camaNu=req.getParameter("codigoNu");		
+		String camaVi=req.getParameter("codigoVi");	
+		String cedula1=req.getParameter("cedula");	
+	   String CamaNueva=req.getParameter("CamaNueva");
+		ResultSet rs=null;	
+		
+		ResultSet rs1=null;
+				
+		if(va.equals("6")){
+			/**
+			 * se obtiene la subarea mediante MetodoTraslado/obtenerSubArea
+			 * que lleva como parametro el nombre del area.
+			 */
+			 rs= ta.obtenerSubArea(xa);		
+			 String s[] = new String[1000];
+				try{
+					int k=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						s[k]=rs.getString(1);
+						out.println(s[k]+"_");
+						k++;								
+					}			
+				}		
+				 catch(SQLException e1){
+					 e1.getMessage();
+					 }
+		}
+		
+		if(va.equals("7")){
+			/**
+			 * se obtiene la cama mediante la consulta MetodoTraslado/obtenerCamaActualizar
+			 * que lleva como parametro el subarea y solo escoje las que estan disponibles
+			 * 
+			 */
+			 rs= ta.obtenerCamaActualizar(ya);		
+			 String s[] = new String[1000];
+				try{
+					int k=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						s[k]=rs.getString(1);
+						out.println(s[k]+"_");
+						k++;								
+					}			
+				}		
+				 catch(SQLException e1){
+					 e1.getMessage();
+					 }	
+		}	
+		
+			
+			if (va.equals("1")){
+				/**
+				 * se obtiene las areas mediante MetodoTraslado/obtenerArea
+				 * 
+				 */
+			rs= ta.obtenerArea();
+			String v[] = new String[1000];
+			try{
+				int c=0;
+				while(rs.next()){
+					PrintWriter out=res.getWriter();
+					v[c]=rs.getString(1);
+					out.println(v[c]+"_");
+					
+					c++;
+				}
+			
+			}
+			 catch(SQLException e1){
+				 e1.getMessage();
+			 }
+			 
+		}
+		
+		if(va.equals("2")){
+			/**
+			 * se obtiene la subarea mediante MetodoTraslado/obtenerSubArea
+			 * que lleva como parametro el nombre del area.
+			 */
+			 rs= ta.obtenerSubArea(x);		
+			 String s[] = new String[1000];
+				try{
+					int k=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						s[k]=rs.getString(1);
+						out.println(s[k]+"_");
+						k++;								
+					}			
+				}		
+				 catch(SQLException e1){
+					 e1.getMessage();
+					 }
+		}
+		if(va.equals("3")){
+			/**
+			 * se obtiene la cama mediante la consulta MetodoTraslado/obtenerCama
+			 * que lleva como parametro el subarea y solo escoje las que estan ocupadas
+			 * 
+			 */
+			 rs= ta.obtenerCama(y);		
+			 String s[] = new String[1000];
+				try{
+					int k=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						s[k]=rs.getString(1);
+						out.println(s[k]+"_");
+						k++;								
+					}			
+				}		
+				 catch(SQLException e1){
+					 e1.getMessage();
+					 }	
+		}
+		if (va.equals("4")){
+			/**
+			 * se obtienen los datos del pacientes mediante
+			 * MetodoTraslado/obtenerPaciente y lleva como parametro el nombre de la cama
+			 */
+			 rs= ta.obtenerPaciente(cama);
+			 String nombre=null;
+			 String cedula=null;
+			 String apellido=null;
+			 String codigoVieja=null;
+			 PrintWriter out=res.getWriter();
+				try{				
+					while(rs.next()){
+						cedula=rs.getString(1);
+						nombre=rs.getString(2);
+						apellido=rs.getString(3);
+						codigoVieja=rs.getString(4);
+						out.println(nombre+"_"+apellido+"_"+cedula+"_"+codigoVieja);
+					}
+					
+				}
+				 catch(SQLException e1){
+					 e1.getMessage();
+					 }
+				 }
+		
+		
+		if(va.equals("0")){
+			/**
+			 * se obtiene el codigo de la admision a actualizar mediante
+			 * MetodoTraslado/obtenerCodigoAdmision que lleva como parametro
+			 * la cedula del paciente y el codigo de la cama
+			 */
+			rs=ta.obtenerCodigoAdmision(cedula1,CamaNueva);
+			String admision=null;
+			PrintWriter out=res.getWriter();
+			try{
+				while (rs.next()){
+					admision=rs.getString(1);
+					CamaNueva=rs.getString(2);
+					out.println(admision+"_"+CamaNueva);
+				
+					
+				}
+			}
+			 catch(SQLException e1){
+				 e1.getMessage();
+			 }		  
+		}
+	}
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+	/**
+	 * se obtienen los datos desde Adm_traslado.jsp
+	 * para hacer el traslado de la cama se hace una actualizacion en
+	 * historico cama que pone la fecha final de la cama que estaba ocupada
+	 * y pone la fecha inicial de la cama del nuevo traslado esto se hace mediante
+	 * MetodoHistoricoCama/ActualizarHistoria y MetodoHistoricoCama/insertar
+	 * y se actualiza la admision se  pone el codigo de la cama nueva en la mediante
+	 * MetodoTraslado/ActualizarAdmision lleva como parametro el codigo de la cama vieja 
+	 * el codigo de la cama nueva y el codigo de la admision.
+	 * tambien se actualiza la cama que estaba ocupada se cambia su estado a libre mediante
+	 * MetodoTraslado/ActualizarLibre
+	 * y se actualiza la cama a ocupar cambiado su estado a ocupada mediante 
+	 * MetodoTraslado/ActualizarOcupada
+	 */
+		
+		MetodoHistoricoCama hc=new MetodoHistoricoCama();
+		MetodoTraslado ta= new MetodoTraslado();
+		String camaOc=req.getParameter("camaOc");			
+		String camaAc=req.getParameter("camaAc");		
+		String codigoNueva=req.getParameter("codigoNueva");		
+		String codigoVieja=req.getParameter("codigoVieja");		
+		String codigo=req.getParameter("codigo");		
+		String FechaFinal=req.getParameter("fecha");		
+		String fechaincioNue="0000/00/00";
+		ta.ActualizarLibre(camaAc);
+		ta.ActualizarOcupada(camaOc);
+		ta.obtenerCodCama(camaAc);
+		ta.ActualizarAdmision(codigoVieja, codigoNueva, codigo);
+		hc.ActualizarHistoria(codigoVieja, codigo, FechaFinal);
+		hc.insertar(codigoNueva, FechaFinal, fechaincioNue, codigo);	
+		res.sendRedirect("Adm_traslado.jsp");
+		
+	}//fin del doGet
+}

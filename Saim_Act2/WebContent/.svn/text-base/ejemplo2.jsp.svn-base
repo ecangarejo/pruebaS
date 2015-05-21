@@ -1,0 +1,34 @@
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@page import = "java.sql.ResultSet"%>
+<%@page import = "logica.MetodoCama"%>
+
+<html>
+<body>
+
+<%
+String id_calificador =  request.getParameter("id_calificador").toString();
+%>
+
+<select name="subcalificador"  id="subcalificador" class="select">
+
+<%  
+   MetodoCama c = new MetodoCama();
+   java.sql.ResultSet rs = c.obtenerSubArea(id_calificador);
+   while (rs.next())
+   {
+        
+	   out.println("<option>"+rs.getString("Nombre")+"</option>");
+   }
+    /*catch (Exception e)
+    {
+        e.printStackTrace();
+    }
+    rs1.close();
+    st1.close();*/
+         
+%>
+</select>
+
+</body>
+</html>

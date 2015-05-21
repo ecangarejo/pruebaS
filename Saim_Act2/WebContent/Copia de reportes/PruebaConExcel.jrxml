@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="PruebaConExcel"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<queryString><![CDATA[select * from(
+select COUNT(*) as Cantidad,'00:00:00-00:59:59' as Hora
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '00:00:00' and '00:59:59' 
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'01:00:00-01:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '01:00:00' and '01:59:59' 
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'02:00:00-02:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '02:00:00' and '02:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'03:00:00-03:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '03:00:00' and '03:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'04:00:00-04:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '04:00:00' and '04:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'05:00:00-05:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '05:00:00' and '05:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'06:00:00-06:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '06:00:00' and '06:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'07:00:00-07:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '07:00:00' and '07:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'08:00:00-08:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '08:00:00' and '08:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'09:00:00-09:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '09:00:00' and '09:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'10:00:00-10:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '10:00:00' and '10:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'11:00:00-11:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '11:00:00' and '11:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'12:00:00-12:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '12:00:00' and '12:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'13:00:00-13:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '13:00:00' and '13:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'14:00:00-14:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '14:00:00' and '14:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'15:00:00-15:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '15:00:00' and '15:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'16:00:00-16:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '16:00:00' and '16:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'17:00:00-17:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '17:00:00' and '17:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'18:00:00-18:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '18:00:00' and '18:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'19:00:00-19:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '19:00:00' and '19:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'20:00:00-20:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '20:00:00' and '20:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'21:00:00-21:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '21:00:00' and '21:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'22:00:00-22:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '22:00:00' and '22:59:59'
+and aad.estado=1
+union
+select COUNT(*) as Cantidad,'23:00:00-23:59:59'
+from adm_admisiones aad
+where aad.fecha_registro BETWEEN '2010-10-01' and '2010-10-31' 
+and hora_registro between '23:00:00' and '23:59:59'
+and aad.estado=1 
+) as Consulta order by Cantidad desc limit 5]]></queryString>
+
+	<field name="Cantidad" class="java.lang.Integer"/>
+	<field name="Hora" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="220"  isSplitAllowed="true" >
+				<pieChart>
+					<chart  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="6"
+						width="519"
+						height="214"
+						key="element-1"/>
+					<box></box>
+						<chartTitle color="#000000" >
+								<titleExpression><![CDATA["TITULO"]]></titleExpression>
+					</chartTitle>
+						<chartSubtitle color="#FF3333" >
+								<subtitleExpression><![CDATA["SUBTITULO"]]></subtitleExpression>
+					</chartSubtitle>
+						<chartLegend textColor="#666666" backgroundColor="#FFFFFF" >
+					</chartLegend>
+					</chart>
+					<pieDataset>
+						<dataset >
+						</dataset>
+						<keyExpression><![CDATA[$F{Hora}]]></keyExpression>
+						<valueExpression><![CDATA[$F{Cantidad}]]></valueExpression>
+						<labelExpression><![CDATA[$F{Hora}+"-"+$F{Cantidad}]]></labelExpression>
+				<sectionHyperlink >
+				</sectionHyperlink>
+					</pieDataset>
+					<piePlot 
+isCircular="true" >
+						<plot />
+					</piePlot>
+				</pieChart>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="487"  isSplitAllowed="true" >
+				<barChart>
+					<chart  hyperlinkTarget="Self" >
+					<reportElement
+						x="12"
+						y="7"
+						width="513"
+						height="230"
+						key="element-2"/>
+					<box></box>
+						<chartLegend textColor="#000000" backgroundColor="#FFFFFF" >
+					</chartLegend>
+					</chart>
+					<categoryDataset>
+						<dataset >
+						</dataset>
+						<categorySeries>
+							<seriesExpression><![CDATA["Serie1"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Hora}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{Cantidad}]]></valueExpression>
+				<itemHyperlink >
+				</itemHyperlink>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot isShowLabels="true" >
+						<plot />
+						<categoryAxisFormat>
+							<axisFormat labelColor="#FF3333" tickLabelColor="#3333FF" axisLineColor="#FFFF66" >
+							</axisFormat>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat labelColor="#00FF00" tickLabelColor="#333300" axisLineColor="#FFCCCC" >
+							</axisFormat>
+						</valueAxisFormat>
+					</barPlot>
+				</barChart>
+				<lineChart>
+					<chart  hyperlinkTarget="Self" >
+					<reportElement
+						x="12"
+						y="257"
+						width="513"
+						height="223"
+						key="element-3"/>
+					<box></box>
+						<chartLegend textColor="#000000" backgroundColor="#FFFFFF" >
+					</chartLegend>
+					</chart>
+					<categoryDataset>
+						<dataset >
+						</dataset>
+						<categorySeries>
+							<seriesExpression><![CDATA["Serie1"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{Hora}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{Cantidad}]]></valueExpression>
+				<itemHyperlink >
+				</itemHyperlink>
+						</categorySeries>
+					</categoryDataset>
+					<linePlot >
+						<plot />
+						<categoryAxisFormat>
+							<axisFormat >
+							</axisFormat>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat >
+							</axisFormat>
+						</valueAxisFormat>
+					</linePlot>
+				</lineChart>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

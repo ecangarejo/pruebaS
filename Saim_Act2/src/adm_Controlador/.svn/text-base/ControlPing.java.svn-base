@@ -1,0 +1,97 @@
+/**
+ * Control:ControlPing
+ * Se ingresa los datos de los pacientes a atender y se muestra las eps existentes en la base de datos
+ * Desarrollado:yosimar valega
+ */
+
+package Controlador;
+import java.io.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import logica.Conexion;
+import logica.MetodoPreingreso;
+import java.sql.*;
+import java.util.*;
+
+public class ControlPing extends HttpServlet{
+	
+	/**
+	 * Se toman los datos para el ingreso de los pacientes a la tabla preingreso de la jsp preingreso/Validaciones
+	 * Se ingresa los datos a la base de datos insertar/MetodoPreingreso
+	 */
+	
+	public void doGet(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		String ced, nom, pape,sape,eps,fecha,hora,tipodoc,estado;
+	estado="0";
+	    eps = new String();
+		ced = re.getParameter("ced");
+		tipodoc=re.getParameter("ti");
+		nom = re.getParameter("nom");
+		pape = re.getParameter("pape");
+		sape = re.getParameter("sape");
+		eps = re.getParameter("ep");
+		
+		
+		
+		/**Elimina los caracteres de ENTER y retorno o salto de linea 
+		*si se necesitan se complementa \r \t*/
+	
+		MetodoPreingreso ba = new MetodoPreingreso();
+		
+		
+		fecha =re.getParameter("fe");
+		hora =re.getParameter("ho");
+		
+		
+		
+			ba.insertar(ced, nom, pape,sape,eps,fecha,hora,tipodoc,estado);
+			
+		
+	}
+	
+	/**
+	 * Se hace una consulta sobre las eps existentes en la base de datos 
+	 * Se introducen en el vector v[c]
+	 * Este controlador por el void es llamados de la 1.js
+	 */
+	public void doPost(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		
+		 String eps = new String();
+		 MetodoPreingreso ba = new MetodoPreingreso();
+		ResultSet rs=null;
+		rs=ba.SQLEntidad();
+		String v[] = new String[1000];
+		char ee=((char)13);
+		try{
+			while(eps.charAt(0)==ee){
+				
+				 eps=eps.substring(1, eps.length());
+			}
+		while(eps.charAt(0)=='\n'){
+			
+			 eps=eps.substring(1, eps.length());
+		}
+		
+		}catch(Exception e){
+			}
+		
+		try {
+			int c=0;
+			while(rs.next()){
+				PrintWriter out=res.getWriter();
+				v[c]=rs.getString(1);
+				
+				out.println(v[c]+"_");
+				c++;
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} 
+		
+	}
+	
+}

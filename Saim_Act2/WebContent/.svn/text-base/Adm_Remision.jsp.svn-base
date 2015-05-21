@@ -1,0 +1,167 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+-->
+</style>
+
+<script type="text/javascript">
+
+function Abrir_ventana (pagina) {
+    var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no,";
+	opciones =opciones+"scrollbars=no, resizable=yes, width=600, height=300, top=85,  left=140";
+    window.open(pagina,"NUEVA",opciones);
+}
+//------------------------------------------------------------------------
+	function getXMLObject()  //XML OBJECT
+	{
+	   var xmlHttp = false;
+	   try {
+	     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")  // For Old Microsoft Browsers
+	   }
+	   catch (e) {
+	     try {
+	       xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")  // For Microsoft IE 6.0+
+	     }
+	     catch (e2) {
+	       xmlHttp = false   // No Browser accepts the XMLHTTP Object then false
+	     }
+	   }
+	   if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+	     xmlHttp = new XMLHttpRequest();        //For Mozilla, Opera Browsers
+	   }
+	   return xmlHttp;  // Mandatory Statement returning the ajax object created
+	}
+	 
+	var xmlhttp = new getXMLObject(); //xmlhttp holds the ajax object
+	   
+	
+
+	
+	function ajaxFunction() {
+		 
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlRemision",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarPeticion;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+
+	function ComprobarPeticion() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	form1.cbeps.length=y-1;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			     form1.cbeps.options[x].text=z[x];
+			    }
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	</script>
+
+<script language=javascript src="Validaciones.js"></script>
+</head>
+<body onLoad="ajaxFunction(),hora(),fecha_ingreso(),focus(form1.txtnumdocu);">
+<form id="form1" name="form1" method="post"  >
+<table width="97%" height="206" border="0">
+  <tr>
+    <td colspan="4" bgcolor="#0099FF"><div align="center">REMISIONES</div></td>
+    </tr>
+  <tr>
+    <td width="24%" height="21">&nbsp;</td>
+    <td width="29%"><input name="txtfecha"  type="text" id="txtfecha"   style="visibility:hidden"  /></td>
+    <td width="17%">&nbsp;</td>
+    <td width="30%"><input name="txthora" type="text"  id="txthora" style="visibility:hidden"></td>
+  </tr>
+  <tr>
+    <td height="32">Tipo Documento <span class="style1"> * </span></td>
+    <td><label>
+	
+      <select name="cbtipodoc" id="cbtipodoc" > 
+        <option>CC</option>
+        <option>TI</option>
+        <option>RC</option>
+        <option>Nacido Vivo</option>
+      </select>
+    </label></td>
+    <td>Numero Documento <span class="style1">*</span></td>
+    <td><label>
+      <input name="txtnumdocu" type="text" id="txtnumdocu"  onKeyUp="validarte(form1.txtnumdocu);" maxlength="12"/>
+    </label></td>
+  </tr>
+  <tr>
+    <td height="32">Nombre<span class="style1"> *</span></td>
+    <td><label>
+      <input name="txtnombre" type="text" id="txtnombre" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtnombre);" maxlength="20" />
+    </label></td>
+    <td>Primer Apellido <span class="style1">*</span></td>
+    <td><input name="txtpriapellido" type="text" id="txtpriapellido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtpriapellido);" maxlength="20" /></td>
+  </tr>
+  <tr>
+    <td height="32">Segundo Apellido </td>
+    <td><label>
+      <input name="txtseapellido" type="text" id="txtseapellido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtseapellido);" maxlength="20"/>
+    </label></td>
+    <td>EPS <span class="style1">*</span></td>
+    <td><label>
+	
+      <select name="cbeps" size="1" id="cbeps"   >
+       </select>
+		
+    </label></td>
+  </tr>
+  <tr>
+    <td height="30">Numero Autorizacion <span class="style1">*</span></td>
+    <td><input name="numeroaut" type="text" id="numeroaut" onKeyUp="this.value=this.value.toUpperCase();" maxlength="20" /></td>
+    <td>Autorizado Por <span class="style1">*</span></td>
+    <td><input name="autorizacion" type="text" id="autorizacion" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.autorizacion);" maxlength="30"/></td>
+  </tr>
+  <tr>
+    <td height="30">Asignar Cama </td>
+    <td><label>
+      <input name="textfield13" type="text" id="textfield13" readonly="">
+       <input name="btncama" type="button" id="btncama" value=". . ." onClick="Abrir_ventana('Preingreso.jsp','Ayuda','width=500,height=300')">
+    </label></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+    <td colspan="2" align="center"><label>
+      <input name="btguardar" type="button" id="btguardar" value="Guardar" onClick="remision(form1);" />
+    </label></td>
+    <td><label><br />
+    </label></td>
+  </tr>
+  <tr>
+    <td height="22" colspan="2"><label><span class="style1">Campos Requeridos *</span> </label></td>
+    <td>&nbsp;</td>
+    <td><label></label></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

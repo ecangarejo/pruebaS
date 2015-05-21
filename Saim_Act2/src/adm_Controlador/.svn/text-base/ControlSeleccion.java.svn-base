@@ -1,0 +1,302 @@
+/**
+ * Control:ControlSeleccion
+ * Realiza una busquedad segun la ubicacion del paciente el tipo de paciente.
+ * Desarrollado:yosimar valega
+ */
+
+package Controlador;
+import java.sql.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bean.Urgencia_vital;
+
+import logica.MetodoPaciente;
+import logica.MetodoPreingreso;
+import logica.MetodoRemision;
+import logica.MetodoAdmision;
+import logica.MetodoUsuario;
+/**
+ * Servlet implementation class ControlSeleccion
+ * 
+ * 
+ */
+public class ControlSeleccion extends HttpServlet {
+	
+	/**
+	 * Se obtiene los datos de la cedula  tipo, codigo de urgencia si hay de validarcom/Adm_ingreso.jsp
+	 * Se obtiene el nombre del ususario segune el codigo obtenerNomUsuario/MetodoUsuario
+	 * Se busca en cada una de las tablas de la base de datos (adm_cola,adm_preadmision,adm_pacientes) de 
+	 * SQLEPS/MetodoPreingreso,SQLEPS/MetodoRemision,SQLEntidad/MetodoPaciente
+	 * Si es un nacido vivo se busca los datos de la madre.Si la madre no existe se informa q tiene q ingresar primero a la madre
+	 * Si esta se redirecciona a ingresar los datos del niño
+	 * Si es paciente no esta se redirecciona a la pagina Adm_Demograficos
+	 * Si el paciente tiene ya los datos demograficos se procede a mostrar los demas datos para ingresar la admision.
+	 * 
+	 */
+	
+
+	protected void doGet(HttpServletRequest re, HttpServletResponse res) throws ServletException, IOException {
+		String ced,tipodoc,x,nombrepac = null,papellidos = null,sapellidos = null,y=null;
+		x="";
+		String nomd="";
+		String prid="";
+		String sed="";
+		String codCon="";
+		String estado="";
+		String codigocama2="";
+		String codigocama="";
+		
+		//capturar variable de session codigo del usuario
+		String codigou =(String)re.getSession().getAttribute("codusuario");
+		
+		
+		
+		MetodoUsuario mu = new MetodoUsuario();
+		ResultSet rscodigou=null;
+		String nomusu="";
+		try{
+			rscodigou=mu.obtenerNomUsuario(codigou);
+			if(rscodigou.next()){
+				nomusu=rscodigou.getString(1);
+			}
+			
+			
+		}catch(Exception ex){
+   			ex.getMessage();
+   		}
+		
+		
+		
+		java.sql.ResultSet rs=null;
+		ced = re.getParameter("ced");
+		tipodoc=re.getParameter("tipo");
+		
+		String id=null;
+		id=re.getParameter("id");
+		
+		MetodoPaciente pa1 =new MetodoPaciente();
+		try{
+			
+			MetodoPreingreso pr=new MetodoPreingreso();
+			rs=pr.SQLEPS(ced, tipodoc);
+			
+            if (rs.next()){
+			   x=rs.getString(1);
+			   nomd=rs.getString(9);
+			 
+			   prid=rs.getString(7);
+			   sed=rs.getString(8);
+			   try{
+       			
+       			ResultSet res2=null;
+       			res2=pa1.SQLCodConv(x);
+       			while(res2.next()){
+       				codCon=res2.getString(1);
+       											
+       			}//fin del while
+       		
+       		}//fin try
+       		catch(Exception ex){
+       			ex.getMessage();
+       		}  
+			   
+		
+            }
+               if(x==""){
+            	   MetodoRemision remi=new MetodoRemision();
+        			  rs=remi.SQLEPS(ced, tipodoc);
+        			 
+        			  if (rs.next()){
+        				  x=rs.getString(1);
+        				 
+        		          nomd=rs.getString(3);
+        		         
+        		          prid=rs.getString(4);
+        		        
+        		          sed=rs.getString(6);
+        		          
+        		          codigocama2=rs.getString(10);
+        		          
+        		          ResultSet rscodcam=null;
+        		          rscodcam=remi.codigocama(codigocama2);
+        		          if(rscodcam.next()){
+        		        	  codigocama=rscodcam.getString(1);
+        		          }
+        		          
+        		          
+        		        
+        		          try{
+        		       			
+        		       			ResultSet res2=null;
+        		       			res2=pa1.SQLCodConv(x);
+        		       			while(res2.next()){
+        		       				codCon=res2.getString(1);
+        		       											
+        		       			}//fin del while
+        		       			
+        		       		}//fin try
+        		       		catch(Exception ex){
+        		       			ex.getMessage();
+        		       		} 
+        		       		
+                      }
+               }
+              
+              	  MetodoPaciente pa=new MetodoPaciente();
+     			  rs=pa.SQLEntidad(ced, tipodoc);
+     			 
+                  if (rs.next()){
+                	  y=rs.getString(1);
+                	  nombrepac=rs.getString(2);
+                	  papellidos=rs.getString(3);
+                	  sapellidos=rs.getString(4);
+     		      }
+                   
+            if(y==null){
+            	y="";
+            	if(tipodoc.equals("Nacido Vivo")){
+            		
+            		String nomadre="",primadre="",semadre="";
+            		MetodoPaciente ma= new MetodoPaciente();
+            		try{
+            			
+            			ResultSet resul=null;
+            			resul=ma.SQLPacMadre(ced);
+            			while(resul.next()){
+            				nomadre=resul.getString(1);
+            				primadre=resul.getString(2);
+            				semadre=resul.getString(3);
+            											
+            			}//fin del while
+            			
+            		}//fin try
+            		catch(Exception ex){
+            			ex.getMessage();
+            		}
+            		
+                  	if(nomadre.equals("")){
+                  		
+                  		 res.sendRedirect("Adm_Ingreso.jsp?s="+1+"");
+                  		
+                  		
+                  	}else{
+                  		res.sendRedirect("Adm_Nacido_Vivo.jsp?cedula="+ced+"&tipo="+tipodoc+"&nomadre="+nomadre+"&primadre="+primadre+"&semadre="+semadre+"");
+                  	}
+            		
+            	}else{
+            		
+            		if(x.equals("")){
+            			x="SELECCIONE...";
+            		}
+            		
+            		
+            		 int i;
+            		    
+            		    for(i=0;i<prid.length();i++){
+            		      prid=prid.replace('ñ','9');
+            		      prid=prid.replace('Ñ','8');
+            		     
+            		     
+            		    }
+            		    
+            		 
+            		    for(i=0;i<sed.length();i++){
+            		    	 sed=sed.replace('ñ','9');
+                 		      sed=sed.replace('Ñ','8');
+              		    }
+            		   
+            		    for(i=0;i<nomd.length();i++){
+            		    	nomd=nomd.replace('ñ','9');
+                		      nomd=nomd.replace('Ñ','8');
+             		    }
+            		   
+          		      
+            		
+            	    res.sendRedirect("Adm_Demografico.jsp?cedula="+ced+"&nombre="+nomd+"&primerape="+prid+"&segundoape="+sed+"&eps="+x+"&codconv="+codCon+"&tipo="+tipodoc+"&codcama="+codigocama+"&nomUsu="+nomusu+"&id="+id);
+            	}
+            	
+            		
+             }else{
+            	 if(tipodoc.equals("Nacido Vivo")){
+            		 
+            		 String nombre=nombrepac+" "+papellidos+" "+sapellidos;
+            		 
+            		
+             		String nomadre="",primadre="",semadre="";
+             		MetodoPaciente ma= new MetodoPaciente();
+             		try{
+             			
+             			ResultSet resul=null;
+             			resul=ma.SQLPacMadre(ced);
+             			while(resul.next()){
+             				nomadre=resul.getString(1);
+             				primadre=resul.getString(2);
+             				semadre=resul.getString(3);
+             											
+             			}//fin del while
+             			
+             		}//fin try
+             		catch(Exception ex){
+             			ex.getMessage();
+             		}
+            		 
+            		
+            		 res.sendRedirect("ControlNacido?cedula="+ced+"&tipo="+tipodoc+"&nomadre="+nomadre+"&primadre="+primadre+"&semadre="+semadre+"");
+            		
+            	 }else{
+            		 String nombrecompleto=nombrepac+" "+papellidos+" "+sapellidos;
+            		 int i;
+         		 
+         		    for(i=0;i<nombrecompleto.length();i++){
+         		    	nombrecompleto=nombrecompleto.replace('ñ','9');
+         		    	nombrecompleto=nombrecompleto.replace('Ñ','8');
+         		     
+         		    }
+            		ResultSet rspac=null; 
+         		    
+            		rspac=pa.SQLPacPa(ced, tipodoc);
+            		String codpac="";
+         		    if(rspac.next()){
+         		    	codpac=rspac.getString(1);
+         		    	
+         		    	ResultSet rsadmi=null;
+         		    	MetodoAdmision ad =new MetodoAdmision();
+         		    	rsadmi=ad.comprobaradmision(codpac);
+         		    	if(rsadmi.next()){
+         		    	
+         		    		estado=rsadmi.getString(1);
+         		    		
+         		    	}
+         		    }
+         		    if(estado.equals("0")){
+         		    	res.sendRedirect("Adm_Ingreso.jsp?eps="+y+"&cedula="+ced+"&z="+0+"&men="+1+"");
+         		    }else{
+         		    	
+                     res.sendRedirect("Adm_Ingreso.jsp?eps="+y+"&cedula="+ced+"&tipo="+tipodoc+"&nom="+nombrecompleto+"&z="+1+"&id="+id+"&codcama="+codigocama+"&nomUsu="+nomusu+"");	
+         		    }
+         		    }
+         		    
+            	 
+             
+		     }
+            }
+		 
+		catch(SQLException e){
+           
+			
+		}
+			
+	}
+}
+
+	
+
+
+		
+

@@ -1,0 +1,24 @@
+package Controlador;
+import logica.*;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import logica.Conexion;
+import logica.MetodoPreingreso;
+import java.sql.*;
+import java.util.*;
+import bean.Preingreso;
+
+public class ControlReporte extends HttpServlet{	
+	private static final long serialVersionUID = 1L;
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		
+		String cod=req.getParameter("cod");
+		HttpSession session = req.getSession(true);
+		Reporte r = new Reporte(cod);
+		r.start();
+
+	}
+	
+}

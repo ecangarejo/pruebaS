@@ -1,0 +1,66 @@
+body{
+	margin-bottom:0px;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+a:link {
+	color: #0000FF;
+	text-decoration: underline;
+}
+a:visited {
+	text-decoration: none;
+	color: #FF0000;
+}
+a:hover {
+	text-decoration: none;
+	color: #000066;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFF00;
+}
+.titulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #835A1A;
+}
+.subtitulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #C2FCDC;
+}
+.texto {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	font-weight: normal;
+	text-align:justify;
+}
+.unidad {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+}
+.error {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.footer {
+	font-family: Arial;
+	font-size: 9px;
+	font-weight:bold;
+	color: #FFFFFF;
+}
+.acciones{
+	border-bottom: 1px solid #003366;
+}
+.resultado{
+	font-family: "Lucida Console", "Lucida Sans", "Courier New", Courier, Monospace;
+	font-size: 10px;
+}

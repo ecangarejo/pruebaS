@@ -1,0 +1,85 @@
+/**
+ * Control:ControlPaciente
+ * muestra eps de los pacientes
+ * 
+ * 
+ */
+
+package Controlador;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import logica.MetodoPaciente;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import java.util.*;
+import logica.MetodoNacionalidad;
+
+public class ControlPaciente extends HttpServlet{
+	
+	/**
+	 * Realiza una series de consultas de eps SQLEps/MetodoPaciente, de convenio segun la eps SQLCodConv/MetodoPaciente para mostrar en una lista y texto
+	 */
+	
+	public void doPost(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+	
+		String yo=re.getParameter("yosi");
+		String codigomun=re.getParameter("yo");
+		String nomeps=re.getParameter("nomep");
+		
+		ResultSet rs=null;
+		MetodoPaciente pa=new MetodoPaciente();
+		if(yo.equals("1")){
+		  rs=pa.SQLEps();
+		  String v[] = new String[1000];
+			
+			try {
+				int c=0;
+				while(rs.next()){
+					PrintWriter out=res.getWriter();
+					v[c]=rs.getString(1);
+					
+					if (v[c].compareTo(nomeps) != 0){
+
+						out.println(v[c]+"_");
+					}	
+					c++;
+				}
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}	
+		if(yo.equals("2")){
+			
+			  rs=pa.SQLCodConv(nomeps);
+			  String codigo;
+				
+				try {
+					int c=0;
+					while(rs.next()){
+						PrintWriter out=res.getWriter();
+						codigo=rs.getString(1);
+							
+						out.println(codigo);
+					
+					}
+					
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+				
+				
+					
+				
+			}
+		
+		
+			
+	}
+	
+	
+}

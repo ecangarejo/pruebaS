@@ -1,0 +1,77 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+<%@ page import="controlador.*" %>
+<%@ page import="logica.*" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Inicio De Sesion</title>
+<style type="text/css">
+
+.boton4 {
+	color: #FFFFCC;
+	background-color: #3282C2;
+	border-width: 4px;
+	border-color: #CCCCFF;
+	border-style: double;
+}
+
+.style1 {
+	color: #FFFFFF;
+	font-size: 18px;
+}
+
+</style>
+<script language=javascript src="Validaciones.js"></script>
+</head>
+<body>
+<form id="form1"  name="form1" method="get" action="Control_Login">
+<%
+String ne=request.getParameter("ne");
+if(ne==null){ne="";}
+if(ne.equals("0")){
+%>
+<script language=javascript>
+alert("Usuario y/o Contraseña Erronea");
+</script>
+<%
+}
+%>
+<table width="336" border="0" align="center">
+  <tr>
+    <td colspan="2" align="center" style="background-color:#3282C2"><span class="style1">INICIO DE SESION </span></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    </tr>
+  <tr>
+    <td width="112">USUARIO:</td>
+    <td width="208"><label>
+      <input name="txtusuario" type="text" id="txtusuario" size="30" maxlength="15" onKeyUp="this.value=this.value.toUpperCase()" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>CONTRASE&Ntilde;A:</td>
+    <td><label>
+      <input name="txtcontrasena" type="password" id="txtcontrasena" size="30" maxlength="15" onKeyUp="this.value=this.value.toUpperCase()" />
+    </label></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    </tr>
+  <tr>
+    <td align="right"><label>
+      <input name="btnaceptar" type="submit" id="btnaceptar" value=" Aceptar" class="boton4"/>
+    </label></td>
+    <td align="center"><label>
+      <input name="btncancelar" type="button" id="btncancelar" value="Cancelar" class="boton4"/>
+    </label></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

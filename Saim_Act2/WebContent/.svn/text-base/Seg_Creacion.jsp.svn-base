@@ -1,0 +1,142 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Creacion De Usuarios</title>
+<style type="text/css">
+<!--
+.style1 {
+	color: #FFFFFF;
+	font-size: 18px;
+}
+
+.boton4 {
+	color: #FFFFCC;
+	background-color: #3282C2;
+	border-width: 4px;
+	border-color: #CCCCFF;
+	border-style: double;
+}
+
+
+.select {
+background-color: #FFFFFF;
+color: #000000;
+font-weight: bold;
+font-size:10px;
+cursor: hand;
+border-left-width:thin;
+border-left-color:#3282C2;
+border-top-width:thin;
+border-top-color:#3282C2;
+border-right-style:dashed;
+
+}
+
+-->
+</style>
+<script language=javascript src="Usuario.js"></script>
+<script language=javascript src="Validaciones.js"></script>
+
+</head>
+
+<body onload="ajaxFunction();">
+<form id="form1"  name="form1" method="get" >
+<%
+String va=request.getParameter("va");
+if(va==null){va="";}
+
+if(va.equals("1")){
+%>
+<script language=javascript>
+alert("Ya Existe Un Usuario Con Esta Cedula");
+</script>
+<%
+}
+if(va.equals("2")){
+	%>
+<script language=javascript>
+alert("Usuario Insertado Con Exito");
+</script>
+<% 
+}
+%>
+<table width="791" border="0" align="center">
+  <tr>
+    <td colspan="4" align="center" style="background-color:#3282C2"><span class="style1">NUEVO USUARIO</span> </td>
+    </tr>
+  <tr>
+    <td width="181">CEDULA</td>
+    <td width="206"><label>
+      <input name="txtcedula" type="text" id="txtcedula" size="30" maxlength="15" onKeyUp="validarte(form1.txtcedula);" />
+    </label></td>
+    <td width="173">NOMBRE</td>
+    <td width="203"><label>
+      <input name="txtnombre" type="text" id="txtnombre" size="30" maxlength="70" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtnombre);" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>APELLIDOS</td>
+    <td><label>
+      <input name="txtapellido" type="text" id="txtapellido" size="30" maxlength="70" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtapellido);"/>
+    </label></td>
+    <td>DIRECCION</td>
+    <td><label>
+    <input name="txtdireccion" type="text" id="txtdireccion" size="30" maxlength="80" />
+</label></td>
+  </tr>
+  <tr>
+    <td>TELEFONO</td>
+    <td><label>
+      <input name="txttelefono" type="text" id="txttelefono" size="30" maxlength="10" onKeyUp="validarte(form1.txttelefono);" />
+    </label></td>
+    <td>EMAIL</td>
+    <td><label>
+      <input name="txtemail" type="text" id="txtemail" size="30" maxlength="30" onChange="checkmail(form1.txtemail);" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>PROFESION</td>
+    <td><input name="txtprofesion" type="text" id="txtprofesion" size="30" maxlength="50" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtprofesion);" /></td>
+    <td>OCUPACION</td>
+    <td><input name="txtocupacion" type="text" id="txtocupacion" size="30" maxlength="50" onKeyUp="this.value=this.value.toUpperCase(),caracter(form1.txtocupacion);" /></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center" style="background-color:#3282C2"><span class="style1">USUARIO Y CONTRASE&Ntilde;A</span> </td>
+  </tr>
+  <tr>
+    <td>USUARIO</td>
+    <td><input name="txtusuario" type="text" id="txtusuario" value="" size="30" maxlength="15" onKeyUp="this.value=this.value.toUpperCase()" /></td>
+    <td>&nbsp;</td>
+    <td><label>
+    <select name="cmbestado" class="select" id="cmbestado">
+      <option>SELECCIONE</option>
+      <option>ACTIVO</option>
+      <option>INACTIVO</option>
+    </select>
+    </label></td>
+  </tr>
+  <tr>
+    <td>CONTRASE&Ntilde;A</td>
+    <td><label>
+      <input name="txtcontrasena" type="password" id="txtcontrasena" size="30" maxlength="15" onKeyUp="this.value=this.value.toUpperCase()" />
+    </label></td>
+    <td>REPETIR CONTRASE&Ntilde;A</td>
+    <td><input name="txtrepcontra" type="password" id="txtrepcontra" size="30" maxlength="15" onKeyUp="this.value=this.value.toUpperCase()" /></td>
+  </tr>
+  <tr>
+    <td colspan="4"><label></label></td>
+    </tr>
+  <tr>
+    <td align="center"><label>
+    <input name="btningresar" type="button" id="btningresar" value=" Ingresar " onclick="enviar(form1)" class="boton4" />
+    </label></td>
+    <td>&nbsp;</td>
+    <td align="center"><label></label></td>
+    <td><input name="btnnuevo" type="reset" id="btnnuevo" value="   Nuevo   " class="boton4"/></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

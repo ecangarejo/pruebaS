@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="fact_SubreportesUsuariosAdm"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="codAdm" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ruta" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="UsuCarg" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT DISTINCT su.usuario,detf.clase_servicio,detf.tipopop,detf.cod_usuario as UsuCarg,detf.cod_enc_factura_fk
+FROM fact_enc_factura encf, 
+fact_det_factura detf, seg_usuario su
+WHERE encf.cod_admision=$P{codAdm} AND encf.cod_enc_factura=detf.cod_enc_factura_fk  and detf.cod_usuario=$P{UsuCarg}
+AND su.usu_codigo=detf.cod_usuario 
+and detf.facturado='0']]></queryString>
+
+	<field name="usuario" class="java.lang.String"/>
+	<field name="clase_servicio" class="java.lang.String"/>
+	<field name="tipopop" class="java.lang.String"/>
+	<field name="UsuCarg" class="java.lang.String"/>
+	<field name="cod_enc_factura_fk" class="java.lang.String"/>
+
+
+		<group  name="programas" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<subreport  isUsingCache="false">
+					<reportElement
+						x="2"
+						y="1"
+						width="556"
+						height="14"
+						key="subreport-1"
+						stretchType="RelativeToTallestObject"/>
+					<subreportParameter  name="ruta">
+						<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="codAdm">
+						<subreportParameterExpression><![CDATA[$P{codAdm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="UsuCarg">
+						<subreportParameterExpression><![CDATA[$F{UsuCarg}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ruta}+"\\fact_DetalleProgramasAdm.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="servicios" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<subreport  isUsingCache="false">
+					<reportElement
+						x="2"
+						y="1"
+						width="556"
+						height="14"
+						key="subreport-2"
+						stretchType="RelativeToTallestObject"/>
+					<subreportParameter  name="clase_servicio">
+						<subreportParameterExpression><![CDATA[$F{clase_servicio}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tipopp">
+						<subreportParameterExpression><![CDATA[$F{tipopop}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ruta">
+						<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="codAdm">
+						<subreportParameterExpression><![CDATA[$P{codAdm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="UsuCarg">
+						<subreportParameterExpression><![CDATA[$F{UsuCarg}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ruta}+"\\fact_ReporteServicioDetalladoAdm.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="17"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="2"
+						y="2"
+						width="557"
+						height="13"
+						key="textField-1"/>
+					<box>					<pen lineWidth="0.5" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+</box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Usuario: "+$F{usuario}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

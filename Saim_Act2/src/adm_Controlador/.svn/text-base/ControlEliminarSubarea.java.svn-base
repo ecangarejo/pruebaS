@@ -1,0 +1,71 @@
+/**
+ * NOMBRE DE LA CLASE: ControlEliminarSubarea
+ * AUTOR: Oscar Rolong Schweiger
+ * DESCRIPCION: En este Controlador se encuentra lo necesario
+ * 				para eliminar una subarea. 				
+ */
+package Controlador;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import logica.MetodoEliminar;
+
+public class ControlEliminarSubarea extends HttpServlet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		String va = req.getParameter("va");		
+		String subarea=req.getParameter("subarea");
+		MetodoEliminar me=new MetodoEliminar();
+		ResultSet rs=null;	
+		if (va.equals("1")){	
+			/**
+			 * se obtiene el codigo de la subarea a eliminar 
+			 * mediante MetodoEliminar/obtenerCodigoSubAre
+			 */
+			rs=me.obtenerCodigoSubAre(subarea);
+			String sub=null;
+			String are=null;
+			try{
+			
+				while(rs.next()){
+					PrintWriter out=res.getWriter();
+					sub=rs.getString(1);
+					are=rs.getString(2);
+					out.println(sub+"_"+are);					
+					
+				}			
+			}
+			 catch(SQLException e1){
+				 e1.getMessage();
+			 }			 
+		}
+	}
+	
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		/**
+		 * se recibe el codigo del subarea a eliminar y se procede mediante
+		 * MetodoEliminar/EliminarSubarea que lleva como parametro el codigo de la subarea.
+		 */
+		MetodoEliminar me=new MetodoEliminar();
+		String codsub=null;		
+		codsub=req.getParameter("codsub");	
+		me.EliminarSubarea(codsub);
+		res.sendRedirect("Adm_EliminarSubarea.jsp");
+	}
+	
+
+}

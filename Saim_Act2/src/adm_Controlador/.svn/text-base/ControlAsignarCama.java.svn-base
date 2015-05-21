@@ -1,0 +1,77 @@
+package Controlador;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import bean.Cama;
+import logica.MetodoCama;
+import bean.Area;
+import bean.SubArea;
+import java.sql.*;
+import java.util.*;
+
+public class ControlAsignarCama extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		HttpSession session = req.getSession(true);
+		
+		MetodoCama ba= new MetodoCama();
+		ResultSet rs=null;
+		rs= ba.obtenerArea();
+		LinkedList lista= new LinkedList();
+		System.out.println("entro");
+		try{	
+			while(rs.next()){
+				Area a = new Area();
+				a.setCodigo(rs.getInt("codigo"));
+				a.setNombre(rs.getString("nombre"));
+				lista.add(a);
+		
+			}
+		}//end try
+		 catch(SQLException e){
+			 e.getMessage();
+		 }
+		session.setAttribute("list", lista);
+		res.sendRedirect("ejemplo1.jsp");
+		
+						
+	}
+	public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
+		HttpSession session = req.getSession(true);
+	
+		String cb = "1";//req.getParameter("area");
+		if (!cb.equals(null)){
+			System.out.println(cb);
+			MetodoCama ba= new MetodoCama();
+			
+			
+			ResultSet rs= ba.obtenerSubArea(cb); 
+			
+			LinkedList list= new LinkedList();
+			try {
+				while(rs.next()){
+				SubArea a = new SubArea();
+				
+					a.setCodigo(rs.getInt("codigo"));
+					a.setNombre(rs.getString("nombre"));
+					a.setCodigoArea(rs.getInt("codigoarea"));
+					list.add(a);		
+				}
+			session.setAttribute("listasub", list);
+			res.sendRedirect("ejemplo1.jsp");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else{
+			cb = null;
+		}
+	}
+}

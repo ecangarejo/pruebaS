@@ -1,0 +1,271 @@
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" import="CCosta.*" errorPage="" %>
+<!-- Los import -->
+<%@ page language="java" %>
+<%@ page import = "java.sql.Connection"%>
+<%@ page import = "java.sql.DriverManager"%>
+<%@ page import = "java.sql.ResultSet"%> 
+<%@ page import = "java.sql.Statement"%> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin t&iacute;tulo</title>
+<style type="text/css">
+<!--
+body {
+	background-image: url(Imagenes/oscar.jpg);
+}
+body,td,th {
+	
+}
+#apDiv1 {
+	position:absolute;
+	left:185px;
+	top:42px;
+	width:56px;
+	height:530px;
+	z-index:1;
+}
+#apDiv2 {
+	position:absolute;
+	left:357px;
+	top:237px;
+	width:458px;
+	height:47px;
+	z-index:1;
+}
+#apDiv3 {
+	position:absolute;
+	left:387px;
+	top:290px;
+	width:262px;
+	height:92px;
+	z-index:2;
+}
+-->
+</style>
+
+<script language="javascript">
+function validar(h){
+		if (h.txtnumdoc.value.length==0){
+			window.alert('Debe Digitar la Cedula');
+			h.nom.focus();
+			return false;
+		}
+	h.submit();
+	}
+
+function validarcom(h)
+	{ 
+	    
+		
+		var s=h.txtnumdoc.value;
+		var n=0;
+		var pos=0;
+		for(i=0;i<s.length;i++){
+		   valor = parseInt(s.charAt(i));
+			if(isNaN(valor)){
+				n++;
+			}
+		}
+		if(n>0)
+		{
+			window.alert('El campo telefono solo acepta valores Numericos');
+			h.txtnumdoc.value="";
+			h.txtnumdoc.focus();
+			return false;
+		}
+		if(window.event.keyCode == 13)//Codigo Ascii de la tecla ENTER evento si se presiona enter
+        {
+			h.submit(); 
+		
+		}
+		
+	}
+	
+	
+</script>
+
+
+
+</head>
+<form id="form1" action="Prueba.jsp?" name="form1" method="post" action="">
+<body>	
+
+
+
+<table width="793" border="0" align="center">
+  <tr>
+    <td colspan="6" bgcolor="#0099FF"><div align="center">
+      <p><strong>SOLICITUD DE INGRESO</strong></p>
+    </div></td>
+  </tr>
+  <tr>
+    <td width="124">Tipo de Documento</td>
+    <td width="49">
+      <label>
+        <select name="cbtipodoc" size="1" id="cbafiliacion">
+
+          
+          <option selected="selected">CC</option>
+          <option>TI</option>
+          <option>RC</option>
+          <option>Nacido Vivo</option>
+         
+        </select>
+      </label>    </td>
+    <td width="143">Numero de Documento</td>
+    <td width="144"><label>
+      <input type="text" name="txtnumdoc" value="" id="txtnumdoc" onkeyup="validarcom(form1);"/>
+    </label></td>
+    <td width="46">Entidad</td>
+    <td width="150"><label>
+      <input type="text" name="txtentidad" value="" id="txtentidad" readonly="True" />
+    </label></td>
+  </tr>
+</table>
+
+<table width="794" border="0" align="center">
+  <tr>
+    <td height="21" colspan="4" bgcolor="#0099FF"><p align="center"><strong>INGRESO</strong></p></td>
+    </tr>
+  <tr>
+    <td width="161">Numero de Ingreso</td>
+    <td width="203"><label>
+      <input type="text" name="numeroingreso" id="textfield" />
+    </label></td>
+    <td width="160">Numero de Autorizacion</td>
+    <td width="233"><label>
+      <input type="text" name="numeroautorizacion" id="textfield2" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Medio de Autorizacion</td>
+    <td><label>
+      <input type="text" name="medioauto" id="textfield3" />
+    </label></td>
+    <td>Fecha de Registro</td>
+    <td><label>
+      <input type="text" name="fechar" id="textfield4" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Autorizado Por:</td>
+    <td><label>
+      <input type="text" name="autopor" id="textfield5" />
+    </label></td>
+    <td>Hora De Registro</td>
+    <td><label>
+      <input type="text" name="horareg" id="textfield6" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Registrado Por:</td>
+    <td><label>
+      <input type="text" name="registradopor" id="textfield7" />
+    </label></td>
+    <td>Remitido De</td>
+    <td><input type="text" name="remitidode" id="textfield10" /></td>
+  </tr>
+</table>
+<table width="792" height="248" border="0" align="center">
+  
+  <tr>
+    <td colspan="4" bgcolor="#0099FF"><div align="center"><strong>DATOS DE AFILIACION</strong></div></td>
+  </tr>
+  <tr>
+    <td width="166">Estado de la Afiliacion</td>
+    <td width="291"><label>
+      <input type="text" name="estadoa" id="textfield8" />
+    </label></td>
+    <td width="80">&nbsp;</td>
+    <td width="237"><label></label></td>
+  </tr>
+  <tr>
+    <td>Semanas Cotizadas</td>
+    <td><label>
+      <input type="text" name="semanac" id="textfield9" />
+    </label></td>
+    <td colspan="2" rowspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Nombre del Paciente</td>
+    <td><label>
+      <input type="text" name="nombrepaciente" id="textfield11" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Apellido del Paciente</td>
+    <td><label>
+      <input type="text" name="apellidopaciente" id="textfield12" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Numero de la Cama</td>
+    <td><input type="text" name="numerocama" id="textfield13" />
+      <input type="submit" name="button" id="button" value=". . ." onClick="Abrir_ventana('Preingreso.jsp','Ayuda','width=500,height=300')" />
+	  
+	 <!-- <label> <img src="../images/spacer.gif" width="5" height="5"><a href="#" class="links2" onClick="Abrir_ventana('../transacciones/ayuda.jsp','Ayuda','width=500,height=300')">Ayuda</a></label>
+	  </td>-->
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="33">&nbsp;</td>
+    <td><label></label>
+      <label>
+      <input type="submit" name="btingresar" id="btingresar" value="Ingresar" />
+      </label></td>
+    <td><label>
+      <input type="submit" name="btsalir" id="btsalir" value="   Salir    " />
+    </label></td>
+    <td>&nbsp;</td>
+  </tr>
+   
+</table>
+
+<div id="apDiv2">
+  <table width="456" border="0">
+    <tr>
+      <td colspan="4" bgcolor="#0099FF"><div align="center"><strong><em>Documentos Anexos</em></strong></div></td>
+    </tr>
+    <tr>
+      <td width="20"><input type="checkbox" name="checkbox2" id="checkbox2" /></td>
+      <td width="205">Fotocopia Documento Identidad</td>
+      <td width="20"><label>
+        <input type="checkbox" name="checkbox" id="checkbox" />
+      </label></td>
+      <td width="199">Fotocopia del Carne</td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv3">
+  <table width="200" border="0">
+    <tr>
+      <td bgcolor="#0099FF"><div align="center"><em><strong>Observaciones</strong></em></div></td>
+    </tr>
+    <tr>
+      <td><label>
+        <textarea name="obs" id="obs" cols="45" rows="4"></textarea>
+      </label></td>
+    </tr>
+  </table>
+</div>
+
+</form>
+</body>
+</html>
+<script>
+function Abrir_ventana (pagina) {
+            var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no,";
+			opciones =opciones+"scrollbars=no, resizable=yes, width=200, height=300, top=85,  left=140";
+            window.open(pagina,"NUEVA",opciones);
+  }
+  </script>

@@ -1,0 +1,61 @@
+package logica;
+import java.util.*; 
+import java.sql.Connection; 
+import java.awt.event.*; 
+ /*Librerías necesarias para Jasper Reports*/ 
+import net.sf.jasperreports.engine.*; 
+import net.sf.jasperreports.view.*;
+
+public class Reporte extends Thread {
+	String Parametro;
+	public Reporte(String P){
+      Parametro=P;
+	}
+
+    public void run()
+    { 
+        JasperReport jasperReport;
+        JasperPrint jasperPrint;    
+        
+        Connection c=null;
+      
+        
+        try 
+        { 
+        	  Conexion con=new Conexion();
+              c=con.conn;
+           // Connection con = c.mkConection(); 
+            //Ruta de Archivo Jasper 
+           // String fileName="C:\\Admision.jasper"; 
+             String fileName="C:\\Admisiones\\WebContent\\reportes\\Admision.jasper";
+            //Obtener una conexión a la base de datos 
+        	
+        	 //Compilo el JRXML
+            //jasperReport = JasperCompileManager.compileReport("reportes/Cesar.jrxml"); 
+            //jasperReport = JasperCompileManager.compileReport("C:\\Documents and Settings\\Desarrollo Web\\Escritorio\\Reportes\\Cesar.jrxml");
+        	
+         
+            //Pasamos parametros al reporte Jasper. 
+            //String Parametro="3";
+            Map parameters = new HashMap(); 
+            parameters.put("Parametro",Parametro); 
+ 
+            //Preparacion del reporte (en esta etapa llena el diseño de reporte) 
+            //Reporte diseñado y compilado con iReport 
+            jasperPrint = JasperFillManager.fillReport(fileName,parameters,c); 
+        
+        //   jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, c); 
+            
+            
+            //Se lanza el Viewer de Jasper, no termina aplicación al salir 
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false); 
+            jviewer.show(); 
+            
+      c.close();
+       }    
+       catch (Exception j) 
+       { 
+           System.out.println("Mensaje de Error:"+j.getMessage()) ;
+       } 
+    }   
+}

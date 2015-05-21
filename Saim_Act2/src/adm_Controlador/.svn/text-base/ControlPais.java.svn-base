@@ -1,0 +1,67 @@
+/**
+ * Control:ControlPais
+ * Obtiene paises, departamentos y municipios de la base de datos
+ * Desarrollado:yosimar valega
+ */
+
+package Controlador;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import logica.MetodoNacionalidad;
+public class ControlPais extends HttpServlet {
+	public void doPost(HttpServletRequest re, HttpServletResponse res)throws ServletException, IOException{
+		MetodoNacionalidad na=new MetodoNacionalidad();
+		String yo=re.getParameter("yo");
+		String nombre=re.getParameter("nom");
+		String x = re.getParameter("x");
+		String y = re.getParameter("y");
+		String xx = re.getParameter("de");
+		String codigo;
+		ResultSet rs=null;
+		String v[] = new String[1000];
+		
+		/**
+		 * Se obtiene el paises  llamados de una funcion 1.js ajax
+		 */
+		if(yo.equals("1")){
+			rs=na.SQLPais();
+		}
+		/**
+		 * Se obtiene Departamentos llamados de una funcion 1.js ajax
+		 */
+		
+		if(yo.equals("2")){
+			rs=na.SQLDep(x);
+		}
+		
+		/**
+		 * Se obtiene Municipios llamados de una funcion 1.js ajax
+		 */
+		if(yo.equals("3")){
+			rs=na.SQLMun(xx);
+		}
+		try {
+			int c=0;
+			while(rs.next()){
+				PrintWriter out=res.getWriter();
+				v[c]=rs.getString(1);
+				out.println(v[c]+"_");
+				c++;
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	
+			
+			}
+	   
+
+
+	
+}

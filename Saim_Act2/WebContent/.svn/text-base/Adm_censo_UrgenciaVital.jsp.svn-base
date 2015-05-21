@@ -1,0 +1,60 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage=""%>
+<%@ page import="bean.Urgencia_vital,java.util.*" import="logica.* "%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script language="javascript">
+
+
+
+
+</script>
+
+</head>
+<body>
+<form  id="form1" name="form1" method="get" action="Control_Datos_UrgenciaV">
+
+<center><b><font face="Verdana" size="5"> CLINICA DE LA COSTA</font></b></center>
+<center><b><font face="Verdana" size="3"> Censo Urgencia Vital</font></b></center>
+<font face="Arial, Helvetica, sans-serif">
+<table border="0">
+<tr>
+<td width="10%"><font size="2">Descripcion  </font></td>
+<td width="10%"><font size="2">Fecha</font></td>
+<td width="10%"><font size="2">Hora</font></td>
+
+</tr>
+
+<%
+//Vector lista =(Vector)request.getSession().getAttribute("censourgencia");
+
+LinkedList ls = (LinkedList)request.getSession().getAttribute("censourgencia");  
+Urgencia_vital uv=new Urgencia_vital();
+//cen = (Censo)lista.get(1);
+//out.println(cen.getPaciente());
+String codigoUrg="";
+for(int i=0; i< ls.size();i++){
+	uv = (Urgencia_vital)ls.get(i);
+	codigoUrg = uv.getCodigo();	
+%>
+	<tr>
+	<td><font size="1"><a href="Adm_Ingreso.jsp?id=<%=codigoUrg%>"><%=uv.getDescripcion() %></font></td>
+	<td><font size="1"><%=uv.getFecha() %></font></td>
+	<td><font size="1"><%=uv.getHora() %></font></td>
+	</tr>
+
+
+<%} 
+//System.out.println("codigo urgencia"+codigoUrg);
+%>
+
+
+</table></font>
+<br>
+<center><input name="sbt_imprimir" type="button" class="botones" onClick="print();" value="Imprimir"></center>
+</form>
+</body>
+</html>

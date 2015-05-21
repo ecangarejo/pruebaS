@@ -1,0 +1,508 @@
+//<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
+
+function fecha(){
+	  var time1 = new Date()
+	  var año = time1.getFullYear()
+	  var mes = time1.getMonth()
+	  mes=mes+1;
+	  
+	  var dia = time1.getDate()
+
+	  var temp1 = "" + ((año < 10) ? "0" : "") + año
+	  temp1 += ((mes < 10) ? ":0" : ":") + mes
+	  temp1 += ((dia < 10) ? ":0" : ":") + dia
+	  form1.txtfechaent.value = temp1
+	 id = setTimeout("fecha()",1000)
+	  
+	 
+	  }
+	
+//------------------------------------------------------------------------
+	function getXMLObject()  //XML OBJECT
+	{
+	   var xmlHttp = false;
+	   try {
+	     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")  // For Old Microsoft Browsers
+	   }
+	   catch (e) {
+	     try {
+	       xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")  // For Microsoft IE 6.0+
+	     }
+	     catch (e2) {
+	       xmlHttp = false   // No Browser accepts the XMLHTTP Object then false
+	     }
+	   }
+	   if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+	     xmlHttp = new XMLHttpRequest();        //For Mozilla, Opera Browsers
+	   }
+	   return xmlHttp;  // Mandatory Statement returning the ajax object created
+	}
+	 
+	var xmlhttp = new getXMLObject(); //xmlhttp holds the ajax object
+	   
+	
+
+	
+	function ajaxFunction() {
+		getXMLObject();
+		 
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPreingreso?va=1",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarPeticion;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	function ajaxConfirmar(h) {
+		 
+		  if(xmlhttp) { 	 
+		  var txtipo = h.cbafiliacion.selectedIndex;
+		  var nombretipo=h.cbafiliacion.options[txtipo].text;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlSeleccion?tipo="+nombretipo,true); //getname will be the servlet name
+		    //xmlhttp.onreadystatechange  = ComprobarPeticion;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	
+	
+	function ajaxNacionalidad() {
+		 
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPais?yo=1",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarPais;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+	
+		}
+	function ajaxOcupacion() {
+		 //alert("loco entro");
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlMuni?ocu=1",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarOcupacion;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+	
+		}
+	function ajaxEps() {
+		//alert("llego");
+		 var nomeps,cod;
+		 cod=h.cbpacientidad.selectedIndex;
+		 alert(cod);
+		 nomeps=h.cbpacientidad.options[cod].text;
+		 alert(nomeps);
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPaciente?yosi=1",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarPaciente;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	function ajaxEps1(h) {
+		//alert("llego");
+		 var nomeps,cod;
+		 cod=h.cbpacientidad.selectedIndex;
+		// alert(cod);
+		 nomeps=h.cbpacientidad.options[cod].text;
+		 //alert(nomeps);
+		  if(xmlhttp) { 	 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPaciente?yosi=1&nomep="+nomeps+"",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarPaciente;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	function ajaxCodigoConv(h) {
+		 
+		  if(xmlhttp) { 
+			  var cod=h.cbpacientidad.selectedIndex;
+				var nomeps=h.cbpacientidad.options[cod].text;
+				//alert(nomeps);
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPaciente?yosi=2&nomep="+nomeps,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarCodigoConv;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	function CodigoMun(h) {
+		 
+		  if(xmlhttp) { 
+			var codigo=h.cbmun.selectedIndex;
+			var nombremun=h.cbmun.options[codigo].text;
+		
+		 
+			xmlhttp.open("POST","ControlMunicipio?nom="+nombremun,true); //getname will be the servlet name
+		   xmlhttp.onreadystatechange  = ComprobarCodMun;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+		   }
+		   var x;
+		}
+	
+	
+
+	function ajax(h) {
+		  if(xmlhttp) { 
+			  var x=h.cbeps.selectedIndex;
+			  x=h.cbeps.options[x].text;
+		    xmlhttp.open("POST","ControlPreingreso?va=2&x="+x,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = Comprobar;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+	function ajaxDep(h) {
+		 //alert("Entramos al otro");
+		  if(xmlhttp) { 
+			  var x=h.cbnacionalidad.selectedIndex;
+			 // alert("el indice es "+x);	 
+			 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPais?yo=2&x="+x,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarDep;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+	function ajaxCambiarOcu(h) {
+		 //alert("Entramos al otro");
+		  if(xmlhttp) { 
+			  var y=h.cbocupacion.selectedIndex;
+			  var x=h.cbocupacion.options[y].text;
+			 //alert("el indice es "+x);	 
+			 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlMuni?ocu=2&x="+x,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarCambOcu;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+	function ajaxx(h) {
+		  if(xmlhttp) { 
+			  var xx=h.cbeps.selectedIndex;
+			  xx=h.cbeps.options[xx].text;
+			  var y=h.ciu.selectedIndex;
+			  y=h.ciu.options[y].text;
+		    xmlhttp.open("POST","ControlPreingreso?va=3&y="+y+"&xx="+xx,true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = Comprobarx;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+	function ajaxxMun(h) {
+		 //alert("Entramos al otro");
+		  if(xmlhttp) { 
+			  //var xx=h.cbnacionalidad.selectedIndex;
+			  var dep=h.cbdep.selectedIndex;
+			 // alert("el indice es "+x);	 
+			 
+		  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+		    xmlhttp.open("POST","ControlPais?yo=3&de="+dep+"",true); //getname will be the servlet name
+		    xmlhttp.onreadystatechange  = ComprobarxMun;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send(""); //Posting txtname to Servlet
+			  }
+		}
+
+
+	
+	function Comprobarx() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	form1.cam.length=y;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			     form1.cam.options[x+1].text=z[x];
+			    }
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function ComprobarxMun() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	form2.cbmun.length=y;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			     form2.cbmun.options[x+1].text=z[x];
+			    }
+		    		
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function Comprobar() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	form1.ciu.length=y;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			     form1.ciu.options[x+1].text=z[x];
+			    }
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	function ComprobarDep() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	form2.cbdep.length=y;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			     form2.cbdep.options[x+1].text=z[x];
+			    }
+		    		
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	
+	function ComprobarPeticion() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	//alert("lo que trae "+a)
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	
+		     	form1.cbeps.length=y;
+		        var h,ss;
+		     	for(x=0; x<y; x=x+1)
+		     	{ 
+		     		
+			     form1.cbeps.options[x+1].text=z[x];
+			    }
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	function ComprobarPais() {
+		 
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+	
+		     	var c=xmlhttp.responseText;
+		     	
+		     	var d=c.split("_").length;
+		     	var f=c.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	//alert(d);
+		     	form2.cbnacionalidad.length=d;
+		        var h,ss;
+		     	for(x=0; x<d; x=x+1)
+		     	{
+		     		 
+			     form2.cbnacionalidad.options[x+1].text=f[x];
+			     ajaxOcupacion();
+			    }
+		     	
+		    		
+		    	  //document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+			
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	function ComprobarOcupacion() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+	
+		     	var c=xmlhttp.responseText;
+		     	
+		     	var d=c.split("_").length;
+		     	var f=c.split("_");
+		     	//alert(z+"cesaaaaaa");
+		     	//alert(d);
+		     	form2.cbocupacion.length=d;
+		        var h,ss;
+		     	for(x=0; x<d; x=x+1)
+		     	{
+		     		 
+			     form2.cbocupacion.options[x+1].text=f[x];
+			     ajaxEps1(form2);
+			    }
+		     	
+		    		
+		    	  //document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function ComprobarPaciente() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+	
+		     	var c=xmlhttp.responseText;
+		     	
+		     	var d=c.split("_").length;
+		     	var f=c.split("_");
+		     	
+		     	form2.cbpacientidad.length=d;
+		        var h,ss;
+		     	for(x=0; x<d; x=x+1)
+		     	{
+		     		 
+			     form2.cbpacientidad.options[x+1].text=f[x];
+			    
+			    }
+		    		
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function ComprobarCodigoConv() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+	
+		     	var c=xmlhttp.responseText;
+		     	
+			     form2.txtcodigoconv.value=c;
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	function ComprobarCambOcu() {
+		
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+	
+		     	var c=xmlhttp.responseText;
+		     	
+			     form2.txtocupacion.value=c;
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function ComprobarCodMun() {
+
+		   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	var c=xmlhttp.responseText;
+		     	
+			     form2.txtcodmun.value=c;
+		    	  document.form2.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+		}
+	
+	function envio(h) {
+	    var x=h.cam.selectedIndex;
+	    x=h.cam.options[x].text;	       
+	    if((x=="SELECCIONE...")){
+	 	   alert("Seleccione Una Cama...!");
+	    }else{
+	 	window.opener.document.form1.textfield13.value=x;
+	    window.close();
+	     }
+	 	
+		}
+	
+	function contacto(h) {
+		
+	    var x=h.txtcedula.value;
+	   // alert(x);
+	    window.opener.document.form1.textfield14.value=x;
+	    }
+
+	

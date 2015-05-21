@@ -1,0 +1,251 @@
+
+function getXMLObject()  //XML OBJECT
+	{
+	   var xmlHttp = false;
+	   try {
+	     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")  // For Old Microsoft Browsers
+	   }
+	   catch (e) {
+	     try {
+	       xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")  // For Microsoft IE 6.0+
+	     }
+	     catch (e2) {
+	       xmlHttp = false   // No Browser accepts the XMLHTTP Object then false
+	     }
+	   }
+	   if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+	     xmlHttp = new XMLHttpRequest();        //For Mozilla, Opera Browsers
+	   }
+	   return xmlHttp;  // Mandatory Statement returning the ajax object created
+	}
+	 
+	var xmlhttp = new getXMLObject(); //xmlhttp holds the ajax object
+
+
+ 
+function ajaxmodulo() {
+	 
+	  if(xmlhttp) { 	 
+	  // var txtname = h.txtnombre.value;//document.getElementById("txtnombre");
+	    xmlhttp.open("POST","ControlModulo?va=1",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = Comprobar;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); //Posting txtname to Servlet
+	   }
+	   var x;
+
+	}
+
+var cont=0;
+function mostrardiv() {
+	//var r;
+	div = document.getElementById('principal');
+	//r = document.getElementById('yuli');
+
+	div.style.display = "";
+	//r.style.display = "";
+
+	}
+
+function cambiarmodulo(h) {
+	mostrardiv();
+	cont=cont+1;
+	  if(xmlhttp) {
+		
+	
+
+		  var cod=h.disponible.selectedIndex;
+			var nomarea=h.disponible.options[cod].text;
+			//alert(nomarea);
+	    xmlhttp.open("POST","Modulos2?va="+2+"&area="+nomarea+"",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = Comprobararea;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); 
+	    
+	   }
+	   var x;
+	   
+	   
+	
+	}
+function cerrar() {
+//	var r;
+
+	div = document.getElementById('principal');
+	//r= document.getElementById('yuli');
+	div.style.display='none';
+	//r.style.display='none';
+
+	}
+
+function cambiar(h) {
+	cerrar();
+	cont=cont+1;
+	  if(xmlhttp) {
+		 
+		  var cod=h.cbarea.selectedIndex;
+			var nomarea=h.cbarea.options[cod].text;
+			
+			//alert(nomarea);
+	    xmlhttp.open("POST","ControlModulo?va="+2+"&area="+nomarea+"",true); //getname will be the servlet name
+	    xmlhttp.onreadystatechange  = Comprobararea2;
+	    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xmlhttp.send(""); 
+	    
+	   }
+	   var x;
+	   
+		  
+	
+
+	   //h.principal.style.display='none';
+
+	}
+
+function Comprobar() {
+	
+	   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+		     	
+		     	var a=xmlhttp.responseText;
+		     	
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	
+		     	form1.cbarea.length=y;
+		        var h,ss;
+		       
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			    // .textarea.text=z[x];
+			    
+		     		form1.cbarea.options[x].text=z[x];
+		     		
+		     		
+			    }
+		     	
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+	}
+function Comprobararea2() {
+	
+	   if (xmlhttp.readyState == 4) {
+			if(xmlhttp.status == 200) {
+				form1.disponible.length=0;
+		     	
+		     	var a=xmlhttp.responseText;
+		     	
+		     	var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	
+		     	form1.disponible.length=y;
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+			    // .textarea.text=z[x];
+			    
+		     		form1.disponible.options[x].text=z[x];
+		     		
+		     		
+			    }
+		     	
+		    		
+		    	  document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+		     }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     }
+		   }
+	}
+
+
+
+function Comprobararea() {
+	
+	if (xmlhttp.readyState == 4) {
+		if(xmlhttp.status == 200) {
+	     	
+			yosimar.innerHTML = xmlhttp.responseText
+	     	
+	    		
+	    	 // document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element 
+
+	     }
+	     else {
+	        alert("Error during AJAX call. Please try again");
+	     }
+	   }
+	
+	
+	
+	/*alert(cont);
+	
+	   if (xmlhttp.readyState == 4) {
+		 
+			if(xmlhttp.status == 200) {
+				/*alert("entro");
+				var d=yu;
+				alert("contador en comprobar"+d);*/
+		    /* 	var a=xmlhttp.responseText;
+		     	  alert(a);
+		        var y=a.split("_").length;
+		     	var z=a.split("_");
+		     	var yosi=y;
+		     	var fila =0;
+		     	var celda=0;
+		     	var celda2=0;
+		     	var tabla=0;
+		     	
+		     	
+		        var h,ss;
+		     	for(x=0; x<y-1; x=x+1)
+		     	{ 
+		     		tabla = document.getElementById('prueba');
+		     		alert(z[x]); 
+		     		 fila = document.createElement('tr');
+		     		
+		     		 celda = document.createElement('td');
+			        celda2 = document.createElement('td');
+			       
+			        var c=document.createElement('INPUT');
+			        c.setAttribute('type','checkbox');
+			        c.setAttribute('name','c'+x);
+		     		celda.innerHTML = z[x];
+		     		
+		     	    celda2.appendChild(c);
+		     	    
+		     	   fila.appendChild(celda);
+		     	   fila.appendChild(celda2);
+		            tabla.tBodies[0].appendChild(fila);
+		                 
+			    }
+		     	/*if(d!=1){
+		     		borrar(yosi);
+		     	}*/
+		     	
+               
+		  /*   }
+		     else {
+		        alert("Error during AJAX call. Please try again");
+		     } 
+		   }
+	   document.form1.message.innerHTML=xmlhttp.responseText; //Update the HTML Form element*/
+	
+	
+	 
+	}
+function borrar(yo){
+	alert("yosi");
+	var tabla = document.getElementById('prueba');
+	tabla.deleteRow(tabla.rows.length-yo);
+	
+}
+
+

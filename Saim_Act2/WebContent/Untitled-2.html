@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<link rel='STYLESHEET' type='text/css' href='estilo_lab1.css'>
+<title>Untitled Document</title>
+<style type='text/css'>
+<!--
+.style13 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+<body>
+-+
+<form>
+
+  <table border='0' width='100%' ><tr><td colspan='5'><div id='cabecera2' class='style11' align='center'>TRASLADAR CITAS </div></td></tr>
+	
+    <tr>
+      <td width='14%' class='style12'>SELECCIONE MEDICO </td>
+      <td colspan='2'><select name='cmbMedico' id='cmbMedico'>
+        <option value='Seleccione' selected='selected'>Seleccione</option>
+      </select>      </td>
+      <td width='16%'><span class='style12'>FECHA CITAS A TRASLADAR </span></td>
+      <td width='43%'><select name='cmbFechaActivaCitas' id='cmbFechaActivaCitas'>
+        <option value='Seleccione' selected='selected'>Seleccione</option>
+      </select>      </td>
+    </tr>
+    <tr>
+      <td class='style12'>&nbsp;</td>
+      <td width='6%'><span class='style12'>
+        <input type='checkbox' name='checkbox' value='checkbox'>
+      Todos</span></td>
+      <td colspan='2' align='center'><span class='style12'>PACIENTE </span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class='style12'>CITAS A TRASLADAR </td>
+      <td colspan='3'><div id='horas'></div></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class='style12'>FECHA NUEVAS CITAS </td>
+      <td colspan='2'><span class='style12'>Dia
+          <select name='cmbDia' id='cmbDia'>
+            <option value='DD'>DD</option>
+        </select>
+      Mes
+      <select name='cmbMes' id='cmbMes'>
+        <option value='MM'>MM</option>
+      </select>
+      Año
+      <select name='cmbAnio' id='cmbAnio'>
+        <option value='AAAA'>AAAA</option>
+      </select>
+      </span></td>
+      <td><input type='button' name='Button' value='Trasladar'></td>
+      <td>&nbsp;</td>
+    </tr>
+	
+    <tr><td colspan='5' class='style12' align='center'>&nbsp;</td></tr></table>
+	<br>
+	<br>
+	
+<table border='0' width='50%' ><tr><td colspan='5'></td></tr><tr><td width='14%' class='style12'><label><input type='checkbox' name='checkbox2' value='checkbox'>Infusion</label></td><td width='18%' class='style12'>Rango Dosis<label><input name='txtRango1' type='text' id='txtRango1' size='5'></label></td>
+  
+    <td width='12%' class='style12'>Hasta<input name='txtRango2' type='text' id='txtRango2' size='5'></td><td width='12%' class='style12'>Razon<input name='txtRazon' type='text' id='txtRazon' size='5'></td>
+    <td width='44%' class='style12'>Unidad Infusion
+      <select name='cmbUnidadMedida' id='cmbUnidadMedida'><option value='Seleccione'>Seleccione</option>
+	
+        <option value='unidad1'>unidad1</option>
+		
+      </select><input type='button' name='Button' value='+'></td></tr></table>
+  
+  
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="4" align="center">FORMATO DE ASIGNACION DE CITA </td>
+    </tr>
+  <tr>
+    <td width="9%">Nombre Paciente </td>
+    <td width="25%">&nbsp;</td>
+    <td width="10%">Numero Documento </td>
+    <td width="56%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p><br>
+  <br>
+  <br>
+  <br>
+</p>
+<table border='1' width='100%' ><tr><td colspan='6'><div id='cabecera2' class='style11' align='center'>FORMULACION DE MEDICAMENTOS </div></td></tr>
+	
+	<tr><td width='9%' class='style12'>Medicamento</td> <td width='38%'><input name='txtMedicamento' type='text' id='txtMedicamento' size='50' onkeyup='AutoMedicamentoCardex()' /></td><td colspan='2' rowspan='2'><table width='100%' border='1'>
+
+ <tr><td width='15%'><span class='style12'>F.Farm</span></td><td width='43%'><div id='FF'><select name='cmbFFarmaceutica' id='cmbFFarmaceutica'><option value='Seleccione'>Seleccione</option></select></div></td>
+ 
+ 
+ <td width='42%' id='InfusionY'>si O no es <span class='style12'><input type='checkbox' name='checkbox22' value='checkbox'>'Infusion sino via admVia Adm<select name='cmbViaAdm' id='cmbViaAdm'><option value='Seleccione'>Seleccione</option></select></span></td>
+ 
+ </tr><tr><td><span class='style12'>Conc</span></td><td><div id='CCN'><select name='cmbConcentracion' id='cmbConcentracion'><option value='Seleccione'>Seleccione</option></select></div></td><td><span class='style12'>Lapso<select name='cmbLapsoMed' id='cmbLapsoMed' onChange='CalcularDosis()'><option value='Seleccione'>Seleccione</option>
+ 
+ ////resultset de los lapsos
+ 
+    </select></span></td></tr><tr><td><span class='style12'>Unidad </span></td><td><div id='UNI'><select name='cmbUnidad' id='cmbUnidad'><option value='Seleccione'>Seleccione</option></select></div></td><td><span class='style12'>Dosis<input name='txtDosis' type='text' id='txtDosis' size='4' maxlength='5'></span></td></tr></table></td></tr>
+	
+	<tr><td class='style12'>&nbsp;</td><td><div id='MedCar'></div></td></tr><tr><td rowspan='3' class='style12'>&nbsp;</td><td rowspan='3'>
+	
+	<label class='style12'><input name='radiobutton' type='radio' value='radiobutton'>Infusion Directa <input name='radiobutton' type='radio' value='radiobutton'>Infusion Variable</label>
+	  
+	  </td><td height='30'  id='CargaInfu' >
+	
+	<table border='0' width='100%' ><tr><td width='22%' class='style12'><label></label>    Rango Dosis <label><input name='txtRango12' type='text' id='txtRango12' size='5'></label></td><td width='16%' class='style12'>Hasta <input name='txtRango22' type='text' id='txtRango22' size='5'></td><td width='18%' class='style12'>Razon<input name='txtRazon2' type='text' id='txtRazon2' size='5'></td><td width='44%' class='style12'>Unidad Infusion<select name='select' id='select'><option value='Seleccione'>Seleccione</option><option value='unidad1'>unidad1</option></select></td></tr></table>
+	
+	</td><td width='6%' colspan='-2' rowspan='3'><span class='style12'><input name='button' type='button' onClick='GuardarMedicamentoKardes()' value='+' /></span></td></tr><tr></tr></table>
+	
+		<br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br>
+	<table width='100%' border='1' cellspacing='0' bgcolor='#DADADA' bordercolor='#FFFFFF'><tr><td width='13%' style='color:#215b8b'>Nombre y Apellido:</td><td width='40%' style='color:#215b8b'><div>'+rs.getString(1)+' '+rs.getString(2)+' '+rs.getString(3)+'</div></td><td width='9%' style='color:#215b8b'>Identificacion</td><td width='13%' style='color:#215b8b'><div>'+rs.getString(6)+' '+rs.getString(7)+'</div></td><td width='12%' style='color:#215b8b'>Fecha Nacimiento</td><td width='13%' style='color:#215b8b'><div>'+rs.getString(5)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Edad:'+rs.getString(4)+'</div></td></tr></table>
+	
+	<table width='100%' border='1' cellspacing='0' bgcolor='#DADADA' bordercolor='#FFFFFF'><tr><td width='13%' style='color:#215b8b'>Entidad:</td><td width='49%' style='color:#215b8b'><div>'+rs.getString(8)+'</div></td><td width='13%' style='color:#215b8b'>Servicio</td><td width='25%' style='color:#215b8b'><div>Consulta Externa</div></td></tr></table>
+	
+	<br>
+	
+	<table width='100%' border='1' cellspacing='0'><tr><td width='15%'><div id='MenuVertical'> <div id='button'><ul>
+						<li><a href='#' onclick='Antecedentes()'>Antecedentes</a></li>
+						<li><a href='#' onclick='FormatosCE()'>Formatos</a></li>
+				        <li><a href='#' onclick='MenuLaboratorio()'>Laboratorios</a></li>
+						<li><a href='#' onclick='OrdenServicioCE()'>Orden De Servicio</a></li>
+						<li><a href='#' onclick='VerFinalAtencionCE()'>Finalizar Atencion</a></li>
+						<li><a href='#' onclick='MostrarAtenciones()'>Atenciones Anteriores</a></li></ul>
+						</div></div></td><td width='85%'><div id='HistoriaPaciente'>ñljkhk</div></td></tr></table>
+						
+						
+							<br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br><br>
+	<br>
+	
+	<table width='100%' border='1' cellspacing='0' cellpadding='0'>
+	
+  <tr bgcolor='#DADADA' class='style12'><td width='25%'>MEDICAMENTO</td><td width='25%'>QUIRURGICOS</td><td width='25%'>IMAGENES </td><td width='25%'>CATETERISMOS</td></tr>
+  
+  <tr>
+  
+    <td><div id='MedCex'>--se cargan los medicamentos </div></td>
+	
+    <td><div id='QxsCex'>--se cargan los antecedentes quirurgicos</div> </td>
+	
+    <td><div id='ImaCex'>--se cargan los reportes de imagenologia</div> </td>
+	
+    <td><div id='CatCex'>--se cargan los reportes de cateterismos</div> </td>
+	
+  </tr><tr bgcolor='#DADADA' class='style12'><td colspan='2'>ULTIMAS ATENCIONES POR CONSULTA EXTERNA </td><td colspan='2'>HISTORIAL DE DIAGNOSTICOS </td></tr>
+  
+  <tr>
+  
+    <td colspan='2'><div id='ForCex'>--SE CARGAN LOS FORMATOS DE CONSULTA EXTERNA</div> </td>
+	
+    <td colspan='2'><div id='DxsCex'>--SE CARGAN LOS DIAGNOSTICOS </div></td>
+	
+    </tr></table>
+
+</form>
+</body>
+</html>

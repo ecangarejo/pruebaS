@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fact_DetalleProgramasAdm2" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a8b5177f-8db1-4cd4-8d9c-3a69372255da">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codAdm" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{codAdm}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipopp" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ruta" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT fdf.clase_servicio,fdf.cod_enc_factura_fk
+FROM fact_det_factura fdf,fact_enc_factura fef
+WHERE fef.cod_admision=$P{codAdm} AND fef.cod_enc_factura=fdf.cod_enc_factura_fk
+AND  fdf.tipopop=1
+and fdf.facturado='0'
+GROUP BY fdf.clase_servicio]]>
+	</queryString>
+	<field name="clase_servicio" class="java.lang.String"/>
+	<field name="cod_enc_factura_fk" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="40511c3d-ba8d-43c6-bf41-dc5954bd2a0b" key="textField-1" x="0" y="0" width="212" height="17"/>
+				<textElement>
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clase_servicio}]]></textFieldExpression>
+			</textField>
+			<subreport isUsingCache="false">
+				<reportElement uuid="1d6dd031-e995-4e63-9a1e-f6916737e09c" key="subreport-1" stretchType="RelativeToTallestObject" x="0" y="17" width="589" height="14"/>
+				<subreportParameter name="clase_servicio">
+					<subreportParameterExpression><![CDATA[$F{clase_servicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipopp">
+					<subreportParameterExpression><![CDATA[$P{tipopp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codAdm">
+					<subreportParameterExpression><![CDATA[$P{codAdm}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="UsuCarg">
+					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"\\fact_DetalladoProgramasAdm2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

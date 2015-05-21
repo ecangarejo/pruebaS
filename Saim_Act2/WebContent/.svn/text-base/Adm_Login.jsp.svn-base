@@ -1,0 +1,63 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" import="javax.swing.JOptionPane" errorPage="" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Login</title>
+<script type="text/javascript">
+
+function login(h){
+	var Usuario=h.txtlogusuario.value;
+	var contra=h.txtlogpassword.value;
+//	alert(Usuario);
+if((Usuario=="")||(contra=="")){
+	//alert("FALTA DIGITAR UN DATO")
+	JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña Erronea", "Consejo", JOptionPane.ERROR_MESSAGE);
+}else{	
+		window.location.href="ControlUsuarios?va=2&Usuario="+Usuario+"&contra="+contra;	
+				
+}			
+	
+}
+</script>
+</head>
+
+<body>
+
+<form id="form1"  name="form1" method="get">
+<table width="314" border="1" align="center">
+  <tr>
+    <td colspan="2" align="center">Login</td>
+  </tr>
+  <tr>
+    <td width="125">&nbsp;</td>
+    <td width="144">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Usuario</td>
+    <td><label>
+    <input name="txtlogusuario" type="text" id="txtlogusuario" value="ojrolong" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>Contrase&ntilde;a</td>
+    <td><label>
+      <input name="txtlogpassword" type="password" id="txtlogpassword" value="123456" />
+    </label></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center"><label>
+      <input name="btnlogin" type="button" id="btnlogin" value="  Login  "  onclick="login(form1)"/>
+    </label></td>
+    <td align="center"><label>
+      <input name="btnlogcancelar" type="button" id="btnlogcancelar" value="Cancelar" />
+    </label></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

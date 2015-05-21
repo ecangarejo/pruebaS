@@ -1,0 +1,27 @@
+package seguridad_bean;
+
+
+public class OpcionesAutorizadas {
+	
+	String CodigoUsuario = "";
+	String CodigoDisponible= "";
+
+	public OpcionesAutorizadas(){}
+	
+	public String getUsuario(){
+		return CodigoUsuario;
+	}
+	
+	public void setUsuario(String codusu){
+		CodigoUsuario = codusu;
+	}
+
+	public String getDisponible(){
+		return CodigoDisponible;
+	}
+	
+	public void setDisponible(String codigo){
+		CodigoDisponible = codigo;
+	}
+	
+}

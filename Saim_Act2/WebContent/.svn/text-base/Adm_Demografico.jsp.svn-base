@@ -1,0 +1,341 @@
+<%@ page session="true"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<%String codigou =(String)request.getSession().getAttribute("codusuario");
+//out.println(codigou);
+%>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Insert title here</title>
+<script language=javascript src="1.js"></script>
+<script language=javascript src="Validaciones.js"></script>
+<script language="javascript">
+
+</script>
+<style type="text/css">
+<!--
+.style1 {color: #FF0000}
+-->
+</style>
+</head>
+<body onLoad="ajaxNacionalidad(),focus(form2.txtnumdocu);">
+<%
+String codcam=request.getParameter("codcama");
+String cod=request.getParameter("codconv");
+String cedu=request.getParameter("cedula");
+String eps=request.getParameter("eps");
+String nombre=request.getParameter("nombre");
+String tipo=request.getParameter("tipo");
+String primerap=request.getParameter("primerape");
+String segundoape=request.getParameter("segundoape");
+String nomUsu=request.getParameter("nomUsu");
+String id=request.getParameter("id");
+
+System.out.println("id urgencia en demografico.jsp "+id);
+System.out.println("nombre usuario : "+nomUsu);
+//System.out.println("codigo de la cama en el jsp : "+codcam);
+
+if(id==null){
+	id="0";
+	}
+
+if(nomUsu==null){
+	nomUsu="";
+	}
+if(cod==null){
+	cod="";
+}
+if(tipo==null){
+	tipo="";
+}
+if(cedu==null){
+	cedu="";
+}
+if(eps==null){
+eps="SELECCIONE...";
+}
+
+if(nombre==null){
+ nombre="";
+}
+
+if(primerap==null){
+	primerap="";
+}
+if(segundoape==null){
+	segundoape="";
+}
+int i;
+//alert(direccion.length);
+for(i=0;i<primerap.length();i++){
+	primerap=primerap.replace('9','ñ');
+	primerap=primerap.replace('8','Ñ');
+
+	
+//alert(direccion);
+}
+
+for(i=0;i<segundoape.length();i++){
+	segundoape=segundoape.replace('9','ñ');
+	segundoape=segundoape.replace('8','Ñ');
+}
+//nom
+for(i=0;i<nombre.length();i++){
+	nombre=nombre.replace('9','ñ');
+	nombre=nombre.replace('8','Ñ');
+}
+
+%>
+<form id="form2" name="form2" onkeypress = "return pulsar(event);">
+ <input type="text" name="txturgvital" id="txturgvital" value="<%=id %>" style="visibility:hidden" />
+<table width="956" border="0">
+  <tr>
+    <td colspan="4" bgcolor="#0099FF"><div align="center" class="Estilo9"> DATOS DEMOGRAFICOS </div></td>
+  </tr>
+  <tr>
+    <td width="108">&nbsp;</td>
+    <td width="206">&nbsp;</td>
+    <td width="201">&nbsp;</td>
+    <td width="423">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8"> Tipo Documento</span></td>
+    <td><label>
+      <select name="tipodoc" size="1" id="tipodoc">
+        <option selected><%=tipo %></option>
+        <%if(tipo.equals("CC")){ %>
+        <option>TI</option>
+        <option>RC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+       <%if(tipo.equals("TI")){ %>
+        <option>CC</option>
+        <option>RC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+         <%if(tipo.equals("RC")){ %>
+        <option>TI</option>
+        <option>CC</option>
+        <option>Nacido Vivo</option>
+         <%} %>
+        <%if(tipo.equals("Nacido Vivo")){ %>
+        <option>TI</option>
+        <option>RC</option>
+        <option>CC</option>
+         <%} %>
+          <%if(tipo.equals("")){ %>
+        <option selected>CC</option>
+        <option>TI</option>
+        <option>RC</option>
+      <option>Nacido Vivo</option>
+         <%} %>
+      </select>
+      <span class="style1">*</span></label></td>
+    <td><span class="Estilo8">Nº Identificacion</span></td>
+    <td><label>
+ <input name="txtnumdocu" type="text" id="txtnumdocu" onKeyUp="validarte(form2.txtnumdocu);" onChange="datos();"  maxlength="12" value="<%=cedu %>"/>
+    <span class="style1">*</span></label></td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Tipo Afiliacion</span></td>
+    <td><label>
+      <select name="select2" id="select2" onChange="ajaxEps1(form2)">
+        <option selected="selected">SELECCIONE...</option>
+        <option>Cotizante</option>
+        <option>Particular</option>
+		<option>Beneficiario</option>
+      </select>
+      <span class="style1">*</span><br />
+    </label></td>
+    <td><span class="Estilo8">Nivel Cotizante</span></td>
+    <td><label>
+    <select name="cbnivel" id="cbnivel">
+	<option selected="selected">SELECCIONE...</option>
+	    <option>I</option>
+        <option>II</option>
+        <option>III</option>
+    </select>
+    </label></td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Primer Apellido</span></td>
+    <td><label>
+      <input name="txtpapellido" type="text" id="txtpapellido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtpapellido);" onKeyPress="ajaxEps()" maxlength="20" value="<%=primerap%>" />
+      <span class="style1">*</span></label></td>
+    <td><span class="Estilo8">Segundo Apellido</span></td>
+    <td><label>
+       <input name="txtsapellido" type="text" id="txtsapellido" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtsapellido);" onChange="datos();"  maxlength="20" value="<%=segundoape %>"/>
+    </label></td>
+  </tr>
+<tr>
+    <td><span class="Estilo8">Nombres</span></td>
+    <td><label>
+     <input name="txtnombre" type="text" id="txtnombre" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtnombre);" onChange="" maxlength="20" value="<%=nombre %>" />
+     <span class="style1">*</span></label></td>
+    <td><span class="Estilo8">Fecha Nacimiento(ddmmaaaa)</span></td>
+    <td><label>
+      <input type="text" name="txtfechanaci" id="txtfechanaci"   onkeyup="masca(this,'/',patron,true)" maxlength="10"/>
+      <span class="style1">*</span></label></td>
+  </tr>  
+   <tr>
+    <td><span class="Estilo8">Nacionalidad</span></td>
+    <td><label>
+      <select name="cbnacionalidad" size="1" id="cbnacionalidad" onChange="ajaxDep(form2)"  >
+      <option selected="selected">SELECCIONE...</option>   
+      </select>
+      <span class="style1">*</span></label></td>
+    <td><span class="Estilo8">Direccion</span></td>
+    <td><label>
+      <input name="txtdire" type="text" id="txtdire"  onKeyUp="this.value=this.value.toUpperCase();" value="" maxlength="50"/>
+      <span class="style1">*</span></label></td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Telefono Fijo</span></td>
+    <td><label>
+      <input name="txtelefijo" type="text" id="txtelefijo" onKeyUp="validarte(form2.txtelefijo);" onChange="datos();"  maxlength="12"/>
+    </label></td>
+    <td><span class="Estilo8">Genero</span></td>
+    <td><select name="select4" id="select4" >
+<option selected="selected">SELECCIONE...</option>      
+<option>Masculino</option>
+      <option>Femenino</option>
+    </select> <span class="style1">*</span> </td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Email</span></td>
+    <td><label>
+       <input name="txtemail" type="text" id="txtemail" onChange="checkmail(form2.txtemail);" maxlength="30"/>
+    </label></td>
+    <td><span class="Estilo8">Telefono Celular</span></td>
+    <td><label>
+       <input name="txtcelular" type="text" id="txtcelular" onKeyUp="validarte(form2.txtcelular);" onChange="datos();"  maxlength="12"/>
+    </label></td>
+  </tr>
+  <tr>
+    <td>Ocupacion</td>
+    <td><select name="cbocupacion" size="1" id="cbocupacion" onChange="ajaxCambiarOcu(form2)">
+      <option selected="selected">SELECCIONE...</option>
+    </select>
+      <span class="style1">*</span></td>
+    <td><span class="Estilo8">Departamento</span></td>
+    <td><select name="cbdep" size="1" id="cbdep" onChange="ajaxxMun(form2)">
+      <option selected="selected">SELECCIONE...</option>
+    </select>
+      <span class="style1">*</span></td>
+  </tr>
+  <tr>
+    <td width="108"><span class="Estilo8">Municipio</span></td>
+    <td width="206"><label>
+      <select name="cbmun" size="1" id="cbmun" onChange="CodigoMun(form2)">
+        <option selected="selected">SELECCIONE...</option>
+      </select>
+      <span class="style1">*</span></label></td>
+    <td width="201">&nbsp;</td>
+    <td width="423"><label></label>
+     
+        <label></label></td>
+    </tr>
+     <tr>
+    <td><span class="Estilo8">Telefono Oficina</span></td>
+    <td><label>
+      <input name="txteleoficina" type="text" id="txteleoficina" onKeyUp="validarte(form2.txteleoficina);" onChange="datos();"  maxlength="12"/>
+    </label></td>
+    <td><span class="Estilo8">Estado Civil</span></td>
+    <td><label>
+      <select name="select6" id="select6">
+      <option selected="selected">SELECCIONE...</option>
+        <option>Soltero(a)</option>
+        <option>Casado(a)</option>
+        <option>Viudo(a)</option>
+      </select>
+      <span class="style1">*</span></label></td>
+  </tr>
+   <tr>
+    <td><span class="Estilo8">Religion</span></td>
+    <td><label>
+       <input name="txtreligion" type="text" id="txtreligion" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtreligion);" onChange="datos();"  maxlength="20"/>
+    </label></td>
+    <td><span class="Estilo8">Raza</span></td>
+    <td><label>
+      <input name="txtraza" type="text" id="txtraza" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtraza);" onChange="datos();"  maxlength="20"/>
+    </label></td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Estrato</span></td>
+    <td><label>
+      <select name="select7" id="select7">
+    <option selected="selected">SELECCIONE...</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+      <span class="style1">*</span></label></td>
+    <td><span class="Estilo8">Nombre Entidad </span></td>
+    <td><label>
+      <select name="cbpacientidad" size="1" id="cbpacientidad" onChange="ajaxCodigoConv(form2)">
+   <option selected="selected"><%=eps %></option>
+      </select>
+      <span class="style1">*</span>  
+      <input name="txtcodigoconv" type="text" id="txtcodigoconv" value="<%=cod %>" style="visibility:hidden"  />
+    </label></td>
+  </tr>
+  <tr>
+    <td><span class="Estilo8">Zona Residencia</span></td>
+    <td><label>
+      <select name="cbzona" id="cbzona">
+        <option selected="selected">SELECCIONE...</option>
+        <option>Rural</option>
+        <option>Urbana</option>
+      </select>
+      <span class="style1">*</span></label></td>
+    <td>Empresa</td>
+    <td><label>
+      <input name="txtemp" type="text" id="txtemp" onKeyUp="this.value=this.value.toUpperCase(),caracter(form2.txtemp);" onChange="datos();"  maxlength="20"/>
+    </label></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><label>
+      <input name="txtnomusu" type="text" id="txtnomusu"  value="<%=nomUsu %>" style="visibility:hidden" >
+    </label></td>
+    
+    <td><label>
+    <input name="txtocupacion" type="text" id="txtocupacion"  style="visibility:hidden" />
+    </label></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="style1 style1">Campos Requeridos* </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><label>
+      <input name="txtcodcama" type="hidden" id="txtcodcama"  value="<%=codcam %>" />
+    </label></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><label></label></td>
+    <td><label>
+    <input type="button" name="btingresar" id="btingresar" value="     Ingresar    " onClick="demografico(form2);" />
+    </label></td>
+  </tr>
+</table>
+  </table>
+		 <label>
+      <input name="txtcodmun" type="text" id="txtcodmun" style="visibility:hidden"  />
+</label>
+
+</form>
+
+</body>
+</html>

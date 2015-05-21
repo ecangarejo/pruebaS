@@ -1,0 +1,71 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8"%> 
+<%@ page import="net.sf.jasperreports.engine.*" %> 
+<%@ page import="net.sf.jasperreports.engine.design.*" %> 
+<%@ page import="net.sf.jasperreports.engine.data.*"%> 
+<%@ page import="net.sf.jasperreports.engine.export.*"%> 
+<%@ page import="net.sf.jasperreports.engine.util.*"%> 
+<%@ page import="net.sf.jasperreports.view.*"%> 
+<%@ page import="net.sf.jasperreports.view.save.*"%> 
+<%@ page import="java.sql.*"%> 
+<%@ page import="java.util.*" %> 
+<%@ page import="java.io.*" %> 
+<%
+
+	String fechai=request.getParameter("fechai");
+	String fechaf=request.getParameter("fechaf");
+	String tdia=request.getParameter("tdia");
+	String Ent=request.getParameter("Ent");
+	System.out.println("Valor de Ent "+Ent);
+	String DxP=request.getParameter("ranp");
+	String DxS=request.getParameter("rans");
+	String codigou = (String) session.getAttribute("codusuario");
+	
+	Connection conexion; Class.forName("com.mysql.jdbc.Driver");
+	conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/saim","root","!d1c5ccya!" ); 
+	File reportFile = new File(application.getRealPath("cal_pacxdiag.jasper"));
+	Map parameters = new HashMap(); 
+	parameters.put("fechai",fechai);
+	parameters.put("fechaf",fechaf);
+	parameters.put("Ent",Ent);
+	parameters.put("DxP",DxP);
+	parameters.put("DxS",DxS);
+	JasperPrint print=JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
+	//print = JasperFillManager.fillReport(reporte, parameters, conexion);
+	JRXlsExporter exportador = new JRXlsExporter();
+	exportador.setParameter(JRExporterParameter.JASPER_PRINT, print);
+	exportador.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,"\\PruebaExcel.xls");
+	exportador.setParameter(JRExporterParameter.IGNORE_PAGE_MARGINS, true);
+	exportador.setParameter(
+	JRXlsAbstractExporterParameter.IS_WHITE_PAGE_BACKGROUND, false);
+	exportador.setParameter(
+	JRXlsAbstractExporterParameter.IS_IGNORE_CELL_BORDER, false);
+	exportador
+	.setParameter(
+	JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS,
+	true);
+	exportador
+	.setParameter(
+	JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS,
+	true);
+	exportador
+	.setParameter(
+	JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS,
+	true);
+	exportador.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE,
+	true);
+	try {
+	exportador.exportReport();
+	} catch (JRException e) {
+	e.printStackTrace();
+	}
+	FileInputStream entrada = new FileInputStream("\\PruebaExcel.xls");
+	byte[] lectura = new byte[entrada.available()];
+	entrada.read(lectura);
+	response.setContentType("application/vnd.ms-excel");
+	response.setHeader("Content-Disposition","attachment; filename=PruebaExcel.xls");
+	response.setContentLength(lectura.length);
+	response.getOutputStream().write(lectura);
+	response.getOutputStream().flush();
+	response.getOutputStream().close();
+	entrada.close();
+%>

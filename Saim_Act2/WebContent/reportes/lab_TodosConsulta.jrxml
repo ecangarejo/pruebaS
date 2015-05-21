@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="ISO-8859-1"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="lab_TodosConsulta"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false"
+		 whenResourceMissingType="Empty">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="ISO-8859-1" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="CodigoPaciente" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="FechaExamenes" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ruta" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select lres.fecha,lpac.pac_codigo_paciente,lpac.numero_documento,lpac.nombre,lpac.primer_apellido,lpac.genero,(year(curdate())-year(lpac.fecha_nacimiento)) - (right(curdate(),5)< right(lpac.fecha_nacimiento, 5)) as edad,lar.nombre as grupo,lpac.fecha_nacimiento as nacimiento,lres.aprobaccion as aprobaccion,lpac.segundo_apellido,sdt.firma,emp.nombre as NomEmpresa,emp.direccion as EmpDire,emp.municipio as EmpMuni,emp.departamento as EmpDepa,emp.nit as EmpNit,emp.telefono as EmpTel,emp.logo as EmpLogo,lar.codigo as CodigoArea,lres.hora as HoraExamen,gen.codigo as CodigoGenero,opl.usuario,lpac.tipo_documento,lent.nombre_entidad,sdt.cedula 
+from adm_paciente lpac,lab_resultado lres,lab_examen lex,lab_subarea lsub,lab_unidad lun,lab_rango lran,lab_tipo_rango ltr,lab_area lar,seg_usuario sus,seg_datos_personales sdt,empresa emp,lab_genero gen,ord_pac_lab opl,adm_convenio lcon,adm_entidad lent  
+where lpac.pac_codigo_paciente=$P{CodigoPaciente} and lres.fecha=$P{FechaExamenes} and lex.codigosubarea_fk=lsub.codigo and lran.codunidad_fk=lun.codigo and lres.codexamen_fk=lex.codigo and lar.codigo=lsub.codarea_fk and lpac.pac_codigo_paciente=lres.codpac_fk and lres.estado=1  and ltr.codexamen_fk=lex.codigo and lran.codtiporango_fk=ltr.codigo and lres.resultado!=''and lres.CodUsuAprobacion=sus.usu_codigo and sdt.dat_codigo=sus.dat_codigo_fk and gen.especificacion=lpac.genero and lres.codord_fk=opl.codigo and lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato and lent.ent_nit=lcon.ent_nit_contratante_fk
+union 
+select lres.fecha,lpac.pac_codigo_paciente,lpac.numero_documento,lpac.nombre,lpac.primer_apellido,lpac.genero,(year(curdate())-year(lpac.fecha_nacimiento)) - (right(curdate(),5)< right(lpac.fecha_nacimiento, 5)) as edad,la.nombre as grupo,lpac.fecha_nacimiento as nacimiento, lres.aprobaccion as aprobaccion,lpac.segundo_apellido,sdt.firma,emp.nombre as NomEmpresa,emp.direccion as EmpDire,emp.municipio as EmpMuni,emp.departamento as EmpDepa,emp.nit as EmpNit,emp.telefono as EmpTel,emp.logo as EmpLogo,la.codigo as CodigoArea,lres.hora as HoraExamen,gen.codigo as CodigoGenero,opl.usuario,lpac.tipo_documento,lent.nombre_entidad,sdt.cedula 
+from lab_area la,adm_paciente lpac,lab_examen lex,lab_resultado lres,lab_subarea lsub,seg_usuario sus,seg_datos_personales sdt,empresa emp,lab_genero gen,ord_pac_lab opl,adm_convenio lcon,adm_entidad lent  
+where lpac.pac_codigo_paciente=$P{CodigoPaciente} and lres.fecha=$P{FechaExamenes} and lres.estado=1 and lex.tipo=0 and lres.resultado!='' and la.codigo=lsub.codarea_fk and lpac.pac_codigo_paciente=lres.codpac_fk and lex.codigo=lres.codexamen_fk and lex.codigosubarea_fk=lsub.codigo and lres.CodUsuAprobacion=sus.usu_codigo and sdt.dat_codigo=sus.dat_codigo_fk and gen.especificacion=lpac.genero and lres.codord_fk=opl.codigo and lpac.conv_numero_contrato_fk=lcon.conv_numero_contrato and lent.ent_nit=lcon.ent_nit_contratante_fk]]></queryString>
+
+	<field name="fecha" class="java.lang.String"/>
+	<field name="pac_codigo_paciente" class="java.lang.String"/>
+	<field name="numero_documento" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="primer_apellido" class="java.lang.String"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="edad" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="nacimiento" class="java.lang.String"/>
+	<field name="aprobaccion" class="java.lang.String"/>
+	<field name="segundo_apellido" class="java.lang.String"/>
+	<field name="firma" class="java.io.InputStream"/>
+	<field name="NomEmpresa" class="java.lang.String"/>
+	<field name="EmpDire" class="java.lang.String"/>
+	<field name="EmpMuni" class="java.lang.String"/>
+	<field name="EmpDepa" class="java.lang.String"/>
+	<field name="EmpNit" class="java.lang.String"/>
+	<field name="EmpTel" class="java.lang.String"/>
+	<field name="EmpLogo" class="java.io.InputStream"/>
+	<field name="CodigoArea" class="java.lang.String"/>
+	<field name="HoraExamen" class="java.lang.String"/>
+	<field name="CodigoGenero" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="nombre_entidad" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="88"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="127"
+						y="30"
+						width="390"
+						height="16"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica" size="12" isBold="false"/>
+					</textElement>
+				<text><![CDATA[LABORATORIO-CLINICO]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="4"
+						width="119"
+						height="68"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$F{EmpLogo}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="127"
+						y="4"
+						width="390"
+						height="18"
+						key="textField-1"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NomEmpresa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="127"
+						y="45"
+						width="390"
+						height="16"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{EmpDire}+"TEL "+$F{EmpTel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="127"
+						y="57"
+						width="390"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{EmpMuni}+" "+$F{EmpDepa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="127"
+						y="69"
+						width="390"
+						height="16"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NIT."+$F{EmpNit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="89"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="18"
+						width="532"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="5"
+						y="22"
+						width="59"
+						height="16"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[NOMBRE :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="38"
+						width="91"
+						height="16"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[IDENTIFICACION:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="54"
+						width="42"
+						height="17"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[EDAD :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="22"
+						width="112"
+						height="16"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[FECHA PROCESADO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="38"
+						width="54"
+						height="16"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[DOCTOR :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="54"
+						width="41"
+						height="16"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[SEXO :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="69"
+						width="51"
+						height="16"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[ENTIDAD:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="63"
+						y="22"
+						width="239"
+						height="16"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombre}+" "+$F{primer_apellido}+" "+$F{segundo_apellido}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="38"
+						width="144"
+						height="16"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tipo_documento}+" "+$F{numero_documento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="55"
+						y="69"
+						width="472"
+						height="16"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nombre_entidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="407"
+						y="22"
+						width="120"
+						height="16"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="338"
+						y="54"
+						width="110"
+						height="16"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{genero}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="44"
+						y="54"
+						width="75"
+						height="17"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{edad}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="2"
+						y="87"
+						width="532"
+						height="1"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="1"
+						width="67"
+						height="17"
+						key="textField-12"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pagina "+String.valueOf($V{PAGE_NUMBER})+ " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="27"
+						height="17"
+						key="textField-13"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" "+String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="352"
+						y="38"
+						width="175"
+						height="16"
+						key="textField-14"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{usuario}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="16"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="1"
+						width="532"
+						height="15"
+						key="subreport-1"/>
+					<subreportParameter  name="FechaExamen">
+						<subreportParameterExpression><![CDATA[$F{fecha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="HoraExamen">
+						<subreportParameterExpression><![CDATA[$F{HoraExamen}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CodigoPaciente">
+						<subreportParameterExpression><![CDATA[$F{pac_codigo_paciente}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CodigoGenero">
+						<subreportParameterExpression><![CDATA[$F{CodigoGenero}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CodigoArea">
+						<subreportParameterExpression><![CDATA[$F{CodigoArea}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ruta}+"\\lab_ResultadoExamenes.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

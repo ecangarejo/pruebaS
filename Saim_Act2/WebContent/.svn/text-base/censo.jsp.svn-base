@@ -1,0 +1,78 @@
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage=""%>
+<%@ page import="bean.Censo,java.util.*" import="Logica.* "%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script language="javascript">
+function impresion(){
+	//alert("Listo....");
+	window.location.href="ControlReporteCenso";
+}
+</script>
+</head>
+<body>
+
+<center><b><font color="#0066FF" size="5" face="Verdana"> CLINICA DE LA COSTA</font></b>
+</center>
+<center><b><font color="#0066FF" size="3" face="Verdana" > Censo De Pacientes Hospitalizados</font></b>
+</center>
+<font face="Arial, Helvetica, sans-serif"><br>
+<table border="5" bgcolor="#FFFFFF">
+<tr>
+<td width="10%"><div align="center"><font size="2"><strong>Area</strong> </font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Sub-Area</strong> </font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Cama  </strong></font></div></td>
+<td width="10%"><div align="center"><strong><font size="2">Paciente</font></strong></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Diagnóstico</strong></font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Sexo</strong></font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>S.Cotiz</strong></font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Edad</strong></font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Empresa o EPS</strong></font></div></td>
+<td width="10%"><div align="center"><strong><font size="2">Médico tratante</font></strong></div></td>
+<td width="10%"><div align="center"><strong><font size="2">Entrada</font></strong></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Días</strong></font></div></td>
+<td width="10%"><div align="center"><font size="2"><strong>Observación</strong></font></div></td>
+</tr>
+
+<%
+Vector lista =(Vector)request.getSession().getAttribute("listacenso");
+  
+Censo cen = new Censo();
+//cen = (Censo)lista.get(1);
+//out.println(cen.getPaciente());
+String codpaciente="";
+for(int i=0; i< lista.size();i++){
+	cen = (Censo)lista.get(i);
+	codpaciente = cen.getCodigo();
+	
+%>
+	<tr>
+    <td><font size="1"><%=cen.getPabellon() %></font></td>
+    <td><font size="1"><%=cen.getUbicacion() %></font></td>
+	<td><font size="1"><%=cen.getCama() %></font></td>
+	<td><font size="1"><a href="DatosPaciente?id=<%=codpaciente%>"><%=cen.getPaciente() %></font></td>
+	<td><font size="1"><%=cen.getDiagnostico() %></font></td>
+	<td><font size="1"><%=cen.getSexo() %></font></td>
+	<td><font size="1"><%=cen.getSemanac() %></font></td>
+	<td><font size="1"><%=cen.getEdad() %></font></td>
+	<td><font size="1"><%=cen.getEps() %></font></td>
+    <td><font size="1"><%=cen.getMedico() %></font></td>
+	<td><font size="1"><%=cen.getFechaentrada() %></font></td>
+	<td><font size="1"><%=cen.getDias() %></font></td>
+	<td><font size="1"><%=cen.getObservacione() %></font></td>
+	
+	</tr>
+<%} 
+
+%>
+
+
+</table></font>
+<br>
+<center><input name="sbt_imprimir" type="button" class="botones" onClick="impresion();" value="Imprimir"></center>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fact_ReporteServicioDetalladoAdm" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="dc1eb9dc-085a-4f62-ad1a-4cc7b3ca46fc">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<parameter name="codAdm" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["42141"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ruta" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Archivos de programa\\Apache Software Foundation\\Tomcat 6.0\\webapps\\Saim\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="UsuCarg" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["376"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT fdf.fecha as fechaR,fdf.hora as horaR,fdf.cod_enc_factura_fk,fdf.cod_paquete AS cod_referencia,fdf.nombre_paquete AS descripcion,fdf.valor AS valorServicio,fdf.fecha_realizacion,fdf.cantidad,fdf.nombre_programa,ffq.descripcion AS tipoactqx,ffq.codigo AS actoqxcod
+FROM fact_det_factura AS fdf,fact_actoqx ffq,fact_enc_factura fef  
+WHERE fef.cod_admision=$P{codAdm} AND fdf.tipopop=2 AND fef.cod_enc_factura=fdf.cod_enc_factura_fk
+AND fdf.cod_usuario=$P{UsuCarg}
+AND ffq.codigo=fdf.formaactoqx 
+GROUP BY fdf.fecha,fdf.hora]]>
+	</queryString>
+	<field name="fechaR" class="java.lang.String"/>
+	<field name="horaR" class="java.lang.String"/>
+	<field name="cod_enc_factura_fk" class="java.lang.String"/>
+	<field name="cod_referencia" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="valorServicio" class="java.lang.String"/>
+	<field name="fecha_realizacion" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="nombre_programa" class="java.lang.String"/>
+	<field name="tipoactqx" class="java.lang.String"/>
+	<field name="actoqxcod" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="56aac28e-c2fb-4e81-aa7d-7828c67b135c" key="staticText-1" x="1" y="3" width="77" height="16"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[SERVICIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<subreport isUsingCache="false">
+				<reportElement uuid="a46c6f7b-354d-4821-88a8-a3766bf30fd1" key="subreport-1" stretchType="RelativeToTallestObject" x="0" y="2" width="595" height="14"/>
+				<subreportParameter name="horaR">
+					<subreportParameterExpression><![CDATA[$F{horaR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codActQx">
+					<subreportParameterExpression><![CDATA[$F{actoqxcod}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codAdm">
+					<subreportParameterExpression><![CDATA[$P{codAdm}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cod_referencia">
+					<subreportParameterExpression><![CDATA[$F{cod_referencia}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="UsuCarg">
+					<subreportParameterExpression><![CDATA[$P{UsuCarg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaR">
+					<subreportParameterExpression><![CDATA[$F{fechaR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ruta}+"\\fact_ServicioDetalladoAdm.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
